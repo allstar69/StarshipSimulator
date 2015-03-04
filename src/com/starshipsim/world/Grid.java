@@ -86,10 +86,6 @@ public class Grid {
 	}
 	
 	public void reset() {
-		for (int i = 0; i < sectors.length; i++) {
-			for (int j = 0; j < sectors.length; j++) {
-				sectors[j][i] = new Sector();
-			}
-		}
+		initialize();
 	}
 }
