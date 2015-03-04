@@ -9,6 +9,7 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
+import com.starshipsim.enums.SectorState;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.shipmodules.WarpCore;
 import com.starshipsim.states.MapState;
@@ -187,11 +188,11 @@ public class MapMenuPanel extends JPanel {
 					} else {
 						state.changeLog("That region is neutral");
 					}
-					if (sector.getState() == 2) {
+					if (sector.getState() == SectorState.FRIENDLY) {
 						state.setLog1(state.getLog1() + " and friendly");
-					} else if (sector.getState() == 3) {
+					} else if (sector.getState() == SectorState.EXPLORABLE) {
 						state.setLog1(state.getLog1() + " and explorable");
-					} else if (sector.getState() == 4) {
+					} else if (sector.getState() == SectorState.DANGEROUS) {
 						state.setLog1(state.getLog1() + " and dangerous");
 					}
 				}
@@ -323,11 +324,11 @@ public class MapMenuPanel extends JPanel {
 						} else {
 							state.changeLog("That region is neutral");
 						}
-						if (sector.getState() == 2) {
+						if (sector.getState() == SectorState.FRIENDLY) {
 							state.setLog1(state.getLog1() + " and friendly");
-						} else if (sector.getState() == 3) {
+						} else if (sector.getState() == SectorState.EXPLORABLE) {
 							state.setLog1(state.getLog1() + " and explorable");
-						} else if (sector.getState() == 4) {
+						} else if (sector.getState() == SectorState.DANGEROUS) {
 							state.setLog1(state.getLog1() + " and dangerous");
 						}
 					}
@@ -347,7 +348,7 @@ public class MapMenuPanel extends JPanel {
 	private void exploreSector() {
 		Sector sector = state.getGrid().getSector(state.getShip().getSecX(), state.getShip().getSecY());
 
-		if (sector.getState() == 3) {
+		if (sector.getState() == SectorState.EXPLORABLE) {
 			Random rand = new Random();
 			int r = rand.nextInt(2) + 1;
 			if (r == 1) {

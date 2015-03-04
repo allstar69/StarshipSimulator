@@ -3,13 +3,14 @@ package com.starshipsim.world;
 import java.awt.Canvas;
 import java.awt.Graphics;
 
+import com.starshipsim.enums.SectorState;
 import com.starshipsim.files.FileIO;
 
 public class Sector {
 	private boolean known = false;
 	private boolean mysterious = false;
 	private boolean hostile = false;
-	int state = 1;
+	SectorState state = SectorState.NEUTRAL;
 
 	/*
 	 * 1=neutral 2=friendly 3=explorable 4=dangerous
@@ -39,11 +40,14 @@ public class Sector {
 		this.hostile = hostile;
 	}
 
-	public int getState() {
+	public SectorState getState() {
 		return state;
 	}
 
 	public void setState(int state) {
+		this.state = SectorState.values()[state-1];
+	}
+	public void setState(SectorState state) {
 		this.state = state;
 	}
 
@@ -65,13 +69,13 @@ public class Sector {
 					g.drawImage(FileIO.loadImage("resources/neutral.png"), x,
 							y, c);
 				}
-				if (getState() == 2) {
+				if (getState() == SectorState.FRIENDLY) {
 					g.drawImage(FileIO.loadImage("resources/freindly.png"), x,
 							y, c);
-				} else if (getState() == 3) {
+				} else if (getState() == SectorState.EXPLORABLE) {
 					g.drawImage(FileIO.loadImage("resources/explorable.png"),
 							x, y, c);
-				} else if (getState() == 4) {
+				} else if (getState() == SectorState.DANGEROUS) {
 					g.drawImage(FileIO.loadImage("resources/dangerous.png"), x,
 							y, c);
 				}

@@ -2,6 +2,7 @@ package com.starshipsim.world;
 
 import java.util.Random;
 
+import com.starshipsim.enums.SectorState;
 import com.starshipsim.objects.Ship;
 
 public class Grid {
@@ -38,7 +39,7 @@ public class Grid {
 		
 		for(int i=0; i<friendlyNum;i++){
 			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			while(s.getState()!=1){
+			while(s.getState()!=SectorState.NEUTRAL){
 				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
 			}
 			s.setState(2);
@@ -46,7 +47,7 @@ public class Grid {
 		
 		for(int i=0; i<exploreNum;i++){
 			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			while(s.getState()!=1){
+			while(s.getState()!=SectorState.NEUTRAL){
 				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
 			}
 			s.setState(3);
@@ -54,7 +55,7 @@ public class Grid {
 		
 		for(int i=0; i<dangerNum;i++){
 			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			while(s.getState()!=1){
+			while(s.getState()!=SectorState.NEUTRAL){
 				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
 			}
 			s.setState(4);
