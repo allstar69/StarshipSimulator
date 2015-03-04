@@ -18,18 +18,22 @@ public class Engine {
 	private int curY = 0;
 	private int probeCount = 80;
 	private int maxProbeCount = 100;
+	
+	
+	private int mysteryNum=40;
+	private int hostileNum=75;
+	private int friendlyNum=50;
+	private int dangerNum=30;
+	private int exploreNum=20;
 
 	public Engine() {
+		initializeMap();
 		run();
 	}
 
 	public void run() {
 		ship.setImage(FileIO.loadImage("resources/smallship1.png"));
-		for (int i = 0; i < sectors.length; i++) {
-			for (int j = 0; j < sectors.length; j++) {
-				sectors[j][i] = new Sector();
-			}
-		}
+		
 
 		sectors[ship.getSecX()][ship.getSecY()].setKnown(true);
 
@@ -348,5 +352,50 @@ public class Engine {
 	private void dumpProbes() {
 		probeCount = 0;
 		g.changeLog("Empty Probes!");
+	}
+	private void initializeMap(){
+		Random rand = new Random();
+		for(int i = 0; i<sectors.length;i++){
+			for(int j = 0; j<sectors.length;j++){
+				sectors[j][i]= new Sector();
+			}
+		}
+		for(int i=0; i<friendlyNum;i++){
+			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			while(s.getState()!=1){
+				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			}
+			s.setState(2);
+		}
+		for(int i=0; i<exploreNum;i++){
+			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			while(s.getState()!=1){
+				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			}
+			s.setState(3);
+		}
+		for(int i=0; i<dangerNum;i++){
+			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			while(s.getState()!=1){
+				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			}
+			s.setState(4);
+		}
+		for(int i=0; i<mysteryNum;i++){
+			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			while(s.isMysterious()){
+				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			}
+			s.setMysterious(true);
+		}
+		for(int i=0; i<hostileNum;i++){
+			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			while(s.isHostile()){
+				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			}
+			s.setHostile(true);
+		}
+		ship=new Ship();
+		sectors[ship.getSecX()][ship.getSecY()].setKnown(true);
 	}
 }

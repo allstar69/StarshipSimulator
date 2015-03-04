@@ -7,7 +7,7 @@ import java.util.Random;
 import application.FileIO;
 
 public class Sector {
-	private boolean known=false;
+	private boolean known=true;
 	private boolean mysterious=false;
 	private boolean hostile = false;
 	int state = 1;
@@ -43,11 +43,6 @@ public class Sector {
 		this.state = state;
 	}
 	public Sector(){
-		Random rand=new Random();
-		//setKnown(rand.nextBoolean());
-		setMysterious(rand.nextBoolean());
-		setHostile(rand.nextBoolean());
-		setState(rand.nextInt(5));
 	}
 	public void paint(Graphics g, Canvas c, int x, int y){
 		if(!isKnown()){
