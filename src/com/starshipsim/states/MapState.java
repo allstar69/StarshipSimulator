@@ -26,7 +26,7 @@ import com.starshipsim.world.Sector;
 
 public class MapState extends JFrame {
 	private static final long serialVersionUID = -3611025872685697162L;
-	private final int WIDTH = 1200;
+	private final int WIDTH = 1920;
 	private final int HEIGHT = 1000;
 	public final int maxProbeCount = 100;
 	
@@ -178,6 +178,7 @@ public class MapState extends JFrame {
 		this.keyboard = keyboard;
 		this.grid = new Grid();
 		this.ship = new Ship(FileIO.loadImage("resources/smallship1.png"));
+		grid.setShipLocation(ship, ship.getSecX(), ship.getSecY());
 	}
 	
 	public void initialize() {

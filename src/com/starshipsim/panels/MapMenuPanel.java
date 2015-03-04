@@ -82,20 +82,20 @@ public class MapMenuPanel extends JPanel {
 	private void mainMenu() {
 		state.changeLog("Do the thing!");
 
-		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_UP)) {
+		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (curY == 0) {
 				curY = 4;
 			} else {
 				curY -= 1;
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_DOWN)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
 			if (curY == 4) {
 				curY = 0;
 			} else {
 				curY += 1;
 			}
 		}
-		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_Z)) {
+		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 			level = curY + 1;
 			if (level == 3) {
 				state.changeLog("For Science!");
@@ -107,28 +107,28 @@ public class MapMenuPanel extends JPanel {
 	}
 
 	private void moveShip() {
-		state.changeLog("Coordinates: " + ((char) (selX + 96)) + (selY + 1));
+		state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 		state.getGraphics2d().drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), state.getCanvas());
 		
-		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_UP)) {
+		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (selY != 0
 					&& selY != state.getShip().getSecY()
 							- ((WarpCore) state.getShip().getWarp()).getMaxWarp()) {
 				selY--;
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_DOWN)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
 			if (selY != 11
 					&& selY != state.getShip().getSecY()
 							+ ((WarpCore) state.getShip().getWarp()).getMaxWarp()) {
 				selY++;
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_LEFT)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_A)) {
 			if (selX != 0
 					&& selX != state.getShip().getSecX()
 							- ((WarpCore) state.getShip().getWarp()).getMaxWarp()) {
 				selX--;
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_RIGHT)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_D)) {
 			if (selX != 11
 					&& selX != state.getShip().getSecX()
 							+ ((WarpCore) state.getShip().getWarp()).getMaxWarp()) {
@@ -136,7 +136,7 @@ public class MapMenuPanel extends JPanel {
 			}
 		}
 
-		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_Z)) {
+		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 			state.getShip().setSecX(selX);
 			state.getShip().setSecY(selY);
 
@@ -149,33 +149,33 @@ public class MapMenuPanel extends JPanel {
 				sector.setHostile(false);
 			}
 			level = 0;
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_X)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
 			level = 0;
 		}
 	}
 
 	private void getData() {
-		state.changeLog("Coordinates: " + ((char) selX + 96) + (selY + 1));
+		state.changeLog("Coordinates: " + ((char) selX + 97) + (selY + 1));
 		state.getGraphics2d().drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), state.getCanvas());
 		
-		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_UP)) {
+		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (selY != 0) {
 				selY--;
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_DOWN)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
 			if (selY != 11) {
 				selY++;
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_LEFT)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_A)) {
 			if (selX != 0) {
 				selX--;
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_RIGHT)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_D)) {
 			if (selX != 11) {
 				selX++;
 			}
 		}
-		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_Z)) {
+		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 			Sector sector = state.getGrid().getSector(selX, selY);
 
 			if (sector.isKnown()) {
@@ -198,7 +198,7 @@ public class MapMenuPanel extends JPanel {
 			} else {
 				state.changeLog("That region is unknown.");
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_X)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
 			level = 0;
 		}
 	}
@@ -217,20 +217,20 @@ public class MapMenuPanel extends JPanel {
 		state.getGraphics2d().drawString(("Dump Probes"), 890, (100 + (i * 32)));
 		if (state.getScienceLevel() == 0) {
 
-			if (state.getKeyboard().keyDownOnce(KeyEvent.VK_UP)) {
+			if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 				if (curY == 0) {
 					curY = 4;
 				} else {
 					curY -= 1;
 				}
-			} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_DOWN)) {
+			} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
 				if (curY == 4) {
 					curY = 0;
 				} else {
 					curY += 1;
 				}
 			}
-			if (state.getKeyboard().keyDownOnce(KeyEvent.VK_Z)) {
+			if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 				if (curY == 0) {
 					state.changeLog("Current Probe Count: " + state.getProbeCount());
 				}
@@ -246,7 +246,7 @@ public class MapMenuPanel extends JPanel {
 				if (curY == 4) {
 					dumpProbes();
 				}
-			} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_X)) {
+			} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
 				level = 0;
 				curY = 0;
 			}
@@ -264,9 +264,9 @@ public class MapMenuPanel extends JPanel {
 		// graphics2d.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/mapscreen.png")),
 		// 16, 16, canvas);
 		state.getGraphics2d().drawImage(smallMenu, 860, 60, state.getCanvas());
-		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_Z)) {
+		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_X)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
 			level = 0;
 		}
 	}
@@ -284,32 +284,32 @@ public class MapMenuPanel extends JPanel {
 	private void launchProbe() {
 		state.getGraphics2d().drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64),
 				state.getCanvas());
-		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_UP)) {
-			state.changeLog("Coordinates: " + ((char) (selX + 96)) + (selY + 1));
+		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
+			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 
 			if (selY != 0) {
 				selY--;
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_DOWN)) {
-			state.changeLog("Coordinates: " + ((char) (selX + 96)) + (selY + 1));
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
+			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 
 			if (selY != 11) {
 				selY++;
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_LEFT)) {
-			state.changeLog("Coordinates: " + ((char) (selX + 96)) + (selY + 1));
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_A)) {
+			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 
 			if (selX != 0) {
 				selX--;
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_RIGHT)) {
-			state.changeLog("Coordinates: " + ((char) (selX + 96)) + (selY + 1));
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_D)) {
+			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 
 			if (selX != 11) {
 				selX++;
 			}
 		}
-		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_Z)) {
+		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 			Sector sector = state.getGrid().getSector(selX, selY);
 
 			if (!sector.isKnown()) {
@@ -339,7 +339,7 @@ public class MapMenuPanel extends JPanel {
 			} else {
 				state.changeLog("That sector is already known");
 			}
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_X)) {
+		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
 			state.setScienceLevel(0);
 		}
 	}
