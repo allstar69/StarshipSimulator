@@ -76,7 +76,7 @@ public class MapMenuPanel extends JPanel {
 			break;
 		}
 
-		state.getGraphics2d().drawImage(state.getShip().getImage(), 820, 75 + (curY * 32), state.getCanvas());
+		state.getGraphics2d().drawImage(state.getShip().getImage(), this.getX() - 40, this.getY() + 15 + (curY * 32), state.getCanvas());
 	}
 
 	private void mainMenu() {

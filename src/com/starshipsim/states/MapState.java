@@ -20,9 +20,9 @@ import javax.swing.JTextField;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.objects.Ship;
+import com.starshipsim.panels.GridPanel;
 import com.starshipsim.panels.MapMenuPanel;
 import com.starshipsim.world.Grid;
-import com.starshipsim.world.Sector;
 
 public class MapState extends JFrame {
 	private static final long serialVersionUID = -3611025872685697162L;
@@ -52,11 +52,11 @@ public class MapState extends JFrame {
 	private Ship ship;
 
 	private static Image space = FileIO.loadImage("resources/space.png");
-	private static Image mapScreen = FileIO.loadImage("resources/mapscreen.png");
 	private static Image keyImg = FileIO.loadImage("resources/key.png");
 	private static Image dialogueBox = FileIO.loadImage("resources/dialogueBox.png");
 
 	private MapMenuPanel mapMenu;
+	private GridPanel gridDisplay;
 
 	public String getLog1() {
 		return log1;
@@ -163,14 +163,12 @@ public class MapState extends JFrame {
 
 		buffer = canvas.getBufferStrategy();
 		
-		mapMenu = new MapMenuPanel(this, 860, 60);
+		mapMenu = new MapMenuPanel(this, 900, 60);
+		gridDisplay = new GridPanel(this, 0, 0);
 
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-
 		GraphicsDevice gd = ge.getDefaultScreenDevice();
-
 		GraphicsConfiguration gc = gd.getDefaultConfiguration();
-
 		bi = gc.createCompatibleImage(WIDTH, HEIGHT);
 		
 		this.probeCount = 80;
@@ -194,7 +192,6 @@ public class MapState extends JFrame {
 		graphics2d.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
 		
 		graphics2d.drawImage(space, 0, 0, canvas);
-		graphics2d.drawImage(mapScreen, 0, 0, canvas);
 		graphics2d.drawImage(keyImg, 860, 320, canvas);
 		graphics2d.drawImage(dialogueBox, 16, 832, canvas);
 		
@@ -202,22 +199,8 @@ public class MapState extends JFrame {
 		graphics2d.setColor(Color.decode("#EEEEEE"));
 		graphics2d.drawString(log2, 32, 908);
 		graphics2d.setColor(Color.WHITE);
-		
-		Sector[][] secs = grid.getSectors();
-		for (int i = 0; i < secs.length; i++) {
-			for (int j = 0; j < secs[i].length; j++) {
-				secs[j][i].paint(graphics2d, canvas, 32 + j * 64, 32 + i * 64);
-			}
-		}
-		
-		graphics2d.setFont(new Font("Showcard Gothic", Font.ITALIC, 16));
-		for (int i = 1; i < 13; i++) {
-			graphics2d.drawString("" + i, 12, i * 64 + 4);
-			graphics2d.drawString(((char) (i + 96)) + "", i * 64 - 4, 24);
-		}
-		
-		graphics2d.drawImage(ship.getImage(), 48 + 64 * ship.getSecX(), 48 + 64 * ship.getSecY(), canvas);
-		
+
+		gridDisplay.draw();
 		mapMenu.draw(graphics2d, canvas);
 		
 		setGraphics(getBuffer().getDrawGraphics());
