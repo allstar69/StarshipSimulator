@@ -24,7 +24,7 @@ import com.starshipsim.panels.GridPanel;
 import com.starshipsim.panels.MapMenuPanel;
 import com.starshipsim.world.Grid;
 
-public class MapState extends JFrame {
+public class MapState extends State {
 	private static final long serialVersionUID = -3611025872685697162L;
 	private final int WIDTH = 1920;
 	private final int HEIGHT = 1000;
@@ -184,7 +184,7 @@ public class MapState extends JFrame {
 	}
 	
 	public void update() {
-		
+		keyboard.poll();
 	}
 	
 	public void draw() {

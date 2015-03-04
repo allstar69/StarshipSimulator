@@ -1,28 +1,20 @@
 package com.starshipsim.application;
 
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.states.MapState;
+import com.starshipsim.states.StateManager;
 
 public class Game {
 	private boolean isRunning;
+	
+	private StateManager states;
 
 	private KeyboardListener keyboard;
 	
-	private MapState mapState;
-	
-	public KeyboardListener getKeyboard() {
-		return keyboard;
-	}
-
-	public void setKeyboard(KeyboardListener key) {
-		this.keyboard = key;
-	}
-
 	public Game() {
 		isRunning = true;
 		
-		keyboard = new KeyboardListener();
-		mapState = new MapState(keyboard);
+		this.keyboard = new KeyboardListener();
+		states = new StateManager(keyboard);
 	}
 	
 	public void run() {
@@ -37,21 +29,20 @@ public class Game {
 	}
 	
 	public void initialize() {
-		mapState.initialize();
+		states.getCurrentState().initialize();
 	}
 	
 	//For later use
 	public void update() {
-		getKeyboard().poll();
-		mapState.update();
+		states.getCurrentState().update();
 	}
 	
 	public void draw() {
-		mapState.draw();
+		states.getCurrentState().draw();
 	}
 	
 	//For later use
 	public void end() {
-		mapState.end();
+		states.getCurrentState().end();
 	}
 }
