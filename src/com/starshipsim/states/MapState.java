@@ -1,13 +1,8 @@
 package com.starshipsim.states;
 
-import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import com.starshipsim.files.FileIO;
 import com.starshipsim.listeners.KeyboardListener;
@@ -21,16 +16,8 @@ public class MapState extends State {
 	
 	private int scienceLevel = 0;
 	private int probeCount;
-	
-	private Canvas canvas;
-
-	private Graphics2D graphics2d;
-	private Graphics graphics;
-	private BufferStrategy buffer;
-	private BufferedImage bi;
 
 	private String log1 = "Do the thing!";
-
 	private String log2 = "";
 	
 	private KeyboardListener keyboard;
@@ -51,46 +38,6 @@ public class MapState extends State {
 
 	public void setLog1(String log1) {
 		this.log1 = log1;
-	}
-
-	public Graphics2D getGraphics2d() {
-		return graphics2d;
-	}
-
-	public void setGraphics2d(Graphics2D graphics2d) {
-		this.graphics2d = graphics2d;
-	}
-
-	public Canvas getCanvas() {
-		return canvas;
-	}
-
-	public void setCanvas(Canvas canvas) {
-		this.canvas = canvas;
-	}
-
-	public Graphics getGraphics() {
-		return graphics;
-	}
-
-	public void setGraphics(Graphics graphics) {
-		this.graphics = graphics;
-	}
-
-	public BufferStrategy getBuffer() {
-		return buffer;
-	}
-
-	public void setBuffer(BufferStrategy buffer) {
-		this.buffer = buffer;
-	}
-
-	public BufferedImage getBi() {
-		return bi;
-	}
-
-	public void setBi(BufferedImage bi) {
-		this.bi = bi;
 	}
 
 	public Ship getShip() {
@@ -152,16 +99,13 @@ public class MapState extends State {
 	
 	@Override
 	public void update() {
-		keyboard.poll();
 	}
 	
 	@Override
 	public void draw(Graphics g) {
-		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
-		
-		g.drawImage(space, 0, 0, canvas);
-		g.drawImage(keyImg, 860, 320, canvas);
-		g.drawImage(dialogueBox, 16, 832, canvas);
+		g.drawImage(space, 0, 0, null);
+		g.drawImage(keyImg, 860, 320, null);
+		g.drawImage(dialogueBox, 16, 832, null);
 		
 		g.drawString(log1, 32, 872);
 		g.setColor(Color.decode("#EEEEEE"));
@@ -180,9 +124,5 @@ public class MapState extends State {
 			this.log2 = this.log1;
 			this.log1 = log1;
 		}
-	}
-
-	public void repaint() {
-		buffer.show();
 	}
 }

@@ -3,6 +3,7 @@ package com.starshipsim.application;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
@@ -31,6 +32,8 @@ public class Game extends JFrame {
 	public JTextField f1 = new JTextField();
 	public JPanel p1 = new JPanel();
 	
+	private Font font = new Font("Showcard Gothic", Font.ITALIC, 24);
+	
 	public Game() {
 		this.setTitle("Starship Simulator");
 		this.setResizable(false);
@@ -40,6 +43,7 @@ public class Game extends JFrame {
 		this.add(canvas);
 		this.pack();
 		this.setVisible(true);
+		this.setIgnoreRepaint(true);
 		canvas.createBufferStrategy(2);
 
 		isRunning = true;
@@ -67,6 +71,7 @@ public class Game extends JFrame {
 	
 	//For later use
 	public void update() {
+		keyboard.poll();
 		states.getCurrentState().update();
 	}
 	
@@ -74,11 +79,9 @@ public class Game extends JFrame {
 		BufferStrategy bf = canvas.getBufferStrategy();
 		Graphics g = bf.getDrawGraphics();
 		
-		try {
-			states.getCurrentState().draw(g);
-		} finally {
-			g.dispose();
-		}
+		g.setFont(font);
+		
+		states.getCurrentState().draw(g);
 		
 		bf.show();
 		Toolkit.getDefaultToolkit().sync();

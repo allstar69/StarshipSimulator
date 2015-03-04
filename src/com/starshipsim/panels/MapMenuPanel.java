@@ -30,7 +30,7 @@ public class MapMenuPanel {
 		this.y = y;
 		this.state = state;
 	}
-
+	
 	public void draw(Graphics g) {
 		g.drawImage(smallMenu, this.x, this.y, null);
 		
@@ -106,7 +106,7 @@ public class MapMenuPanel {
 
 	private void moveShip(Graphics g) {
 		state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
-		g.drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), state.getCanvas());
+		g.drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), null);
 		
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (selY != 0
@@ -202,7 +202,7 @@ public class MapMenuPanel {
 	}
 
 	private void scienceStation(Graphics g) {
-		g.drawImage(smallMenu, 860, 60, state.getCanvas());
+		g.drawImage(smallMenu, 860, 60, null);
 		int i = 0;
 		g.drawString(("Probe Count"), 890, (100 + (i * 32)));
 		i++;
@@ -261,7 +261,7 @@ public class MapMenuPanel {
 		// f1.setVisible(true);
 		// graphics2d.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/mapscreen.png")),
 		// 16, 16, canvas);
-		g.drawImage(smallMenu, 860, 60, state.getCanvas());
+		g.drawImage(smallMenu, 860, 60, null);
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
@@ -281,7 +281,7 @@ public class MapMenuPanel {
 
 	private void launchProbe(Graphics g) {
 		g.drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64),
-				state.getCanvas());
+				null);
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 

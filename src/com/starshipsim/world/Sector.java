@@ -2,6 +2,7 @@ package com.starshipsim.world;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import com.starshipsim.enums.SectorState;
 import com.starshipsim.files.FileIO;
@@ -11,6 +12,14 @@ public class Sector {
 	private boolean mysterious = false;
 	private boolean hostile = false;
 	SectorState state = SectorState.NEUTRAL;
+	
+	private static Image imgUnknown = FileIO.loadImage("resources/unknown.png");
+	private static Image imgMysterious = FileIO.loadImage("resources/Mysterious.png");
+	private static Image imgHostile = FileIO.loadImage("resources/hostile.png");
+	private static Image imgNeutral = FileIO.loadImage("resources/neutral.png");
+	private static Image imgFriendly = FileIO.loadImage("resources/freindly.png");
+	private static Image imgExplorable = FileIO.loadImage("resources/explorable.png");
+	private static Image imgDangerous = FileIO.loadImage("resources/dangerous.png");
 
 	/*
 	 * 1=neutral 2=friendly 3=explorable 4=dangerous
@@ -56,27 +65,27 @@ public class Sector {
 
 	public void paint(Graphics g, Canvas c, int x, int y) {
 		if (!isKnown()) {
-			g.drawImage(FileIO.loadImage("resources/unknown.png"), x, y, c);
+			g.drawImage(imgUnknown, x, y, c);
 		} else {
 			if (isMysterious()) {
-				g.drawImage(FileIO.loadImage("resources/Mysterious.png"), x, y,
+				g.drawImage(imgMysterious, x, y,
 						c);
 			} else {
 				if (isHostile()) {
-					g.drawImage(FileIO.loadImage("resources/hostile.png"), x,
+					g.drawImage(imgHostile, x,
 							y, c);
 				} else {
-					g.drawImage(FileIO.loadImage("resources/neutral.png"), x,
+					g.drawImage(imgNeutral, x,
 							y, c);
 				}
 				if (getState() == SectorState.FRIENDLY) {
-					g.drawImage(FileIO.loadImage("resources/freindly.png"), x,
+					g.drawImage(imgFriendly, x,
 							y, c);
 				} else if (getState() == SectorState.EXPLORABLE) {
-					g.drawImage(FileIO.loadImage("resources/explorable.png"),
+					g.drawImage(imgExplorable,
 							x, y, c);
 				} else if (getState() == SectorState.DANGEROUS) {
-					g.drawImage(FileIO.loadImage("resources/dangerous.png"), x,
+					g.drawImage(imgDangerous, x,
 							y, c);
 				}
 			}

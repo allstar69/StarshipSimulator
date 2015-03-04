@@ -10,7 +10,7 @@ public class StateManager {
 	public StateManager(KeyboardListener keyboard) {
 		this.mapState = new MapState(keyboard);
 		
-		this.currentState = mapState;
+		this.currentState = this.mapState;
 	}
 
 	public State getCurrentState() {
