@@ -1,8 +1,8 @@
 package com.starshipsim.states;
 
-import javax.swing.JFrame;
+import java.awt.Graphics;
 
-public abstract class State extends JFrame {
+public abstract class State {
 
 	public State() {
 		
@@ -10,7 +10,7 @@ public abstract class State extends JFrame {
 	
 	public abstract void initialize();
 	public abstract void update();
-	public abstract void draw();
+	public abstract void draw(Graphics g);
 	public abstract void end();
 	
 }

@@ -1,21 +1,13 @@
 package com.starshipsim.states;
 
-import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import com.starshipsim.files.FileIO;
 import com.starshipsim.listeners.KeyboardListener;
@@ -25,9 +17,6 @@ import com.starshipsim.panels.MapMenuPanel;
 import com.starshipsim.world.Grid;
 
 public class MapState extends State {
-	private static final long serialVersionUID = -3611025872685697162L;
-	private final int WIDTH = 1920;
-	private final int HEIGHT = 1000;
 	public final int maxProbeCount = 100;
 	
 	private int scienceLevel = 0;
@@ -45,8 +34,6 @@ public class MapState extends State {
 	private String log2 = "";
 	
 	private KeyboardListener keyboard;
-	public JTextField f1 = new JTextField();
-	public JPanel p1 = new JPanel();
 	
 	private Grid grid;
 	private Ship ship;
@@ -147,29 +134,8 @@ public class MapState extends State {
 	}
 
 	public MapState(KeyboardListener keyboard) {
-		setSize(WIDTH, HEIGHT);
-
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		canvas = new Canvas();
-		canvas.setIgnoreRepaint(true);
-		canvas.setSize(WIDTH, HEIGHT);
-		tBox();
-		add(canvas);
-		pack();
-		addKeyListener(keyboard);
-		setIgnoreRepaint(true);
-		canvas.createBufferStrategy(2);
-
-		buffer = canvas.getBufferStrategy();
-		
 		mapMenu = new MapMenuPanel(this, 860, 60);
 		gridDisplay = new GridPanel(this, 0, 0);
-
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		GraphicsDevice gd = ge.getDefaultScreenDevice();
-		GraphicsConfiguration gc = gd.getDefaultConfiguration();
-		bi = gc.createCompatibleImage(WIDTH, HEIGHT);
 		
 		this.probeCount = 80;
 		
@@ -179,33 +145,31 @@ public class MapState extends State {
 		grid.setShipLocation(ship, ship.getSecX(), ship.getSecY());
 	}
 	
+	@Override
 	public void initialize() {
-		this.setVisible(true);
+
 	}
 	
+	@Override
 	public void update() {
 		keyboard.poll();
 	}
 	
-	public void draw() {
-		graphics2d = bi.createGraphics();
-		graphics2d.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
+	@Override
+	public void draw(Graphics g) {
+		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
 		
-		graphics2d.drawImage(space, 0, 0, canvas);
-		graphics2d.drawImage(keyImg, 860, 320, canvas);
-		graphics2d.drawImage(dialogueBox, 16, 832, canvas);
+		g.drawImage(space, 0, 0, canvas);
+		g.drawImage(keyImg, 860, 320, canvas);
+		g.drawImage(dialogueBox, 16, 832, canvas);
 		
-		graphics2d.drawString(log1, 32, 872);
-		graphics2d.setColor(Color.decode("#EEEEEE"));
-		graphics2d.drawString(log2, 32, 908);
-		graphics2d.setColor(Color.WHITE);
+		g.drawString(log1, 32, 872);
+		g.setColor(Color.decode("#EEEEEE"));
+		g.drawString(log2, 32, 908);
+		g.setColor(Color.WHITE);
 
-		gridDisplay.draw();
-		mapMenu.draw(graphics2d, canvas);
-		
-		setGraphics(getBuffer().getDrawGraphics());
-		getGraphics().drawImage(getBi(), 0, 0, null);
-		repaint();
+		gridDisplay.draw(g);
+		mapMenu.draw(g);
 	}
 
 	public void end() {
@@ -220,16 +184,5 @@ public class MapState extends State {
 
 	public void repaint() {
 		buffer.show();
-	}
-
-	public void tBox() {
-		p1.setSize(120, 30);
-		add(p1, BorderLayout.CENTER);
-		f1.addKeyListener(keyboard);
-		f1.setVisible(false);
-		p1.setVisible(false);
-		p1.add(f1);
-		p1.setLocation(890, 100);
-		this.add(canvas);
 	}
 }

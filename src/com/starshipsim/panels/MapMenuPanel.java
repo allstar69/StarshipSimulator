@@ -1,13 +1,10 @@
 package com.starshipsim.panels;
 
-import java.awt.Canvas;
 import java.awt.Font;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.Random;
-
-import javax.swing.JPanel;
 
 import com.starshipsim.enums.SectorState;
 import com.starshipsim.files.FileIO;
@@ -15,10 +12,7 @@ import com.starshipsim.shipmodules.WarpCore;
 import com.starshipsim.states.MapState;
 import com.starshipsim.world.Sector;
 
-public class MapMenuPanel extends JPanel {
-
-	private static final long serialVersionUID = 2585861607712456621L;
-
+public class MapMenuPanel {
 	private static Image smallMenu = FileIO.loadImage("resources/smallmenu.png");
 	private static Image cursor = FileIO.loadImage("resources/cursor.png");
 
@@ -27,15 +21,18 @@ public class MapMenuPanel extends JPanel {
 	private int selX = 0;
 	private int selY = 0;
 
+	int x, y;
+	
 	private MapState state;
 
 	public MapMenuPanel(MapState state, int x, int y) {
+		this.x = x;
+		this.y = y;
 		this.state = state;
-		this.setLocation(x, y);
 	}
 
-	public void draw(Graphics2D g, Canvas canvas) {
-		g.drawImage(smallMenu, this.getX(), this.getY(), canvas);
+	public void draw(Graphics g) {
+		g.drawImage(smallMenu, this.x, this.y, null);
 		
 		String[] menu = new String[] {
 				"Move the Ship",
@@ -46,38 +43,38 @@ public class MapMenuPanel extends JPanel {
 		};
 		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
-		int x = this.getX() + g.getFont().getSize();
+		int x = this.x + g.getFont().getSize();
 		for (int i = 0; i < menu.length; i++) {
 			int y = 100 + (i * 32);
 			g.drawString(menu[i], x, y);
 		}
 		
-		input();
+		input(g);
 	}
 
-	private void input() {
+	private void input(Graphics g) {
 		switch (level) {
 		case 0:
 			mainMenu();
 			break;
 		case 1:
-			moveShip();
+			moveShip(g);
 			break;
 		case 2:
-			getData();
+			getData(g);
 			break;
 		case 3:
-			scienceStation();
+			scienceStation(g);
 			break;
 		case 4:
-			setStandards();
+			setStandards(g);
 			break;
 		case 5:
 			resetUniverse();
 			break;
 		}
 
-		state.getGraphics2d().drawImage(state.getShip().getImage(), this.getX() - 40, this.getY() + 15 + (curY * 32), state.getCanvas());
+		g.drawImage(state.getShip().getImage(), this.x - 40, this.y + 15 + (curY * 32), null);
 	}
 
 	private void mainMenu() {
@@ -107,9 +104,9 @@ public class MapMenuPanel extends JPanel {
 		}
 	}
 
-	private void moveShip() {
+	private void moveShip(Graphics g) {
 		state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
-		state.getGraphics2d().drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), state.getCanvas());
+		g.drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), state.getCanvas());
 		
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (selY != 0
@@ -155,9 +152,9 @@ public class MapMenuPanel extends JPanel {
 		}
 	}
 
-	private void getData() {
+	private void getData(Graphics g) {
 		state.changeLog("Coordinates: " + ((char) selX + 97) + (selY + 1));
-		state.getGraphics2d().drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), state.getCanvas());
+		g.drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), null);
 		
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (selY != 0) {
@@ -204,18 +201,18 @@ public class MapMenuPanel extends JPanel {
 		}
 	}
 
-	private void scienceStation() {
-		state.getGraphics2d().drawImage(smallMenu, 860, 60, state.getCanvas());
+	private void scienceStation(Graphics g) {
+		g.drawImage(smallMenu, 860, 60, state.getCanvas());
 		int i = 0;
-		state.getGraphics2d().drawString(("Probe Count"), 890, (100 + (i * 32)));
+		g.drawString(("Probe Count"), 890, (100 + (i * 32)));
 		i++;
-		state.getGraphics2d().drawString(("Launch Probe"), 890, (100 + (i * 32)));
+		g.drawString(("Launch Probe"), 890, (100 + (i * 32)));
 		i++;
-		state.getGraphics2d().drawString(("Explore Sector"), 890, (100 + (i * 32)));
+		g.drawString(("Explore Sector"), 890, (100 + (i * 32)));
 		i++;
-		state.getGraphics2d().drawString(("Replenish Probes"), 890, (100 + (i * 32)));
+		g.drawString(("Replenish Probes"), 890, (100 + (i * 32)));
 		i++;
-		state.getGraphics2d().drawString(("Dump Probes"), 890, (100 + (i * 32)));
+		g.drawString(("Dump Probes"), 890, (100 + (i * 32)));
 		if (state.getScienceLevel() == 0) {
 
 			if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
@@ -252,19 +249,19 @@ public class MapMenuPanel extends JPanel {
 				curY = 0;
 			}
 		} else if (state.getScienceLevel() == 2) {
-			launchProbe();
+			launchProbe(g);
 		} else if (state.getScienceLevel() == 3) {
 			exploreSector();
 		}
 	}
 
-	private void setStandards() {
+	private void setStandards(Graphics g) {
 		state.changeLog("How would you like to generate your universe?");
 		// p1.setVisible(true);
 		// f1.setVisible(true);
 		// graphics2d.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/mapscreen.png")),
 		// 16, 16, canvas);
-		state.getGraphics2d().drawImage(smallMenu, 860, 60, state.getCanvas());
+		g.drawImage(smallMenu, 860, 60, state.getCanvas());
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
@@ -282,8 +279,8 @@ public class MapMenuPanel extends JPanel {
 		level = 0;
 	}
 
-	private void launchProbe() {
-		state.getGraphics2d().drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64),
+	private void launchProbe(Graphics g) {
+		g.drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64),
 				state.getCanvas());
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
