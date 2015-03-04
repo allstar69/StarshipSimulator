@@ -1,4 +1,4 @@
-package shipModules;
+package com.starshipsim.shipmodules;
 
 public class ShieldSystem extends ShipModule {
 	private boolean isRaised = false;

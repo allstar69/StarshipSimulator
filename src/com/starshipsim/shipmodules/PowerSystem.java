@@ -1,4 +1,4 @@
-package shipModules;
+package com.starshipsim.shipmodules;
 
 public class PowerSystem extends ShipModule {
 

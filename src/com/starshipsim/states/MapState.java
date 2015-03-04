@@ -1,4 +1,4 @@
-package application;
+package com.starshipsim.states;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -17,24 +17,28 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import objects.Sector;
-import objects.Ship;
+import com.starshipsim.files.FileIO;
+import com.starshipsim.listeners.KeyboardListener;
+import com.starshipsim.objects.Sector;
+import com.starshipsim.objects.Ship;
 
-public class GUI extends JFrame {
-	private final int HEIGHT = 1000;
-
+public class MapState extends JFrame {
+	private static final long serialVersionUID = -3611025872685697162L;
 	private final int WIDTH = 1200;
-	private Canvas canvas = new Canvas();
+	private final int HEIGHT = 1000;
+	
+	private Canvas canvas;
 
-	private Graphics2D graphics2d = null;
-	private Graphics graphics = null;
-	private BufferStrategy buffer = null;
-	private BufferedImage bi = null;
+	private Graphics2D graphics2d;
+	private Graphics graphics;
+	private BufferStrategy buffer;
+	private BufferedImage bi;
 
 	private String log1 = "Do the thing!";
 
 	private String log2 = "";
-	private Listener key = new Listener();
+	
+	private KeyboardListener keyboard;
 	public JTextField f1 = new JTextField();
 	public JPanel p1 = new JPanel();
 
@@ -68,14 +72,6 @@ public class GUI extends JFrame {
 		this.canvas = canvas;
 	}
 
-	public Listener getKey() {
-		return key;
-	}
-
-	public void setKey(Listener key) {
-		this.key = key;
-	}
-
 	public Graphics getGraphics() {
 		return graphics;
 	}
@@ -100,7 +96,7 @@ public class GUI extends JFrame {
 		this.bi = bi;
 	}
 
-	public GUI() {
+	public MapState(KeyboardListener keyboard) {
 		setSize(WIDTH, HEIGHT);
 
 		setResizable(false);
@@ -111,21 +107,21 @@ public class GUI extends JFrame {
 		tBox();
 		add(canvas);
 		pack();
-		addKeyListener(key);
+		addKeyListener(keyboard);
 		setIgnoreRepaint(true);
 		canvas.createBufferStrategy(2);
 
 		buffer = canvas.getBufferStrategy();
 
-		GraphicsEnvironment ge = GraphicsEnvironment
-				.getLocalGraphicsEnvironment();
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
 		GraphicsDevice gd = ge.getDefaultScreenDevice();
 
 		GraphicsConfiguration gc = gd.getDefaultConfiguration();
 
 		bi = gc.createCompatibleImage(WIDTH, HEIGHT);
-
+		
+		this.keyboard = keyboard;
 	}
 
 	public void changeLog(String log1) {
@@ -139,50 +135,54 @@ public class GUI extends JFrame {
 
 		graphics2d = bi.createGraphics();
 		graphics2d.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
+		
 		graphics2d.drawImage(space, 0, 0, canvas);
 		graphics2d.drawImage(mapScreen, 0, 0, canvas);
 		graphics2d.drawImage(smallMenu, 860, 60, canvas);
 		graphics2d.drawImage(keyImg, 860, 320, canvas);
 		graphics2d.drawImage(dialogueBox, 16, 832, canvas);
+		
 		graphics2d.drawString(log1, 32, 872);
 		graphics2d.setColor(Color.decode("#EEEEEE"));
 		graphics2d.drawString(log2, 32, 908);
 		graphics2d.setColor(Color.WHITE);
+		
 		for (int i = 0; i < secs.length; i++) {
 			for (int j = 0; j < secs[i].length; j++) {
 				secs[j][i].paint(graphics2d, canvas, 32 + j * 64, 32 + i * 64);
 			}
 		}
+		
 		graphics2d.setFont(new Font("Showcard Gothic", Font.ITALIC, 16));
 		for (int i = 1; i < 13; i++) {
 			graphics2d.drawString("" + i, 12, i * 64 + 4);
 			graphics2d.drawString(((char) (i + 96)) + "", i * 64 - 4, 24);
 		}
+		
+		String[] menu = new String[] {
+				"Move the Ship",
+				"Get Sector Data",
+				"Open Science Station",
+				"Set Map Standards",
+				"Reset Map"
+		};
+		
 		graphics2d.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
-		int i = 0;
-		graphics2d.drawString(("Move the Ship"), 890, (100 + (i * 32)));
-		i++;
-		graphics2d.drawString(("Get Sector Data"), 890, (100 + (i * 32)));
-		i++;
-		graphics2d.drawString(("Open Science Station"), 890, (100 + (i * 32)));
-		i++;
-		graphics2d.drawString(("Set Map Standards"), 890, (100 + (i * 32)));
-		i++;
-		graphics2d.drawString(("Reset Map"), 890, (100 + (i * 32)));
-		graphics2d.drawImage(s.getImage(), 48 + 64 * s.getSecX(),
-				48 + 64 * s.getSecY(), canvas);
-
+		for (int i = 0; i < menu.length; i++) {
+			graphics2d.drawString(menu[i], 890, (100 + (i * 32)));
+		}
+		
+		graphics2d.drawImage(s.getImage(), 48 + 64 * s.getSecX(), 48 + 64 * s.getSecY(), canvas);
 	}
 
 	public void repaint() {
-
 		buffer.show();
 	}
 
 	public void tBox() {
 		p1.setSize(120, 30);
 		add(p1, BorderLayout.CENTER);
-		f1.addKeyListener(key);
+		f1.addKeyListener(keyboard);
 		f1.setVisible(false);
 		p1.setVisible(false);
 		p1.add(f1);

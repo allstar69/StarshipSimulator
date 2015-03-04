@@ -1,4 +1,4 @@
-package application;
+package com.starshipsim.files;
 
 import java.awt.Image;
 import java.io.File;

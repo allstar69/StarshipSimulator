@@ -1,9 +1,9 @@
-package application;
+package com.starshipsim.listeners;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Listener implements KeyListener {
+public class KeyboardListener implements KeyListener {
 	// This class handles keyboard input
 
 	private static final int KEY_COUNT = 256;
@@ -12,7 +12,6 @@ public class Listener implements KeyListener {
 		RELEASED, // Not down
 		PRESSED, // Down, but not the first time
 		ONCE // Down for the first time
-
 	}
 
 	// Current state of the keyboard
@@ -22,7 +21,7 @@ public class Listener implements KeyListener {
 	private KeyState[] keys = null;
 
 	// Constuctor
-	public Listener() {
+	public KeyboardListener() {
 
 		currentKeys = new boolean[KEY_COUNT];
 
@@ -36,35 +35,23 @@ public class Listener implements KeyListener {
 	}
 
 	public synchronized void poll() {
-
 		for (int i = 0; i < KEY_COUNT; ++i) {
 
 			// Set the key state
-
 			if (currentKeys[i]) {
-
 				// If the key is down now, but was not
-
 				// down last frame, set it to ONCE,
-
 				// otherwise, set it to PRESSED
-
-				if (keys[i] == KeyState.RELEASED)
-
+				if (keys[i] == KeyState.RELEASED) {
 					keys[i] = KeyState.ONCE;
-
-				else
-
+				}
+				else {
 					keys[i] = KeyState.PRESSED;
-
+				}
 			} else {
-
 				keys[i] = KeyState.RELEASED;
-
 			}
-
 		}
-
 	}
 
 	public boolean keyDown(int keyCode) {

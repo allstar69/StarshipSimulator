@@ -1,4 +1,4 @@
-package shipModules;
+package com.starshipsim.shipmodules;
 
 public abstract class ShipModule {
 	private String pieceName = "";

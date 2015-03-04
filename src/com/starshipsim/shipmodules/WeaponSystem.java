@@ -1,8 +1,8 @@
-package shipModules;
+package com.starshipsim.shipmodules;
 
 import java.util.ArrayList;
 
-import weapons.Weapon;
+import com.starshipsim.weapons.Weapon;
 
 public class WeaponSystem extends ShipModule {
 	private int weaponMax = 10;

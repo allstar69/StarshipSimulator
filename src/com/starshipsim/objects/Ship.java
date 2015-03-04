@@ -1,9 +1,9 @@
-package objects;
+package com.starshipsim.objects;
 
 import java.awt.Image;
 import java.util.Random;
 
-import shipModules.*;
+import com.starshipsim.shipmodules.*;
 
 public class Ship {
 	// Starship class
@@ -20,7 +20,8 @@ public class Ship {
 	private ShipModule propulsion = new PropulsionSystem();
 	private ShipModule warp = new WarpCore();
 
-	public Ship() {
+	public Ship(Image image) {
+		this.image = image;
 		Random rand = new Random();
 		secX = rand.nextInt(11);
 		secY = rand.nextInt(11);
