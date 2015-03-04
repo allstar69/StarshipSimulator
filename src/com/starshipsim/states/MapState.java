@@ -19,8 +19,8 @@ import javax.swing.JTextField;
 
 import com.starshipsim.files.FileIO;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.objects.Sector;
 import com.starshipsim.objects.Ship;
+import com.starshipsim.world.Sector;
 
 public class MapState extends JFrame {
 	private static final long serialVersionUID = -3611025872685697162L;

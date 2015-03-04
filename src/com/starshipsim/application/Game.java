@@ -6,10 +6,11 @@ import java.util.Random;
 
 import com.starshipsim.files.FileIO;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.objects.Sector;
 import com.starshipsim.objects.Ship;
 import com.starshipsim.shipmodules.WarpCore;
 import com.starshipsim.states.MapState;
+import com.starshipsim.world.Grid;
+import com.starshipsim.world.Sector;
 
 public class Game {
 	public final int maxProbeCount = 100;
@@ -22,18 +23,12 @@ public class Game {
 	private int selY = 0;
 	private int curY = 0;
 	private int probeCount;
-	
-	private int mysteryNum=40;
-	private int hostileNum=75;
-	private int friendlyNum=50;
-	private int dangerNum=30;
-	private int exploreNum=20;
 
 	private KeyboardListener keyboard;
 	
 	private MapState mapState;
 	private Ship ship;
-	private Sector[][] sectors;
+	private Grid grid;
 	
 	private static Image cursor = FileIO.loadImage("resources/cursor.png");
 	private static Image smallMenu = FileIO.loadImage("resources/smallmenu.png");
@@ -54,7 +49,7 @@ public class Game {
 		
 		mapState = new MapState(keyboard);
 		ship = new Ship(FileIO.loadImage("resources/smallship1.png"));
-		sectors = new Sector[12][12];
+		grid = new Grid();
 	}
 	
 	public void run() {
@@ -69,8 +64,7 @@ public class Game {
 	}
 	
 	public void initialize() {
-		initializeMap();
-
+		grid.setShipLocation(ship, ship.getSecX(), ship.getSecX());
 		mapState.setVisible(true);
 	}
 	
@@ -79,7 +73,7 @@ public class Game {
 	}
 	
 	public void draw() {
-		mapState.paint(ship, sectors);
+		mapState.paint(ship, grid.getSectors());
 		input();
 		mapState.setGraphics(mapState.getBuffer().getDrawGraphics());
 		mapState.getGraphics().drawImage(mapState.getBi(), 0, 0, null);
@@ -177,11 +171,14 @@ public class Game {
 		if (getKeyboard().keyDownOnce(KeyEvent.VK_Z)) {
 			ship.setSecX(selX);
 			ship.setSecY(selY);
-			sectors[selX][selY].setKnown(true);
-			if (sectors[selX][selY].isHostile()) {
+			
+			Sector sector = grid.getSector(selX, selY);
+			
+			sector.setKnown(true);
+			if (sector.isHostile()) {
 				mapState.changeLog("Enemies Detected");
 				mapState.changeLog("Enemies Fled");
-				sectors[selX][selY].setHostile(false);
+				sector.setHostile(false);
 			}
 			level = 0;
 		} else if (getKeyboard().keyDownOnce(KeyEvent.VK_X)) {
@@ -210,20 +207,22 @@ public class Game {
 			}
 		}
 		if (getKeyboard().keyDownOnce(KeyEvent.VK_Z)) {
-			if (sectors[selX][selY].isKnown()) {
-				if (sectors[selX][selY].isMysterious()) {
+			Sector sector = grid.getSector(selX, selY);
+			
+			if (sector.isKnown()) {
+				if (sector.isMysterious()) {
 					mapState.changeLog("That region is mysterious");
 				} else {
-					if (sectors[selX][selY].isHostile()) {
+					if (sector.isHostile()) {
 						mapState.changeLog("That region is hostile");
 					} else {
 						mapState.changeLog("That region is neutral");
 					}
-					if (sectors[selX][selY].getState() == 2) {
+					if (sector.getState() == 2) {
 						mapState.setLog1(mapState.getLog1() + " and friendly");
-					} else if (sectors[selX][selY].getState() == 3) {
+					} else if (sector.getState() == 3) {
 						mapState.setLog1(mapState.getLog1() + " and explorable");
-					} else if (sectors[selX][selY].getState() == 4) {
+					} else if (sector.getState() == 4) {
 						mapState.setLog1(mapState.getLog1() + " and dangerous");
 					}
 				}
@@ -309,12 +308,8 @@ public class Game {
 		Random rand = new Random();
 		ship.setSecY(rand.nextInt(12));
 		ship.setSecX(rand.nextInt(12));
-		for (int i = 0; i < sectors.length; i++) {
-			for (int j = 0; j < sectors.length; j++) {
-				sectors[j][i] = new Sector();
-			}
-		}
-		sectors[ship.getSecX()][ship.getSecY()].setKnown(true);
+		grid.reset();
+		grid.setShipLocation(ship, ship.getSecX(), ship.getSecY());
 		level = 0;
 	}
 
@@ -346,22 +341,24 @@ public class Game {
 			}
 		}
 		if (getKeyboard().keyDownOnce(KeyEvent.VK_Z)) {
-			if (!sectors[selX][selY].isKnown()) {
+			Sector sector = grid.getSector(selX, selY);
+			
+			if (!sector.isKnown()) {
 				if (probeCount > 0) {
-					sectors[selX][selY].setKnown(true);
-					if (sectors[selX][selY].isMysterious()) {
+					sector.setKnown(true);
+					if (sector.isMysterious()) {
 						mapState.changeLog("That region is mysterious");
 					} else {
-						if (sectors[selX][selY].isHostile()) {
+						if (sector.isHostile()) {
 							mapState.changeLog("That region is hostile");
 						} else {
 							mapState.changeLog("That region is neutral");
 						}
-						if (sectors[selX][selY].getState() == 2) {
+						if (sector.getState() == 2) {
 							mapState.setLog1(mapState.getLog1() + " and friendly");
-						} else if (sectors[selX][selY].getState() == 3) {
+						} else if (sector.getState() == 3) {
 							mapState.setLog1(mapState.getLog1() + " and explorable");
-						} else if (sectors[selX][selY].getState() == 4) {
+						} else if (sector.getState() == 4) {
 							mapState.setLog1(mapState.getLog1() + " and dangerous");
 						}
 					}
@@ -379,7 +376,9 @@ public class Game {
 	}
 
 	private void exploreSector() {
-		if (sectors[ship.getSecX()][ship.getSecY()].getState() == 3) {
+		Sector sector = grid.getSector(ship.getSecX(), ship.getSecY());
+		
+		if (sector.getState() == 3) {
 			Random rand = new Random();
 			int r = rand.nextInt(2) + 1;
 			if (r == 1) {
@@ -399,57 +398,5 @@ public class Game {
 	private void dumpProbes() {
 		probeCount = 0;
 		mapState.changeLog("Empty Probes!");
-	}
-	
-	private void initializeMap(){
-		Random rand = new Random();
-		
-		for(int i = 0; i<sectors.length;i++){
-			for(int j = 0; j<sectors.length;j++){
-				sectors[j][i]= new Sector();
-			}
-		}
-		
-		for(int i=0; i<friendlyNum;i++){
-			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			while(s.getState()!=1){
-				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			}
-			s.setState(2);
-		}
-		
-		for(int i=0; i<exploreNum;i++){
-			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			while(s.getState()!=1){
-				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			}
-			s.setState(3);
-		}
-		
-		for(int i=0; i<dangerNum;i++){
-			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			while(s.getState()!=1){
-				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			}
-			s.setState(4);
-		}
-		
-		for(int i=0; i<mysteryNum;i++){
-			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			while(s.isMysterious()){
-				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			}
-			s.setMysterious(true);
-		}
-		
-		for(int i=0; i<hostileNum;i++){
-			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			while(s.isHostile()){
-				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
-			}
-			s.setHostile(true);
-		}
-		
-		sectors[ship.getSecX()][ship.getSecY()].setKnown(true);
 	}
 }

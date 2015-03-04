@@ -1,4 +1,4 @@
-package com.starshipsim.objects;
+package com.starshipsim.world;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
