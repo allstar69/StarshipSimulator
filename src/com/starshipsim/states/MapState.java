@@ -163,7 +163,7 @@ public class MapState extends JFrame {
 
 		buffer = canvas.getBufferStrategy();
 		
-		mapMenu = new MapMenuPanel(this, 900, 60);
+		mapMenu = new MapMenuPanel(this, 860, 60);
 		gridDisplay = new GridPanel(this, 0, 0);
 
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
