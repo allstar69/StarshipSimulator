@@ -258,7 +258,7 @@ public class MapState extends JFrame {
 	}
 	
 	private void moveShip() {
-		changeLog("Coordinates: " + ((char) selX + 96) + (selY + 1));
+		changeLog("Coordinates: " + ((char) (selX + 96)) + (selY + 1));
 		getGraphics2d().drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), getCanvas());
 		
 		if (keyboard.keyDownOnce(KeyEvent.VK_UP)) {
@@ -435,25 +435,25 @@ public class MapState extends JFrame {
 	private void launchProbe() {
 		getGraphics2d().drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), getCanvas());
 		if (keyboard.keyDownOnce(KeyEvent.VK_UP)) {
-			changeLog("Coordinates: " + ((char) selX + 96) + (selY + 1));
+			changeLog("Coordinates: " + ((char) (selX + 96)) + (selY + 1));
 
 			if (selY != 0) {
 				selY--;
 			}
 		} else if (keyboard.keyDownOnce(KeyEvent.VK_DOWN)) {
-			changeLog("Coordinates: " + ((char) selX + 96) + (selY + 1));
+			changeLog("Coordinates: " + ((char) (selX + 96)) + (selY + 1));
 
 			if (selY != 11) {
 				selY++;
 			}
 		} else if (keyboard.keyDownOnce(KeyEvent.VK_LEFT)) {
-			changeLog("Coordinates: " + ((char) selX + 96) + (selY + 1));
+			changeLog("Coordinates: " + ((char) (selX + 96)) + (selY + 1));
 
 			if (selX != 0) {
 				selX--;
 			}
 		} else if (keyboard.keyDownOnce(KeyEvent.VK_RIGHT)) {
-			changeLog("Coordinates: " + ((char) selX + 96) + (selY + 1));
+			changeLog("Coordinates: " + ((char) (selX + 96)) + (selY + 1));
 
 			if (selX != 11) {
 				selX++;

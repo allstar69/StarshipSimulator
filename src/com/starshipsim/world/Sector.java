@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import com.starshipsim.files.FileIO;
 
 public class Sector {
-	private boolean known = true;
+	private boolean known = false;
 	private boolean mysterious = false;
 	private boolean hostile = false;
 	int state = 1;
