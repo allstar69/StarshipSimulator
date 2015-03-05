@@ -1,5 +1,6 @@
 package com.starshipsim.states;
 
+import java.awt.Canvas;
 import java.awt.Graphics;
 
 public abstract class State {
@@ -10,7 +11,7 @@ public abstract class State {
 	
 	public abstract void initialize();
 	public abstract void update();
-	public abstract void draw(Graphics g);
+	public abstract void draw(Graphics g, Canvas canvas);
 	public abstract void end();
 	
 }

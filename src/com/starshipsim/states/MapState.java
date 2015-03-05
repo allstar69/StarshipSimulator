@@ -1,5 +1,6 @@
 package com.starshipsim.states;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -80,13 +81,13 @@ public class MapState extends State {
 		this.scienceLevel = scienceLevel;
 	}
 
-	public MapState(KeyboardListener keyboard) {
+	public MapState(StateManager states) {
 		mapMenu = new MapMenuPanel(this, 860, 60);
 		gridDisplay = new GridPanel(this, 0, 0);
 		
 		this.probeCount = 80;
 		
-		this.keyboard = keyboard;
+		this.keyboard = states.getKeyboard();
 		this.grid = new Grid();
 		this.ship = new Ship(FileIO.loadImage("resources/smallship1.png"));
 		grid.setShipLocation(ship, ship.getSecX(), ship.getSecY());
@@ -102,7 +103,7 @@ public class MapState extends State {
 	}
 	
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g, Canvas canvas) {
 		g.drawImage(space, 0, 0, null);
 		g.drawImage(keyImg, 860, 320, null);
 		g.drawImage(dialogueBox, 16, 832, null);

@@ -4,17 +4,25 @@ import com.starshipsim.listeners.KeyboardListener;
 
 public class StateManager {
 
-	private MapState mapState;
 	private State currentState;
 	
-	public StateManager(KeyboardListener keyboard) {
-		this.mapState = new MapState(keyboard);
-		
-		this.currentState = this.mapState;
+	private KeyboardListener keyboard;
+	
+	public KeyboardListener getKeyboard() {
+		return keyboard;
+	}
+
+	public StateManager(KeyboardListener keyboard) {		
+		this.keyboard = keyboard;
+		this.currentState = new MainMenuState(this);
 	}
 
 	public State getCurrentState() {
 		return currentState;
+	}
+
+	public void setCurrentState(State currentState) {
+		this.currentState = currentState;
 	}
 	
 }

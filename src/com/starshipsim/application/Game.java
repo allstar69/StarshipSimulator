@@ -65,11 +65,10 @@ public class Game extends JFrame {
 		end();
 	}
 	
+	//For later use
 	public void initialize() {
-		states.getCurrentState().initialize();
 	}
 	
-	//For later use
 	public void update() {
 		keyboard.poll();
 		states.getCurrentState().update();
@@ -81,7 +80,7 @@ public class Game extends JFrame {
 		
 		g.setFont(font);
 		
-		states.getCurrentState().draw(g);
+		states.getCurrentState().draw(g, canvas);
 		
 		bf.show();
 		Toolkit.getDefaultToolkit().sync();
@@ -89,7 +88,6 @@ public class Game extends JFrame {
 	
 	//For later use
 	public void end() {
-		states.getCurrentState().end();
 	}
 	
 	public void tBox() {
