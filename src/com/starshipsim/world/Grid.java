@@ -13,6 +13,7 @@ public class Grid {
 	private int friendlyNum=50;
 	private int dangerNum=30;
 	private int exploreNum=20;
+	private int enemyNum = 3;
 	
 	public Sector[][] getSectors() {
 		return sectors;
@@ -43,6 +44,7 @@ public class Grid {
 				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
 			}
 			s.setState(2);
+			s = new FriendlySector();
 		}
 		
 		for(int i=0; i<exploreNum;i++){
@@ -51,6 +53,7 @@ public class Grid {
 				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
 			}
 			s.setState(3);
+			s = new ExplorableSector();
 		}
 		
 		for(int i=0; i<dangerNum;i++){
@@ -59,6 +62,7 @@ public class Grid {
 				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
 			}
 			s.setState(4);
+			s = new DangerousSector();
 		}
 		
 		for(int i=0; i<mysteryNum;i++){

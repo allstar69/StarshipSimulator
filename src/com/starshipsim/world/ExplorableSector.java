@@ -12,6 +12,7 @@ public class ExplorableSector extends Sector {
 	private ArrayList<Obstacle> obstacles;
 	
 	public ExplorableSector(){//randomizes the obstacles and rewards
+		setState(3);
 		generateRewards();
 		generateObstacles();	
 	}
