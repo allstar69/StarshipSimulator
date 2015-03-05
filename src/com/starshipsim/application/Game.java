@@ -50,6 +50,7 @@ public class Game extends JFrame {
 		
 		this.keyboard = new KeyboardListener();
 		this.addKeyListener(keyboard);
+		canvas.addKeyListener(keyboard);
 		
 		states = new StateManager(keyboard);
 	}
