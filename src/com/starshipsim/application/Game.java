@@ -38,6 +38,8 @@ public class Game extends JFrame {
 		this.setTitle("Starship Simulator");
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		this.setUndecorated(true);
 		this.canvas = new Canvas();
 		this.canvas.setSize(new Dimension(WIDTH, HEIGHT));
 		this.add(canvas);

@@ -122,6 +122,9 @@ public class MapState extends State {
 
 		gridDisplay.draw(g);
 		mapMenu.draw(g);
+		
+		//Temp
+		g.drawString("Press Escape to return to the Main Menu.", 32, 950);
 	}
 
 	public void end() {
