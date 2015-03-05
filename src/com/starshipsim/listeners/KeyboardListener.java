@@ -97,5 +97,13 @@ public class KeyboardListener implements KeyListener {
 		// Not needed
 
 	}
+	
+	public void flush() {
+		for (int i = 0; i < KEY_COUNT; ++i) {
+
+			keys[i] = KeyState.RELEASED;
+
+		}
+	}
 
 }

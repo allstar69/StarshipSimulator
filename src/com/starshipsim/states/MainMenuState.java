@@ -56,6 +56,7 @@ public class MainMenuState extends State {
 			switch(currentOption) {
 			case 0:
 				states.setCurrentState(new MapState(states));
+				keyboard.flush();
 				break;
 			case 2:
 				System.exit(0);
