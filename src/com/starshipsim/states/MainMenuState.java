@@ -7,14 +7,16 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 
 import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.panels.MenuUI;
 
 public class MainMenuState extends State {
 
-	private static Image background = FileIO.loadImage("resources/space.png");
 	private static Image largeMenu = FileIO.loadImage("resources/largemenu.png");
 	private static Image shipCursor = FileIO.loadImage("resources/smallship1.png");
+	
+	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"));
 	
 	private int currentOption = 0;
 	
@@ -58,7 +60,7 @@ public class MainMenuState extends State {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(background, 0, 0, null);
+		bg.draw(g, canvas);
 		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 72));
 		

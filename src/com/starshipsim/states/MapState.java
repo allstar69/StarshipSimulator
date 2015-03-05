@@ -8,6 +8,7 @@ import java.awt.Image;
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.objects.Ship;
 import com.starshipsim.panels.GridPanel;
@@ -29,9 +30,10 @@ public class MapState extends State {
 	private Grid grid;
 	private Ship ship;
 
-	private static Image space = FileIO.loadImage("resources/space.png");
 	private static Image keyImg = FileIO.loadImage("resources/key.png");
 	private static Image dialogueBox = FileIO.loadImage("resources/dialogueBox.png");
+	
+	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"));
 
 	private MapMenuPanel mapMenu;
 	private GridPanel gridDisplay;
@@ -122,7 +124,7 @@ public class MapState extends State {
 	
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(space, 0, 0, null);
+		bg.draw(g, canvas);
 		g.drawImage(keyImg, 860, 320, null);
 		g.drawImage(dialogueBox, 16, 832, null);
 		
