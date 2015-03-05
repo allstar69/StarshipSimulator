@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import com.starshipsim.combat.CombatData;
+import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.objects.Ship;
@@ -109,7 +111,9 @@ public class MapState extends State {
 		}
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_E)) {
-			manager.addState(new CombatState(manager));
+			EnemyFleet enemies = new EnemyFleet();
+			CombatData combatData = new CombatData(ship, enemies);
+			manager.addState(new CombatState(manager, combatData));
 		}
 		if(keyboard.keyDownOnce(KeyEvent.VK_Q)) {
 			manager.addState(new SectorState(manager));

@@ -13,10 +13,19 @@ public class EnemyFleet {
 	
 	private ArrayList<EnemyShip> ships;
 	
+	public ArrayList<EnemyShip> getShips() {
+		return ships;
+	}
+
+	public void setShips(ArrayList<EnemyShip> ships) {
+		this.ships = ships;
+	}
+
 	//Temp
-	private static Image ship = FileIO.loadImage("resources/smallship1.png");
+	private static Image ship = FileIO.loadImage("resources/eship1.png");
 	
 	public EnemyFleet() {
+		ships = new ArrayList<>();
 		generateShips();
 	}
 	

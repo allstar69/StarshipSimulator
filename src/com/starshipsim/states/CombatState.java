@@ -5,15 +5,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 
+import com.starshipsim.combat.CombatData;
+import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.listeners.KeyboardListener;
+import com.starshipsim.objects.EnemyShip;
 import com.starshipsim.panels.MenuUI;
 import com.sun.glass.events.KeyEvent;
 
 public class CombatState extends State {
 
 	private static Image imgBackground = FileIO.loadImage("resources/space.png");
+	private static Image imgHud = FileIO.loadImage("resources/combat_hud.png");
 	private static Image imgMenu = FileIO.loadImage("resources/smallmenu.png");
 	private static Image shipCursor = FileIO.loadImage("resources/smallship1.png");
 	
@@ -23,11 +28,19 @@ public class CombatState extends State {
 	
 	private String[] list;
 	
+	private CombatData data;
+	EnemyFleet enemies;
+	ArrayList<EnemyShip> ships;
+	
 	int currentOption = 0;
 	
-	public CombatState(StateManager manager) {
+	public CombatState(StateManager manager, CombatData data) {
 		super(manager);
 		this.keyboard = manager.getKeyboard();
+		this.data = data;
+		this.enemies = data.getEnemies();
+		this.ships = enemies.getShips();
+		
 		initialize();
 	}
 
@@ -55,25 +68,57 @@ public class CombatState extends State {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(imgBackground, 0, 0, null);
-		
-		g.setColor(Color.white);
-		g.drawString("Press Escape to return the Map.", 32, 32);
-		
-		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
-		
-		int menuX = (canvas.getWidth()/2) - (imgMenu.getWidth(null)/2);
-		int menuY = (canvas.getHeight()/2);
-		
-		menu.setX(menuX);
-		menu.setY(menuY);
-		
-		menu.draw(g);
+		drawHUD(g);
+		drawExit(g);
+		drawBattleMenu(g, canvas);
+		drawEnemyShips(g, canvas);
 	}
 
 	@Override
 	public void end() {
 		
 	}
+	
+	private void drawHUD(Graphics g) {
+		g.drawImage(imgBackground, 0, 0, null);
+		//g.drawImage(imgHud, 0, 0, null);
+	}
+	
+	private void drawExit(Graphics g) {
+		g.setColor(Color.white);
+		g.drawString("Press Escape to return the Map.", 32, 32);
+	}
+	
+	private void drawBattleMenu(Graphics g, Canvas canvas) {
+		int centerX = canvas.getWidth()/2;
+		int centerY = canvas.getHeight()/2;
+		
+		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
+		
+		int menuX = centerX - (imgMenu.getWidth(null)/2);
+		int menuY = centerY;
+		
+		menu.setX(menuX);
+		menu.setY(menuY);
+		
+		menu.draw(g);
+	}
+	
+	private void drawEnemyShips(Graphics g, Canvas canvas) {
+		int centerX = canvas.getWidth()/2;
+		
+		int totalWidth = 0;
+		for (int i = 0; i < ships.size(); i++) {
+			totalWidth += ships.get(i).getImage().getWidth(null);
+		}
+		
+		for (int i = 0; i < ships.size(); i++) {
+			EnemyShip ship = ships.get(i);
+			int enemyX = centerX - totalWidth/2;
+			g.drawImage(ship.getImage(), enemyX+(i*(ship.getImage().getWidth(null)+50)), 100, null);
+		}
+	}
+	
+	
 
 }
