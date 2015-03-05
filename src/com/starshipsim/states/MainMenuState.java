@@ -37,9 +37,9 @@ public class MainMenuState extends State {
 	public void update() {
 		KeyboardListener keyboard = manager.getKeyboard();
 		
-		if(keyboard.keyDownOnce(KeyEvent.VK_DOWN)) {
+		if(keyboard.keyDownOnce(KeyEvent.VK_S)) {
 			currentOption++;
-		} else if(keyboard.keyDownOnce(KeyEvent.VK_UP)) {
+		} else if(keyboard.keyDownOnce(KeyEvent.VK_W)) {
 			currentOption--;
 		}
 		
