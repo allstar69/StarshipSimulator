@@ -9,13 +9,13 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 
 import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.panels.MenuUI;
 import com.sun.glass.events.KeyEvent;
 
 public class SectorState extends State {
 
-	private static Image imgBackground = FileIO.loadImage("resources/space.png");
 	private static Image imgShip = FileIO.loadImage("resources/smallship1.png");
 	private static Image imgShip2 = FileIO.loadImage("resources/smallship2.png");
 	private static Image imgEStation = FileIO.loadImage("resources/enemy station.png");
@@ -33,6 +33,8 @@ public class SectorState extends State {
 	private MenuUI menu;
 	
 	private String[] list;
+	
+	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"));
 	
 	int currentOption = 0;
 	
@@ -58,7 +60,7 @@ public class SectorState extends State {
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
 		this.canvas=canvas;
-		g.drawImage(imgBackground, 0, 0, null);
+		bg.draw(g, canvas);
 		xform.setToTranslation(shipX, shipY);
 		xform.rotate(shipRot * Math.PI/4, 16, 16);
 		g.setColor(Color.white);
