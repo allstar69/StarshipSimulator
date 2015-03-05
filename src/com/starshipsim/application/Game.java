@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -22,6 +23,7 @@ public class Game extends JFrame {
 	private final int HEIGHT = 1000;
 	
 	private boolean isRunning;
+	private boolean fullscreen = true;
 	
 	private StateManager states;
 
@@ -75,6 +77,8 @@ public class Game extends JFrame {
 	public void update() {
 		keyboard.poll();
 		states.getCurrentState().update();
+		
+		switchFullScreen();
 	}
 	
 	public void draw() {
@@ -91,6 +95,24 @@ public class Game extends JFrame {
 	
 	//For later use
 	public void end() {
+	}
+	
+	public void switchFullScreen() {
+		if(keyboard.keyDownOnce(KeyEvent.VK_F5)) {
+			if(this.fullscreen == true) {
+				this.dispose();
+				this.setExtendedState(JFrame.NORMAL); 
+				this.setUndecorated(false);
+				this.setVisible(true);
+				this.fullscreen = false;
+			} else {
+				this.dispose();
+				this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				this.setUndecorated(true);
+				this.setVisible(true);
+				this.fullscreen = true;
+			}
+		}
 	}
 	
 	public void tBox() {
