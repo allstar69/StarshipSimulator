@@ -104,8 +104,12 @@ public class MapState extends State {
 	@Override
 	public void update() {
 		//testing new state manager code
-		if(keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
+		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
+		}
+		
+		if(keyboard.keyDownOnce(KeyEvent.VK_E)) {
+			manager.addState(new CombatState(manager));
 		}
 	}
 	
@@ -125,6 +129,7 @@ public class MapState extends State {
 		
 		//Temp
 		g.drawString("Press Escape to return to the Main Menu.", 32, 950);
+		g.drawString("Press E to enter Combat.", 32,  1000);
 	}
 
 	public void end() {
