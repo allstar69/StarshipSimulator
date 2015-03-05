@@ -5,6 +5,7 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
@@ -83,7 +84,7 @@ public class Game extends JFrame {
 	
 	public void draw() {
 		BufferStrategy bf = canvas.getBufferStrategy();
-		Graphics g = bf.getDrawGraphics();
+		Graphics2D g = (Graphics2D) bf.getDrawGraphics();
 		
 		g.setFont(font);
 		

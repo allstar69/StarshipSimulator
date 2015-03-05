@@ -111,6 +111,9 @@ public class MapState extends State {
 		if(keyboard.keyDownOnce(KeyEvent.VK_E)) {
 			manager.addState(new CombatState(manager));
 		}
+		if(keyboard.keyDownOnce(KeyEvent.VK_Q)) {
+			manager.addState(new SectorState(manager));
+		}
 	}
 	
 	@Override
@@ -130,6 +133,7 @@ public class MapState extends State {
 		//Temp
 		g.drawString("Press Escape to return to the Main Menu.", 32, 950);
 		g.drawString("Press E to enter Combat.", 32,  1000);
+		g.drawString("Press Q to explore Sector", 32,  1050);
 	}
 
 	public void end() {
