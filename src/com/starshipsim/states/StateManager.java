@@ -1,12 +1,14 @@
 package com.starshipsim.states;
 
+import java.util.Stack;
+
 import com.starshipsim.listeners.KeyboardListener;
 
 public class StateManager {
-
-	private State currentState;
 	
 	private KeyboardListener keyboard;
+	
+	private Stack<State> states = new Stack<>();
 	
 	public KeyboardListener getKeyboard() {
 		return keyboard;
@@ -14,15 +16,18 @@ public class StateManager {
 
 	public StateManager(KeyboardListener keyboard) {		
 		this.keyboard = keyboard;
-		this.currentState = new MainMenuState(this);
+		states.push(new MainMenuState(this));
 	}
 
 	public State getCurrentState() {
-		return currentState;
+		return states.peek();
 	}
 
-	public void setCurrentState(State currentState) {
-		this.currentState = currentState;
+	public void addState(State state) {
+		states.push(state);
 	}
 	
+	public void popState() {
+		states.pop();
+	}
 }

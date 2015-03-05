@@ -11,6 +11,7 @@ import com.starshipsim.objects.Ship;
 import com.starshipsim.panels.GridPanel;
 import com.starshipsim.panels.MapMenuPanel;
 import com.starshipsim.world.Grid;
+import com.sun.glass.events.KeyEvent;
 
 public class MapState extends State {
 	public final int maxProbeCount = 100;
@@ -81,13 +82,15 @@ public class MapState extends State {
 		this.scienceLevel = scienceLevel;
 	}
 
-	public MapState(StateManager states) {
+	public MapState(StateManager manager) {
+		super(manager);
+		
 		mapMenu = new MapMenuPanel(this, 860, 60);
 		gridDisplay = new GridPanel(this, 0, 0);
 		
 		this.probeCount = 80;
 		
-		this.keyboard = states.getKeyboard();
+		this.keyboard = manager.getKeyboard();
 		this.grid = new Grid();
 		this.ship = new Ship(FileIO.loadImage("resources/smallship1.png"));
 		grid.setShipLocation(ship, ship.getSecX(), ship.getSecY());
@@ -100,6 +103,10 @@ public class MapState extends State {
 	
 	@Override
 	public void update() {
+		//testing new state manager code
+		if(keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
+			manager.popState();
+		}
 	}
 	
 	@Override

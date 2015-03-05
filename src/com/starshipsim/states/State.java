@@ -5,8 +5,10 @@ import java.awt.Graphics;
 
 public abstract class State {
 
-	public State() {
-		
+	protected StateManager manager;
+	
+	public State(StateManager manager) {
+		this.manager = manager;
 	}
 	
 	public abstract void initialize();

@@ -18,17 +18,14 @@ public class MainMenuState extends State {
 	
 	private int currentOption = 0;
 	
-	private StateManager states;
-	
 	private String[] list = new String[] {
 			"Play",
 			"Load",
 			"Exit",
 	};
 	
-	public MainMenuState(StateManager states) {
-		this.states = states;
-		
+	public MainMenuState(StateManager manager) {
+		super(manager);
 		initialize();
 	}
 	
@@ -38,7 +35,7 @@ public class MainMenuState extends State {
 
 	@Override
 	public void update() {
-		KeyboardListener keyboard = states.getKeyboard();
+		KeyboardListener keyboard = manager.getKeyboard();
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_DOWN)) {
 			currentOption++;
@@ -55,7 +52,7 @@ public class MainMenuState extends State {
 		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 			switch(currentOption) {
 			case 0:
-				states.setCurrentState(new MapState(states));
+				manager.addState(new MapState(manager));
 				keyboard.flush();
 				break;
 			case 2:
