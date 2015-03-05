@@ -77,8 +77,8 @@ public class MenuUI {
 			g.drawString(list[i], stringX, stringY);
 		}
 		
-		int cursorX = stringX - imgCursor.getWidth(null);
-		int cursorY = y + (currentOption*metrics.getHeight()) + metrics.getHeight()/2;
+		int cursorX = stringX - (imgCursor.getWidth(null)+5);
+		int cursorY = y + (currentOption * (metrics.getHeight())) + metrics.getHeight()/3;
 		g.drawImage(imgCursor, cursorX, cursorY, null);
 	}
 	
