@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.objects.EnemyShip;
 import com.starshipsim.panels.MenuUI;
@@ -17,10 +18,11 @@ import com.sun.glass.events.KeyEvent;
 
 public class CombatState extends State {
 
-	private static Image imgBackground = FileIO.loadImage("resources/space.png");
 	private static Image imgHud = FileIO.loadImage("resources/combat_hud.png");
 	private static Image imgMenu = FileIO.loadImage("resources/smallmenu.png");
 	private static Image shipCursor = FileIO.loadImage("resources/smallship1.png");
+	
+	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"));
 	
 	private KeyboardListener keyboard;
 	
@@ -68,7 +70,7 @@ public class CombatState extends State {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		drawHUD(g);
+		drawHUD(g, canvas);
 		drawExit(g);
 		drawBattleMenu(g, canvas);
 		drawEnemyShips(g, canvas);
@@ -79,8 +81,8 @@ public class CombatState extends State {
 		
 	}
 	
-	private void drawHUD(Graphics g) {
-		g.drawImage(imgBackground, 0, 0, null);
+	private void drawHUD(Graphics g, Canvas canvas) {
+		bg.draw(g, canvas);
 		//g.drawImage(imgHud, 0, 0, null);
 	}
 	
