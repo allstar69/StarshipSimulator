@@ -71,7 +71,7 @@ public class Grid {
 				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
 			}
 			s.setState(5);
-			s = new EnemyStationSector();
+			s = new EnemySector();
 		}
 		
 		for(int i=0; i<mysteryNum;i++){

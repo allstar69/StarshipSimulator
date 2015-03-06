@@ -6,10 +6,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import com.starshipsim.entities.EnemySpaceStation;
+import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
+import com.starshipsim.world.Sector;
 import com.sun.glass.events.KeyEvent;
 
 public class SectorState extends State {
@@ -23,20 +25,19 @@ public class SectorState extends State {
 
 	private Ship ship;
 	
-	private EnemySpaceStation enemyStation;
+	private Sector sector;
 
-	public SectorState(StateManager manager, Ship ship) {
+	public SectorState(StateManager manager, Ship ship, Sector sector) {
 		super(manager);
 		this.keyboard = manager.getKeyboard();
 		this.ship = ship;
-		this.enemyStation = new EnemySpaceStation(600, 400);
+		this.sector = sector;
 
 		initialize();
 	}
 
 	@Override
 	public void initialize() {
-
 	}
 
 	@Override
@@ -57,7 +58,7 @@ public class SectorState extends State {
 		g.setColor(Color.white);
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
 		
-		enemyStation.draw(g, canvas);
+		sector.draw(g, canvas);
 		
 		ship.draw(g, canvas);
 	}
