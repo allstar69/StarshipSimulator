@@ -20,9 +20,11 @@ public class Sector {
 	private static Image imgFriendly = FileIO.loadImage("resources/freindly.png");
 	private static Image imgExplorable = FileIO.loadImage("resources/explorable.png");
 	private static Image imgDangerous = FileIO.loadImage("resources/dangerous.png");
+	private static Image imgEnemyStation = FileIO.loadImage("resources/enemy station.png");
+
 
 	/*
-	 * 1=neutral 2=friendly 3=explorable 4=dangerous
+	 * 1=neutral 2=friendly 3=explorable 4=dangerous 5=enemy station
 	 */
 
 	public boolean isKnown() {
@@ -87,6 +89,8 @@ public class Sector {
 				} else if (getState() == SectorState.DANGEROUS) {
 					g.drawImage(imgDangerous, x,
 							y, c);
+				} else if (getState() == SectorState.ENEMY_STATION) {
+					g.drawImage(imgEnemyStation, x, y, 64, 64, c);
 				}
 			}
 		}

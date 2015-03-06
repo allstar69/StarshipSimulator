@@ -4,5 +4,6 @@ public enum SectorState {
 	NEUTRAL,
 	FRIENDLY,
 	EXPLORABLE,
-	DANGEROUS;
+	DANGEROUS,
+	ENEMY_STATION;
 }

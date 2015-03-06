@@ -65,6 +65,15 @@ public class Grid {
 			s = new DangerousSector();
 		}
 		
+		for(int i=0; i<enemyNum;i++){
+			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			while(s.getState()!=SectorState.NEUTRAL){
+				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			}
+			s.setState(5);
+			s = new EnemyStationSector();
+		}
+		
 		for(int i=0; i<mysteryNum;i++){
 			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
 			while(s.isMysterious()){
