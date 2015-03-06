@@ -32,6 +32,7 @@ public class Sector {
 
 	public Sector() {
 		entities = new ArrayList<Entity>();
+		setKnown(false);
 	}
 	
 	public ArrayList<Entity> getEntities() {

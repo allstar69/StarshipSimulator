@@ -31,7 +31,6 @@ public class EnemySector extends Sector{
 		setState(5);
 		setHealth(100); //random num, subject to change
 		setDestroyed(false);
-		setKnown(false);
 		generateContent();
 	}
 	
