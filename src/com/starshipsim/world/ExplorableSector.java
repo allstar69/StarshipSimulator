@@ -19,8 +19,13 @@ public class ExplorableSector extends Sector {
 	}
 	public void generateRewards(){
 		ArrayList<Reward> tempRewards = new ArrayList<Reward>();
-		// TODO Generate Rewards
-		setRewards(tempRewards);//set as blank until item class is made
+		Random ran = new Random();
+		int num = ran.nextInt(5);//up to 5 possible rewards
+		for(int i = 0; i < num; i++){
+			tempRewards.add(new Reward()); //adds a reward to the list
+		}
+		
+		setRewards(tempRewards);
 	}
 	//every 'amount' is currently set to 1, most likely will be changed later
 	public void generateObstacles(){
