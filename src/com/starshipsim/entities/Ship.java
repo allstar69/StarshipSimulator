@@ -25,7 +25,7 @@ public class Ship extends Entity {
 	private ShipModule warp = new WarpCore();
 	
 	private int rot = 0;
-	private int speed = 1;
+	private int speed = 2;
 	
 	private static Image imgShip = FileIO.loadImage("resources/smallship1.png");
 	private static Image imgShip2 = FileIO.loadImage("resources/smallship2.png");
@@ -74,21 +74,31 @@ public class Ship extends Entity {
 				if (getX() - 1 > canvas.getX()) {
 					decelerateX();
 				}
+				else if(getSecX()-1>=0){
+					setX(1880);
+					setSecX(getSecX()-1);
+				}
 			} else if (keyboard.keyDown(KeyEvent.VK_D)) {
 				setRot(7);
 				if (getX() + 1 + imgShip.getWidth(null) < canvas.getX()
 						+ canvas.getWidth()) {
 					accelerateX();
 				}
+				else if(getSecX()+1<=11){
+					setX(0);
+					setSecX(getSecX()+1);
+				}
 			} else {
 				setRot(6);
-
 			}
 			
 			if (getY() - 1 > canvas.getY()) {
 				decelerateY();
 			}
-			
+			else if(getSecY()-1>=0){
+				setY(970);
+				setSecY(getSecY()-1);
+			}
 			isFlying = true;
 		} else if (keyboard.keyDown(KeyEvent.VK_S)) {
 			if (keyboard.keyDown(KeyEvent.VK_A)) {
@@ -96,19 +106,30 @@ public class Ship extends Entity {
 				if (getX() - 1 > canvas.getX()) {
 					decelerateX();
 				}
+				else if(getSecX()-1>=0){
+					setX(1880);
+					setSecX(getSecX()-1);
+				}
 			} else if (keyboard.keyDown(KeyEvent.VK_D)) {
 				setRot(1);
 				if (getX() + 1 + imgShip.getWidth(null) < canvas.getX()
 						+ canvas.getWidth()) {
 					accelerateX();
 				}
+				else if(getSecX()+1<=11){
+					setX(0);
+					setSecX(getSecX()+1);
+				}
 			} else {
 				setRot(2);
 			}
 			
-			if (getY() + 1 + imgShip.getHeight(null) < canvas.getY()
-					+ canvas.getHeight()) {
+			if (getY() + 1 + imgShip.getHeight(null) < canvas.getY()+ canvas.getHeight()) {
 				accelerateY();
+			}
+			else if(getSecY()+1<=11){
+				setY(0);
+				setSecY(getSecY()+1);
 			}
 			
 			isFlying = true;
@@ -118,6 +139,10 @@ public class Ship extends Entity {
 			if (getX() - 1 > canvas.getX()) {
 				decelerateX();
 			}
+			else if(getSecX()-1>=0){
+				setX(1880);
+				setSecX(getSecX()-1);
+			}
 			isFlying = true;
 		} else if (keyboard.keyDown(KeyEvent.VK_D)) {
 			setRot(0);
@@ -125,6 +150,11 @@ public class Ship extends Entity {
 			if (getX() + 1 + imgShip.getWidth(null) < canvas.getX() + canvas.getWidth()) {
 				accelerateX();
 			}
+			else if(getSecX()+1<=11){
+				setX(0);
+				setSecX(getSecX()+1);
+			}
+			
 			
 			isFlying = true;
 		} else {

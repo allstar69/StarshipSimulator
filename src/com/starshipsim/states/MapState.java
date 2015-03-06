@@ -122,7 +122,7 @@ public class MapState extends State {
 			manager.addState(new CombatState(manager, combatData));
 		}
 		if(keyboard.keyDownOnce(KeyEvent.VK_Q)) {
-			manager.addState(new SectorState(manager, getShip(), grid.getSector(getShip().getSecX(), getShip().getSecY())));
+			manager.addState(new SectorState(manager, getShip(), grid));
 		}
 		if(keyboard.keyDownOnce(KeyEvent.VK_R)) {
 			manager.addState(new StoreState(manager, player));

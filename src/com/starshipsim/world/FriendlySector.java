@@ -23,7 +23,7 @@ public class FriendlySector extends Sector {
 		Random random = new Random();
 		
 		int x = random.nextInt(1000);
-		int y = random.nextInt(1000);
+		int y = random.nextInt(800);
 		
 		SpaceStation station = new SpaceStation(x, y);
 		this.getEntities().add(station);

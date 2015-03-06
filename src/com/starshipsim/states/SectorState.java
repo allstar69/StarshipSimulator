@@ -9,6 +9,7 @@ import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
+import com.starshipsim.world.Grid;
 import com.starshipsim.world.Sector;
 import com.sun.glass.events.KeyEvent;
 
@@ -24,13 +25,13 @@ public class SectorState extends State {
 	private Ship ship;
 	
 	private Sector sector;
-
-	public SectorState(StateManager manager, Ship ship, Sector sector) {
+	private Grid grid;
+	public SectorState(StateManager manager, Ship ship, Grid grid) {
 		super(manager);
 		this.keyboard = manager.getKeyboard();
 		this.ship = ship;
-		this.sector = sector;
-
+		this.grid=grid;
+		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		initialize();
 	}
 
@@ -40,6 +41,8 @@ public class SectorState extends State {
 
 	@Override
 	public void update() {
+		sector = grid.getSector(ship.getSecX(), ship.getSecY());
+		sector.setKnown(true);
 		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
