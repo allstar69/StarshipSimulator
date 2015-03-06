@@ -200,13 +200,13 @@ public class MapMenuPanel {
 					} else if (sector.getState() == SectorState.DANGEROUS) {
 						state.setLog1("That region is dangerous ");
 					}else if (sector.getState() == SectorState.NEUTRAL){
-						state.changeLog("That region is neutral ");
+						state.setLog1("That region is neutral ");
 					}
 					else if (sector.getState() == SectorState.ENEMY_STATION){
-						state.changeLog("That region is an Enemy Base ");
+						state.setLog1("That region is an Enemy Base ");
 					}
 					if (sector.isHostile()) {
-						state.changeLog(sector.getState()  + "and hostile");
+						state.setLog1(state.getLog1()  + "and hostile");
 					} 
 				}
 			} else {
