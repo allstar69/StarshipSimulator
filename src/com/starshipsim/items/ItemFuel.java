@@ -6,5 +6,10 @@ public class ItemFuel extends Item {
 	public void run() {
 
 	}
-
+	
+	public ItemFuel(int amount) {
+		setPrice(10);
+		setAmount(amount);
+	}
+	
 }
