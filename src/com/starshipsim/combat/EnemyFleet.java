@@ -9,7 +9,7 @@ import com.starshipsim.objects.EnemyShip;
 
 public class EnemyFleet {
 
-	private final int MAX_SHIPS = 4;
+	private final int MAX_SHIPS = 3;
 	
 	private ArrayList<EnemyShip> ships;
 	
