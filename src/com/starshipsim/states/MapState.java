@@ -13,7 +13,6 @@ import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.panels.GridPanel;
 import com.starshipsim.panels.MapMenuPanel;
-import com.starshipsim.world.EnemySector;
 import com.starshipsim.world.Grid;
 import com.sun.glass.events.KeyEvent;
 

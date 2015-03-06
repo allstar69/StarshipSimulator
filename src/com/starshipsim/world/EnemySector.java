@@ -32,18 +32,20 @@ public class EnemySector extends Sector{
 		setHealth(100); //random num, subject to change
 		setDestroyed(false);
 		
-		generateContents();
+		generateContent();
 	}
 	
 	//for later use
-	public void generateContents() {
+	public void generateContent() {
 		Random random = new Random();
 		
 		int stationAmount = random.nextInt(4)+1;
 		for (int i = 0; i < stationAmount; i++) {
 			int x = random.nextInt(1000);
 			int y = random.nextInt(1000);
-			this.entities.add(new EnemySpaceStation(x, y));
+			
+			EnemySpaceStation station = new EnemySpaceStation(x, y);
+			this.getEntities().add(station);
 		}
 	}
 	
@@ -58,4 +60,5 @@ public class EnemySector extends Sector{
 			setDestroyed(true);
 		}
 	}
+	
 }

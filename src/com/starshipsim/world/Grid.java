@@ -34,44 +34,60 @@ public class Grid {
 		
 		for(int i = 0; i<sectors.length;i++){
 			for(int j = 0; j<sectors.length;j++){
-				sectors[j][i]= new Sector();
+				sectors[j][i]= new NeutralSector();
 			}
 		}
 		
 		for(int i=0; i<friendlyNum;i++){
-			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			int x = rand.nextInt(12);
+			int y = rand.nextInt(12);
+			
+			Sector s=sectors[x][y];
 			while(s.getState()!=SectorState.NEUTRAL){
-				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+				x = rand.nextInt(12);
+				y = rand.nextInt(12);
+				s=sectors[x][y];
 			}
-			s.setState(2);
-			s = new FriendlySector();
+			sectors[x][y] = new FriendlySector();
 		}
 		
 		for(int i=0; i<exploreNum;i++){
-			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			int x = rand.nextInt(12);
+			int y = rand.nextInt(12);
+			
+			Sector s=sectors[x][y];
 			while(s.getState()!=SectorState.NEUTRAL){
-				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+				x = rand.nextInt(12);
+				y = rand.nextInt(12);
+				s=sectors[x][y];
 			}
-			s.setState(3);
-			s = new ExplorableSector();
+			sectors[x][y] = new ExplorableSector();
 		}
 		
 		for(int i=0; i<dangerNum;i++){
-			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			int x = rand.nextInt(12);
+			int y = rand.nextInt(12);
+			
+			Sector s=sectors[x][y];
 			while(s.getState()!=SectorState.NEUTRAL){
-				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+				x = rand.nextInt(12);
+				y = rand.nextInt(12);
+				s=sectors[x][y];
 			}
-			s.setState(4);
-			s = new DangerousSector();
+			sectors[x][y] = new DangerousSector();
 		}
 		
 		for(int i=0; i<enemyNum;i++){
-			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			int x = rand.nextInt(12);
+			int y = rand.nextInt(12);
+			
+			Sector s=sectors[x][y];
 			while(s.getState()!=SectorState.NEUTRAL){
-				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+				x = rand.nextInt(12);
+				y = rand.nextInt(12);
+				s=sectors[x][y];
 			}
-			s.setState(5);
-			s = new EnemySector();
+			sectors[x][y] = new EnemySector();
 		}
 		
 		for(int i=0; i<mysteryNum;i++){
