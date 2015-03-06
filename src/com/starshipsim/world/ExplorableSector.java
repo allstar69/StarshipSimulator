@@ -66,6 +66,7 @@ public class ExplorableSector extends Sector {
 	public void run(){
 		faceObstacles();
 		receiveRewards();
+		setState(1);//sets to Neutral because it has been exhausted
 	}
 	public void faceObstacles(){
 		

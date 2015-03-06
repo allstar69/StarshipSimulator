@@ -20,6 +20,7 @@ public class EnemyStationSector extends Sector{
 	
 	public EnemyStationSector()
 	{
+		setState(5);
 		setHealth(100); //random num, subject to change
 		setDestroyed(false);
 	}

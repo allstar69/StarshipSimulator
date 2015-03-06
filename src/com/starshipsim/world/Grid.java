@@ -10,7 +10,7 @@ public class Grid {
 	
 	private int mysteryNum=40;
 	private int hostileNum=75;
-	private int friendlyNum=50;
+	private int friendlyNum=47;
 	private int dangerNum=30;
 	private int exploreNum=20;
 	private int enemyNum = 3;
