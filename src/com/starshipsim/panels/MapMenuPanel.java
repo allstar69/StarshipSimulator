@@ -180,18 +180,19 @@ public class MapMenuPanel {
 				if (sector.isMysterious()) {
 					state.changeLog("That region is mysterious");
 				} else {
-					if (sector.isHostile()) {
-						state.changeLog("That region is hostile");
-					} else {
+					
+					if (sector.getState() == SectorState.FRIENDLY) {
+						state.setLog1(state.getLog1() + "That region is friendly");
+					} else if (sector.getState() == SectorState.EXPLORABLE) {
+						state.setLog1(state.getLog1() + "That region is explorable");
+					} else if (sector.getState() == SectorState.DANGEROUS) {
+						state.setLog1(state.getLog1() + "That region is dangerous");
+					}else if (sector.getState() == SectorState.NEUTRAL){
 						state.changeLog("That region is neutral");
 					}
-					if (sector.getState() == SectorState.FRIENDLY) {
-						state.setLog1(state.getLog1() + " and friendly");
-					} else if (sector.getState() == SectorState.EXPLORABLE) {
-						state.setLog1(state.getLog1() + " and explorable");
-					} else if (sector.getState() == SectorState.DANGEROUS) {
-						state.setLog1(state.getLog1() + " and dangerous");
-					}
+					if (sector.isHostile()) {
+						state.changeLog(sector.getState()  + "and hostile");
+					} 
 				}
 			} else {
 				state.changeLog("That region is unknown.");
