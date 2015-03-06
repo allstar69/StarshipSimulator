@@ -46,7 +46,7 @@ public class Sector {
 	public void setKnown(boolean known) {
 		this.known = known;
 	}
-
+	
 	public boolean isMysterious() {
 		return mysterious;
 	}

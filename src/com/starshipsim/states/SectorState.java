@@ -34,7 +34,6 @@ public class SectorState extends State {
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		initialize();
 	}
-
 	@Override
 	public void initialize() {
 	}
@@ -44,6 +43,9 @@ public class SectorState extends State {
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		sector.setKnown(true);
 		sector.update();
+		if(!sector.isKnown()){
+			sector.setKnown(true);
+		}
 		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
