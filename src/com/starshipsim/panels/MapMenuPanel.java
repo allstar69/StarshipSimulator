@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.starshipsim.enums.SectorState;
 import com.starshipsim.files.FileIO;
+import com.starshipsim.listeners.MapListener;
 import com.starshipsim.shipmodules.WarpCore;
 import com.starshipsim.states.MapState;
 import com.starshipsim.world.Sector;
@@ -20,10 +21,17 @@ public class MapMenuPanel {
 	private int curY = 0;
 	private int selX = 0;
 	private int selY = 0;
+	
+	private MapListener mp = new MapListener();
 
 	int x, y;
 	
 	private MapState state;
+	
+	public MapListener getMapListener()
+	{
+		return mp;
+	}
 
 	public MapMenuPanel(MapState state, int x, int y) {
 		this.x = x;
@@ -140,7 +148,11 @@ public class MapMenuPanel {
 
 			Sector sector = state.getGrid().getSector(selX, selY);
 
-			sector.setKnown(true);
+			if(!sector.isKnown())
+			{
+				sector.setKnown(true);
+			}
+			
 			if (sector.isHostile()) {
 				state.changeLog("Enemies Detected");
 				state.changeLog("Enemies Fled");
@@ -317,6 +329,7 @@ public class MapMenuPanel {
 			if (!sector.isKnown()) {
 				if (state.getProbeCount() > 0) {
 					sector.setKnown(true);
+					
 					if (sector.isMysterious()) {
 						state.changeLog("That region is mysterious");
 					} else {
