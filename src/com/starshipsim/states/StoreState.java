@@ -26,13 +26,10 @@ public class StoreState extends State {
 	
 	//Buy list - temp - will be based on station inventory
 	private String[] buyList = new String[] {
-			"Repair Drone",
-			"Fuel",
-			"Stun Bomb",
-			"Missile",
-			"Laser Canon",
-			"Mega Laser",
-			"Impulse Drive",
+			"Fuel................................$10",
+			"Repair Drone................$600",
+			"Stun Bomb.....................$150",
+			"Missile............................$100"
 	};
 
 	private MenuUI menu;
@@ -53,6 +50,21 @@ public class StoreState extends State {
 	public void update() {
 		KeyboardListener keyboard = manager.getKeyboard();
 		
+		switch (currentOption) {
+		case 0:
+			itemDesc = "This is fuel";
+			break;
+		case 1:
+			itemDesc = "Repair drone";
+			break;
+		case 2:
+			itemDesc = "Stun Bomb";
+			break;
+		case 3:
+			itemDesc = "Missile";
+			break;
+		}
+		
 		menu.update();
 		this.currentOption = menu.getCurrentOption();
 		
@@ -70,14 +82,13 @@ public class StoreState extends State {
 	public void draw(Graphics g, Canvas canvas) {
 		bg.draw(g, canvas);
 		
-		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 72));
+		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 58));
 		
 		g.setColor(Color.white);
 		g.drawString("ITEM", 250, 100);
-		g.drawString("PRICE", 750, 100);
-		g.drawString("MONEY: $5600", 1250, 100);
-		
-		int menusWidth = storeLeft.getWidth(null) * 2 + 100;
+		g.drawString("PRICE", 950, 100);
+		g.drawString("MONEY: $5600", 1370, 100);
+
 		int menuY = (canvas.getHeight()/2) - (storeLeft.getHeight(null)/2);
 		
 		menu.setX(50);
@@ -87,7 +98,9 @@ public class StoreState extends State {
 		int rightX = menuY + storeLeft.getWidth(null) - 50;
 		g.drawImage(storeRight, rightX, menuY, null);
 		g.drawString(itemDesc, 1300, 220);
-		
+		g.drawString("Currently Owned", 1275, 825);
+		g.drawString("1", 1550, 900);
+		g.drawString("Press Escape to return to the Star Map.", 32, 1050);
 	}
 
 	@Override
