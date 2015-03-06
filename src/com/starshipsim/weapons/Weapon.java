@@ -1,5 +1,7 @@
 package com.starshipsim.weapons;
 
-public class Weapon {
+import com.starshipsim.items.WeaponItem;
+
+public class Weapon extends WeaponItem{
 
 }
