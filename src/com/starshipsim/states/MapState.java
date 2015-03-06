@@ -30,7 +30,6 @@ public class MapState extends State {
 	private Grid grid;
 	private Ship ship;
 
-	private static Image imgShip = FileIO.loadImage("resources/smallship1.png");
 	private static Image keyImg = FileIO.loadImage("resources/key.png");
 	private static Image dialogueBox = FileIO.loadImage("resources/dialogueBox.png");
 	
@@ -98,7 +97,7 @@ public class MapState extends State {
 	
 	@Override
 	public void initialize() {
-		this.ship = new Ship(imgShip, 960, 540, this.keyboard);
+		this.ship = new Ship(960, 540, this.keyboard);
 		mapMenu = new MapMenuPanel(this, 860, 60);
 		gridDisplay = new GridPanel(this, 0, 0);
 		

@@ -35,8 +35,8 @@ public class Ship extends Entity {
 	private KeyboardListener keyboard;
 	private AffineTransform xform = new AffineTransform();
 	
-	public Ship(Image image, int x, int y, KeyboardListener keyboard) {
-		super(image, x, y);
+	public Ship(int x, int y, KeyboardListener keyboard) {
+		super(imgShip, x, y);
 		
 		Random rand = new Random();
 		secX = rand.nextInt(11);

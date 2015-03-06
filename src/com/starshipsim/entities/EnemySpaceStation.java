@@ -4,10 +4,14 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import com.starshipsim.files.FileIO;
+
 public class EnemySpaceStation extends Entity {
 
-	public EnemySpaceStation(Image image, int x, int y) {
-		super(image, x, y);
+	private static Image img = FileIO.loadImage("resources/enemy station.png");
+	
+	public EnemySpaceStation(int x, int y) {
+		super(img, x, y);
 	}
 
 	@Override
@@ -24,8 +28,7 @@ public class EnemySpaceStation extends Entity {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		// TODO Auto-generated method stub
-		
+		g.drawImage(img, x, y, 200, 200, null);
 	}
 
 }
