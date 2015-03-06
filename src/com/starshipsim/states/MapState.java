@@ -98,7 +98,7 @@ public class MapState extends State {
 	
 	@Override
 	public void initialize() {
-		this.ship = new Ship(imgShip, this.keyboard);
+		this.ship = new Ship(imgShip, 960, 540, this.keyboard);
 		mapMenu = new MapMenuPanel(this, 860, 60);
 		gridDisplay = new GridPanel(this, 0, 0);
 		

@@ -34,7 +34,7 @@ public class EnemyFleet {
 		int amount = random.nextInt(MAX_SHIPS)+1;
 		
 		for (int i = 0; i < amount; i++) {
-			ships.add(new EnemyShip(ship, null));
+			ships.add(new EnemyShip(ship, 0, 0, null));
 		}
 	}
 	

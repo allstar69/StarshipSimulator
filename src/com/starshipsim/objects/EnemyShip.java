@@ -6,8 +6,8 @@ import com.starshipsim.listeners.KeyboardListener;
 
 public class EnemyShip extends Ship {
 
-	public EnemyShip(Image image, KeyboardListener keyboard) {
-		super(image, keyboard);
+	public EnemyShip(Image image, int x, int y, KeyboardListener keyboard) {
+		super(image, x, y, keyboard);
 	}
 
 }

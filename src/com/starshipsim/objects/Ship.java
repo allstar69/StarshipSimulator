@@ -12,10 +12,7 @@ import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.shipmodules.*;
 import com.sun.glass.events.KeyEvent;
 
-public class Ship {
-	// Starship class
-
-	private Image image;
+public class Ship extends Entity {
 	private int durability = 100;
 	private int maxDurability = 100;
 	private int secX;
@@ -27,8 +24,6 @@ public class Ship {
 	private ShipModule propulsion = new PropulsionSystem();
 	private ShipModule warp = new WarpCore();
 	
-	private int x = 960;
-	private int y = 540;
 	private int rot = 0;
 	private int speed = 1;
 	
@@ -40,13 +35,37 @@ public class Ship {
 	private KeyboardListener keyboard;
 	private AffineTransform xform = new AffineTransform();
 	
-	public Ship(Image image, KeyboardListener keyboard) {
-		this.image = image;
+	public Ship(Image image, int x, int y, KeyboardListener keyboard) {
+		super(image, x, y);
+		
 		Random rand = new Random();
 		secX = rand.nextInt(11);
 		secY = rand.nextInt(11);
 		this.keyboard = keyboard;
 	}
+	
+	@Override
+	public void initialize() {
+		
+	}
+
+	@Override
+	public void update() {
+		
+	}
+	
+	@Override
+	public void draw(Graphics g, Canvas canvas) {
+		xform.setToTranslation(getX(), getY());
+		xform.rotate(getRot() * Math.PI / 4, 16, 16);
+		
+		if (isFlying) {
+			((Graphics2D) g).drawImage(imgShip2, xform, canvas);
+		} else {
+			((Graphics2D) g).drawImage(imgShip, xform, canvas);
+		}
+	}
+	
 	
 	public void move(Canvas canvas) {
 		if (keyboard.keyDown(KeyEvent.VK_W)) {
@@ -112,18 +131,7 @@ public class Ship {
 			isFlying = false;
 		}
 	}
-	
-	public void draw(Graphics g, Canvas canvas) {
-		xform.setToTranslation(getX(), getY());
-		xform.rotate(getRot() * Math.PI / 4, 16, 16);
-		
-		if (isFlying) {
-			((Graphics2D) g).drawImage(imgShip2, xform, canvas);
-		} else {
-			((Graphics2D) g).drawImage(imgShip, xform, canvas);
-		}
-	}
-	
+
 	public void decelerateX() {
 		setX(getX()-getSpeed());
 	}
@@ -138,14 +146,6 @@ public class Ship {
 	
 	public void accelerateY() {
 		setY(getY()+getSpeed());
-	}
-	
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
 	}
 
 	public int getDurability() {
@@ -218,22 +218,6 @@ public class Ship {
 
 	public void setWarp(ShipModule warp) {
 		this.warp = warp;
-	}
-
-	public  int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public  int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 
 	public int getRot() {
