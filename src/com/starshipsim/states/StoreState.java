@@ -6,11 +6,15 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
+import com.starshipsim.entities.Player;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
+import com.starshipsim.items.Item;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.panels.MenuUI;
+import com.starshipsim.panels.StoreMenuUI;
 
 public class StoreState extends State {
 	private static Image storeLeft = FileIO.loadImage("resources/storeLeft.png");
@@ -18,53 +22,40 @@ public class StoreState extends State {
 	private static Image shipCursor = FileIO.loadImage("resources/smallship1.png");
 	
 	private int currentOption = 0;
-	private String itemDesc = "Place\nHolder";
-	//private SpaceStation station;
-	//private int total = 0;
+	private String itemDesc = "Place Holder";
+	private int currentMoney = 5600;
+	private ArrayList<Item> inventory;
 	
 	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"));
 	
-	//Buy list - temp - will be based on station inventory
-	private String[] buyList = new String[] {
-			"Fuel................................$10",
-			"Repair Drone................$600",
-			"Stun Bomb.....................$150",
-			"Missile............................$100"
-	};
+	private String[] itemList;
+	private String[] priceList;
 
-	private MenuUI menu;
+	private StoreMenuUI menu;
 	
-	public StoreState(StateManager manager) {
+	public StoreState(StateManager manager, Player p) {
 		super(manager);
+		inventory = p.getInventory();
+		itemList = new String[inventory.size()];
+		priceList = new String[inventory.size()];
+		for (int ii = 0; ii < inventory.size(); ii++) {
+			itemList[ii] = inventory.get(ii).getName();
+			priceList[ii] = " $" + inventory.get(ii).getPrice();
+		}
 		initialize();
 	}
 	
+
 	@Override
 	public void initialize() {
-
-		menu = new MenuUI(manager.getKeyboard(), storeLeft, shipCursor, buyList);
+		menu = new StoreMenuUI(manager.getKeyboard(), storeLeft, shipCursor, itemList, priceList);
 		
 	}
 
 	@Override
 	public void update() {
 		KeyboardListener keyboard = manager.getKeyboard();
-		
-		switch (currentOption) {
-		case 0:
-			itemDesc = "This is fuel";
-			break;
-		case 1:
-			itemDesc = "Repair drone";
-			break;
-		case 2:
-			itemDesc = "Stun Bomb";
-			break;
-		case 3:
-			itemDesc = "Missile";
-			break;
-		}
-		
+				
 		menu.update();
 		this.currentOption = menu.getCurrentOption();
 		
@@ -74,8 +65,11 @@ public class StoreState extends State {
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 			currentOption = menu.getCurrentOption();
+			if (currentMoney >= inventory.get(currentOption).getPrice()) {
+				currentMoney -= inventory.get(currentOption).getPrice();
+				inventory.get(currentOption).setAmount(inventory.get(currentOption).getAmount() + 1);
+			}
 		}
-
 	}
 
 	@Override
@@ -85,9 +79,9 @@ public class StoreState extends State {
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 58));
 		
 		g.setColor(Color.white);
-		g.drawString("ITEM", 250, 100);
+		g.drawString("ITEM", 130, 100);
 		g.drawString("PRICE", 950, 100);
-		g.drawString("MONEY: $5600", 1370, 100);
+		g.drawString("MONEY: $" + currentMoney, 1370, 100);
 
 		int menuY = (canvas.getHeight()/2) - (storeLeft.getHeight(null)/2);
 		
@@ -99,7 +93,7 @@ public class StoreState extends State {
 		g.drawImage(storeRight, rightX, menuY, null);
 		g.drawString(itemDesc, 1300, 220);
 		g.drawString("Currently Owned", 1275, 825);
-		g.drawString("1", 1550, 900);
+		g.drawString(Integer.toString(inventory.get(currentOption).getAmount()), 1550, 900);
 		g.drawString("Press Escape to return to the Star Map.", 32, 1050);
 	}
 
