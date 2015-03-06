@@ -1,6 +1,6 @@
 package com.starshipsim.shipmodules;
 
-import com.starshipsim.objects.Ship;
+import com.starshipsim.entities.Ship;
 
 public class WarpCore extends ShipModule {
 	private int maxWarp = 3;

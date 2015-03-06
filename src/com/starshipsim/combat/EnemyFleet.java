@@ -4,8 +4,8 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.files.FileIO;
-import com.starshipsim.objects.EnemyShip;
 
 public class EnemyFleet {
 

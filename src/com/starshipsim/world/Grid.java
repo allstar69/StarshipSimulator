@@ -2,8 +2,8 @@ package com.starshipsim.world;
 
 import java.util.Random;
 
+import com.starshipsim.entities.Ship;
 import com.starshipsim.enums.SectorState;
-import com.starshipsim.objects.Ship;
 
 public class Grid {
 	private Sector[][] sectors;

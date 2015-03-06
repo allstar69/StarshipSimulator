@@ -8,10 +8,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 
+import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.objects.Ship;
 import com.starshipsim.panels.MenuUI;
 import com.sun.glass.events.KeyEvent;
 

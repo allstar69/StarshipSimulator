@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
+import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.objects.EnemyShip;
 import com.starshipsim.panels.MenuUI;
 import com.sun.glass.events.KeyEvent;
 
