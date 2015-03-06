@@ -8,12 +8,12 @@ import com.starshipsim.enums.SectorState;
 public class Grid {
 	private Sector[][] sectors;
 	
-	private int mysteryNum=40;
+	private int mysteryNum=15;
 	private int hostileNum=75;
-	private int friendlyNum=47;
-	private int dangerNum=30;
+	private int friendlyNum=25;
+	private int dangerNum=20;
 	private int exploreNum=20;
-	private int enemyNum = 3;
+	private int enemyNum = 5;
 	
 	public Sector[][] getSectors() {
 		return sectors;
