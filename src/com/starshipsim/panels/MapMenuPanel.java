@@ -182,13 +182,16 @@ public class MapMenuPanel {
 				} else {
 					
 					if (sector.getState() == SectorState.FRIENDLY) {
-						state.setLog1(state.getLog1() + "That region is friendly");
+						state.setLog1("That region is friendly ");
 					} else if (sector.getState() == SectorState.EXPLORABLE) {
-						state.setLog1(state.getLog1() + "That region is explorable");
+						state.setLog1("That region is explorable ");
 					} else if (sector.getState() == SectorState.DANGEROUS) {
-						state.setLog1(state.getLog1() + "That region is dangerous");
+						state.setLog1("That region is dangerous ");
 					}else if (sector.getState() == SectorState.NEUTRAL){
-						state.changeLog("That region is neutral");
+						state.changeLog("That region is neutral ");
+					}
+					else if (sector.getState() == SectorState.ENEMY_STATION){
+						state.changeLog("That region is an Enemy Base ");
 					}
 					if (sector.isHostile()) {
 						state.changeLog(sector.getState()  + "and hostile");
