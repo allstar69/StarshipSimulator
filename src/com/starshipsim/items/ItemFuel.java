@@ -10,6 +10,7 @@ public class ItemFuel extends Item {
 	public ItemFuel(int amount) {
 		setPrice(10);
 		setAmount(amount);
+		setName("Fuel");
 	}
 	
 }

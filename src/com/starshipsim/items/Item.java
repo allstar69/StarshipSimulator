@@ -4,6 +4,7 @@ public abstract class Item {
 
 	int amount;
 	int price;
+	String name;
 	
 	public abstract void run();
 
@@ -22,6 +23,13 @@ public abstract class Item {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 }
