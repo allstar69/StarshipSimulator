@@ -9,7 +9,7 @@ public class Reward {
 	
 	public Reward(){
 		Random ran = new Random();
-		int num = ran.nextInt(3);
+		int num = ran.nextInt(6);
 		switch(num){
 		case 0:
 			setRewardItem(new ItemFuel(genNum(1,10)));
@@ -17,10 +17,18 @@ public class Reward {
 		case 1:
 			setRewardItem(new ItemRepairDrone(genNum(1,5)));
 			break;
-			
 		case 2:
 			setRewardItem(new ItemStunBomb(genNum(1,3)));
 			break;		
+		case 3:
+			setRewardItem(new ItemSatellite(genNum(1, 3)));
+			break;
+		case 4:
+			setRewardItem(new ItemExplosiveBomb(genNum(1, 10)));
+			break;
+		case 5:
+			setRewardItem(new ItemScanner(genNum(2, 7)));
+			break;
 		}
 	}
 
