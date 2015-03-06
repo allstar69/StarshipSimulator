@@ -11,6 +11,7 @@ public class DangerousSector extends Sector {
 	public DangerousSector(){
 		setState(4);
 		generateContent();
+		setKnown(false);
 	}
 	public void randomWarp(){
 		//warps you to a random sector

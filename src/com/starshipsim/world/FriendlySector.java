@@ -6,6 +6,7 @@ public class FriendlySector extends Sector {
 	private SpaceStation station;
 	
 	public FriendlySector(){
+		setKnown(false);
 		setState(2);
 		setStation(new SpaceStation(0, 0));
 	}

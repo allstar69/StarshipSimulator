@@ -15,6 +15,7 @@ public class ExplorableSector extends Sector {
 		setState(3);
 		generateRewards();
 		generateObstacles();	
+		setKnown(false);
 	}
 	public void generateRewards(){
 		ArrayList<Reward> tempRewards = new ArrayList<Reward>();
