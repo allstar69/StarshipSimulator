@@ -1,6 +1,6 @@
 package com.starshipsim.shipmodules;
 
-import com.starshipsim.objects.Ship;
+import com.starshipsim.entities.Ship;
 
 public class PropulsionSystem extends ShipModule {
 	private int distance = 10;

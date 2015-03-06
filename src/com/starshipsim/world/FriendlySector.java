@@ -1,12 +1,13 @@
 package com.starshipsim.world;
 
-import com.starshipsim.objects.SpaceStation;
+import com.starshipsim.entities.SpaceStation;
 
 public class FriendlySector extends Sector {
 	private SpaceStation station;
+	
 	public FriendlySector(){
 		setState(2);
-		setStation(new SpaceStation());
+		setStation(new SpaceStation(0, 0));
 	}
 	public SpaceStation getStation() {
 		return station;

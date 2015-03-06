@@ -4,8 +4,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
-import com.starshipsim.objects.Ship;
 import com.starshipsim.states.MapState;
 import com.starshipsim.world.Grid;
 import com.starshipsim.world.Sector;

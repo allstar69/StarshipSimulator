@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
+import com.starshipsim.entities.EnemyShip;
+import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.objects.EnemyShip;
-import com.starshipsim.objects.Ship;
 import com.starshipsim.panels.MenuUI;
 import com.sun.glass.events.KeyEvent;
 
@@ -21,6 +21,7 @@ public class CombatState extends State {
 
 	private static Image imgHud = FileIO.loadImage("resources/combat_hud.png");
 	private static Image imgMenu = FileIO.loadImage("resources/smallmenu.png");
+	private static Image imgEnemy = FileIO.loadImage("resources/eship1.png");
 	private static Image shipCursor = FileIO.loadImage("resources/smallship1.png");
 	private static int cursorX=800;
 	private static int cursorY=760;
@@ -162,7 +163,7 @@ public class CombatState extends State {
 		for (int i = 0; i < ships.size(); i++) {
 			EnemyShip ship = ships.get(i);
 			int enemyX = centerX - totalWidth/2;
-			g.drawImage(ship.getImage(), enemyX+(i*(450)), 200, 400, 260,null);
+			g.drawImage(imgEnemy, enemyX+(i*(450)), 200, 400, 260,null);
 		}
 	}
 	

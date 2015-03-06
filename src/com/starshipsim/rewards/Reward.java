@@ -1,6 +1,6 @@
 package com.starshipsim.rewards;
 
-import com.starshipsim.objects.Item;
+import com.starshipsim.items.Item;
 
 public class Reward {
 	private Item rewardItem;

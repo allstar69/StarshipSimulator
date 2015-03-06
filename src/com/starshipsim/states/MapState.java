@@ -7,10 +7,10 @@ import java.awt.Image;
 
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
+import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.objects.Ship;
 import com.starshipsim.panels.GridPanel;
 import com.starshipsim.panels.MapMenuPanel;
 import com.starshipsim.world.Grid;
@@ -89,20 +89,22 @@ public class MapState extends State {
 	public MapState(StateManager manager) {
 		super(manager);
 		
+		this.keyboard = manager.getKeyboard();
+		keyboard.flush();
+		
+		initialize();
+	}
+	
+	@Override
+	public void initialize() {
+		this.ship = new Ship(960, 540, this.keyboard);
 		mapMenu = new MapMenuPanel(this, 860, 60);
 		gridDisplay = new GridPanel(this, 0, 0);
 		
 		this.probeCount = 80;
 		
-		this.keyboard = manager.getKeyboard();
 		this.grid = new Grid();
-		this.ship = new Ship(FileIO.loadImage("resources/smallship1.png"));
 		grid.setShipLocation(ship, ship.getSecX(), ship.getSecY());
-	}
-	
-	@Override
-	public void initialize() {
-
 	}
 	
 	@Override
@@ -118,7 +120,10 @@ public class MapState extends State {
 			manager.addState(new CombatState(manager, combatData));
 		}
 		if(keyboard.keyDownOnce(KeyEvent.VK_Q)) {
-			manager.addState(new SectorState(manager));
+			manager.addState(new SectorState(manager, this.ship));
+		}
+		if(keyboard.keyDownOnce(KeyEvent.VK_R)) {
+			manager.addState(new StoreState(manager));
 		}
 	}
 	
@@ -140,6 +145,7 @@ public class MapState extends State {
 		g.drawString("Press Escape to return to the Main Menu.", 32, 950);
 		g.drawString("Press E to enter Combat.", 32,  1000);
 		g.drawString("Press Q to explore Sector", 32,  1050);
+		g.drawString("Press R to view the store", 450,  1000);
 	}
 
 	public void end() {

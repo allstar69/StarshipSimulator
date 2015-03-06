@@ -1,6 +1,6 @@
 package com.starshipsim.combat;
 
-import com.starshipsim.objects.Ship;
+import com.starshipsim.entities.Ship;
 
 public class CombatData {
 
