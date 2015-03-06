@@ -1,9 +1,16 @@
 package com.starshipsim.objects;
 
+import java.awt.Canvas;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.util.Random;
 
+import com.starshipsim.files.FileIO;
+import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.shipmodules.*;
+import com.sun.glass.events.KeyEvent;
 
 public class Ship {
 	// Starship class
@@ -19,14 +26,120 @@ public class Ship {
 	private ShipModule weapon = new WeaponSystem();
 	private ShipModule propulsion = new PropulsionSystem();
 	private ShipModule warp = new WarpCore();
+	
+	private int x = 960;
+	private int y = 540;
+	private int rot = 0;
+	private int speed = 1;
+	
+	private static Image imgShip = FileIO.loadImage("resources/smallship1.png");
+	private static Image imgShip2 = FileIO.loadImage("resources/smallship2.png");
+	
+	private boolean isFlying = false;
 
-	public Ship(Image image) {
+	private KeyboardListener keyboard;
+	private AffineTransform xform = new AffineTransform();
+	
+	public Ship(Image image, KeyboardListener keyboard) {
 		this.image = image;
 		Random rand = new Random();
 		secX = rand.nextInt(11);
 		secY = rand.nextInt(11);
+		this.keyboard = keyboard;
 	}
+	
+	public void move(Canvas canvas) {
+		if (keyboard.keyDown(KeyEvent.VK_W)) {
+			if (keyboard.keyDown(KeyEvent.VK_A)) {
+				setRot(5);
+				if (getX() - 1 > canvas.getX()) {
+					decelerateX();
+				}
+			} else if (keyboard.keyDown(KeyEvent.VK_D)) {
+				setRot(7);
+				if (getX() + 1 + imgShip.getWidth(null) < canvas.getX()
+						+ canvas.getWidth()) {
+					accelerateX();
+				}
+			} else {
+				setRot(6);
 
+			}
+			
+			if (getY() - 1 > canvas.getY()) {
+				decelerateY();
+			}
+			
+			isFlying = true;
+		} else if (keyboard.keyDown(KeyEvent.VK_S)) {
+			if (keyboard.keyDown(KeyEvent.VK_A)) {
+				setRot(3);
+				if (getX() - 1 > canvas.getX()) {
+					decelerateX();
+				}
+			} else if (keyboard.keyDown(KeyEvent.VK_D)) {
+				setRot(1);
+				if (getX() + 1 + imgShip.getWidth(null) < canvas.getX()
+						+ canvas.getWidth()) {
+					accelerateX();
+				}
+			} else {
+				setRot(2);
+			}
+			
+			if (getY() + 1 + imgShip.getHeight(null) < canvas.getY()
+					+ canvas.getHeight()) {
+				accelerateY();
+			}
+			
+			isFlying = true;
+		} else if (keyboard.keyDown(KeyEvent.VK_A)) {
+			setRot(4);
+			
+			if (getX() - 1 > canvas.getX()) {
+				decelerateX();
+			}
+			isFlying = true;
+		} else if (keyboard.keyDown(KeyEvent.VK_D)) {
+			setRot(0);
+			
+			if (getX() + 1 + imgShip.getWidth(null) < canvas.getX() + canvas.getWidth()) {
+				accelerateX();
+			}
+			
+			isFlying = true;
+		} else {
+			isFlying = false;
+		}
+	}
+	
+	public void draw(Graphics g, Canvas canvas) {
+		xform.setToTranslation(getX(), getY());
+		xform.rotate(getRot() * Math.PI / 4, 16, 16);
+		
+		if (isFlying) {
+			((Graphics2D) g).drawImage(imgShip2, xform, canvas);
+		} else {
+			((Graphics2D) g).drawImage(imgShip, xform, canvas);
+		}
+	}
+	
+	public void decelerateX() {
+		setX(getX()-getSpeed());
+	}
+	
+	public void accelerateX() {
+		setX(getX()+getSpeed());
+	}
+	
+	public void decelerateY() {
+		setY(getY()-getSpeed());
+	}
+	
+	public void accelerateY() {
+		setY(getY()+getSpeed());
+	}
+	
 	public Image getImage() {
 		return image;
 	}
@@ -105,5 +218,37 @@ public class Ship {
 
 	public void setWarp(ShipModule warp) {
 		this.warp = warp;
+	}
+
+	public  int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public  int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getRot() {
+		return rot;
+	}
+
+	public void setRot(int rot) {
+		this.rot = rot;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 }
