@@ -43,6 +43,7 @@ public class SectorState extends State {
 	public void update() {
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		sector.setKnown(true);
+		sector.update();
 		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}

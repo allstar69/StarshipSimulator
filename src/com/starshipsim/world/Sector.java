@@ -73,11 +73,14 @@ public class Sector {
 	public void setState(SectorState state) {
 		this.state = state;
 	}
-	
+	public void update() {
+		for (Entity entity : entities) {
+			entity.update();
+		}
+	}
 	public void draw(Graphics g, Canvas canvas) {
 		for (Entity entity : entities) {
 			entity.draw(g, canvas);
-			System.out.println(entity);
 		}
 	}
 	
