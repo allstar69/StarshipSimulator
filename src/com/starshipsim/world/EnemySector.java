@@ -1,6 +1,11 @@
 package com.starshipsim.world;
 
-public class EnemyStationSector extends Sector{
+import java.util.Random;
+
+import com.starshipsim.entities.EnemySpaceStation;
+import com.starshipsim.entities.Entity;
+
+public class EnemySector extends Sector{
 	
 	private boolean isDestroyed;
 	private int health;
@@ -8,24 +13,40 @@ public class EnemyStationSector extends Sector{
 	public boolean isDestroyed() {
 		return isDestroyed;
 	}
+	
 	public void setDestroyed(boolean isDestroyed) {
 		this.isDestroyed = isDestroyed;
 	}
+	
 	public int getHealth() {
 		return health;
 	}
+	
 	public void setHealth(int health) {
 		this.health = health;
 	}
 	
-	public EnemyStationSector()
+	public EnemySector()
 	{
 		setState(5);
 		setHealth(100); //random num, subject to change
 		setDestroyed(false);
+		
+		generateContents();
 	}
 	
 	//for later use
+	public void generateContents() {
+		Random random = new Random();
+		
+		int stationAmount = random.nextInt(4)+1;
+		for (int i = 0; i < stationAmount; i++) {
+			int x = random.nextInt(1000);
+			int y = random.nextInt(1000);
+			this.entities.add(new EnemySpaceStation(x, y));
+		}
+	}
+	
 	public void createEnemyShips(){
 		
 	}
