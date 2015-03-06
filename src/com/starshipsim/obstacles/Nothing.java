@@ -11,7 +11,7 @@ public class Nothing extends Obstacle {
 	}
 	public void run(){
 		
-		
+		System.out.println("YOU GET NOTHING");
 		
 	}
 	public boolean isGetsNothing() {

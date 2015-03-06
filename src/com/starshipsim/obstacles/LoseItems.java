@@ -8,7 +8,7 @@ public class LoseItems extends Obstacle {
 	}
 	public void run(){
 		
-		
+		System.out.println("You've lost items.");
 		
 		
 	}

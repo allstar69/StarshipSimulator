@@ -9,7 +9,7 @@ public class Sabotage extends Obstacle {
 	
 	public void run(){
 		
-		
+		System.out.println("You've been sabotaged");
 		
 	}
 
