@@ -1,5 +1,5 @@
 package com.starshipsim.weapons;
 
-public class PlasmaGun extends Weapon {
+public class PlasmaGun extends WeaponNeedsAmmo {
 
 }

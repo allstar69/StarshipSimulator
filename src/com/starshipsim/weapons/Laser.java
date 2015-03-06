@@ -1,5 +1,5 @@
 package com.starshipsim.weapons;
 
-public class Laser extends Weapon {
+public class Laser extends WeaponNeedsAmmo {
 
 }

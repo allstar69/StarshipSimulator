@@ -3,13 +3,14 @@ package com.starshipsim.rewards;
 import java.util.Random;
 
 import com.starshipsim.items.*;
+import com.starshipsim.weapons.Ammo;
 
 public class Reward {
 	private Item rewardItem;
 	
 	public Reward(){
 		Random ran = new Random();
-		int num = ran.nextInt(6);
+		int num = ran.nextInt(7);
 		switch(num){
 		case 0:
 			setRewardItem(new ItemFuel(genNum(1,10)));
@@ -28,6 +29,9 @@ public class Reward {
 			break;
 		case 5:
 			setRewardItem(new ItemScanner(genNum(2, 7)));
+			break;
+		case 6:
+			setRewardItem(new Ammo(genNum(10, 100)));
 			break;
 		}
 	}
