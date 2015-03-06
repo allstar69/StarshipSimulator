@@ -7,6 +7,7 @@ import java.awt.Image;
 
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
+import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
@@ -28,7 +29,7 @@ public class MapState extends State {
 	private KeyboardListener keyboard;
 	
 	private Grid grid;
-	private Ship ship;
+	private Player player;
 
 	private static Image keyImg = FileIO.loadImage("resources/key.png");
 	private static Image dialogueBox = FileIO.loadImage("resources/dialogueBox.png");
@@ -47,11 +48,11 @@ public class MapState extends State {
 	}
 
 	public Ship getShip() {
-		return ship;
+		return player.getShip();
 	}
 
 	public void setShip(Ship ship) {
-		this.ship = ship;
+		this.player.setShip(ship);
 	}
 
 	public Grid getGrid() {
@@ -97,14 +98,15 @@ public class MapState extends State {
 	
 	@Override
 	public void initialize() {
-		this.ship = new Ship(960, 540, this.keyboard);
+		player = new Player(960, 540);
+		player.setShip(new Ship(960, 540, this.keyboard));
 		mapMenu = new MapMenuPanel(this, 860, 60);
 		gridDisplay = new GridPanel(this, 0, 0);
 		
 		this.probeCount = 80;
 		
 		this.grid = new Grid();
-		grid.setShipLocation(ship, ship.getSecX(), ship.getSecY());
+		grid.setShipLocation(getShip(), getShip().getSecX(), getShip().getSecY());
 	}
 	
 	@Override
@@ -116,11 +118,11 @@ public class MapState extends State {
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_E)) {
 			EnemyFleet enemies = new EnemyFleet();
-			CombatData combatData = new CombatData(ship, enemies);
+			CombatData combatData = new CombatData(getShip(), enemies);
 			manager.addState(new CombatState(manager, combatData));
 		}
 		if(keyboard.keyDownOnce(KeyEvent.VK_Q)) {
-			manager.addState(new SectorState(manager, this.ship, grid.getSector(ship.getSecX(), ship.getSecY())));
+			manager.addState(new SectorState(manager, getShip(), grid.getSector(getShip().getSecX(), getShip().getSecY())));
 		}
 		if(keyboard.keyDownOnce(KeyEvent.VK_R)) {
 			manager.addState(new StoreState(manager));
