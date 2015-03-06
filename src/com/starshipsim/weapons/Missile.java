@@ -1,5 +1,5 @@
 package com.starshipsim.weapons;
 
-public class Missile {
+public class Missile extends Weapon {
 
 }
