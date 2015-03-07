@@ -2,8 +2,16 @@ package com.starshipsim.world;
 
 import java.util.Random;
 
+import com.starshipsim.combat.CombatData;
+import com.starshipsim.combat.EnemyFleet;
+import com.starshipsim.entities.Asteroid;
+import com.starshipsim.entities.BlackHole;
 import com.starshipsim.entities.EnemySpaceStation;
 import com.starshipsim.entities.Entity;
+import com.starshipsim.entities.Mine;
+import com.starshipsim.entities.Ship;
+import com.starshipsim.states.CombatState;
+import com.starshipsim.states.StateManager;
 
 public class EnemySector extends Sector{
 	
@@ -33,7 +41,17 @@ public class EnemySector extends Sector{
 		setDestroyed(false);
 		generateContent();
 	}
-	
+	public void checkCollision(Ship s){
+		for(int i=0; i<this.getEntities().size(); i++){
+			Entity e =this.getEntities().get(i);
+			if(s.isIntersecting(e) && e instanceof EnemySpaceStation){
+				s.setX(e.getX()+e.getWidth()+10);
+				s.setY(e.getY()+e.getHeight()/2);
+				StateManager.addState(new CombatState(null, new CombatData(s, new EnemyFleet())));
+			}
+			
+		}
+	}
 	//for later use
 	public void generateContent() {
 		Random random = new Random();

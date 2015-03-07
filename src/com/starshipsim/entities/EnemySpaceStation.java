@@ -11,7 +11,7 @@ public class EnemySpaceStation extends Entity {
 	private static Image img = FileIO.loadImage("resources/enemy station.png");
 	
 	public EnemySpaceStation(int x, int y) {
-		super(img, x, y);
+		super(img, x, y,400,400);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class EnemySpaceStation extends Entity {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(img, x, y, 200, 200, null);
+		g.drawImage(img, x, y, 400, 400, null);
 	}
 
 }

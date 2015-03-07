@@ -6,28 +6,28 @@ import com.starshipsim.listeners.KeyboardListener;
 
 public class StateManager {
 	
-	private KeyboardListener keyboard;
+	private static KeyboardListener keyboard;
 	
-	private Stack<State> states = new Stack<>();
+	private static Stack<State> states = new Stack<>();
 	
-	public KeyboardListener getKeyboard() {
+	public static KeyboardListener getKeyboard() {
 		return keyboard;
 	}
 
 	public StateManager(KeyboardListener keyboard) {		
-		this.keyboard = keyboard;
+		StateManager.keyboard = keyboard;
 		states.push(new MainMenuState(this));
 	}
 
-	public State getCurrentState() {
+	public static State getCurrentState() {
 		return states.peek();
 	}
 
-	public void addState(State state) {
+	public static void addState(State state) {
 		states.push(state);
 	}
 	
-	public void popState() {
+	public static void popState() {
 		states.pop();
 	}
 }
