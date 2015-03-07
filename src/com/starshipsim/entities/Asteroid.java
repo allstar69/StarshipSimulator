@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.util.Random;
 
 import com.starshipsim.files.FileIO;
 
@@ -15,11 +16,13 @@ public class Asteroid extends Entity {
 	private int rot;
 	private int speed=5;
 	private AffineTransform xform = new AffineTransform();
+	private double size;
 	public Asteroid(int x, int y,int width,int height,int xDir, int yDir) {
 		super(img, x, y, width, height);
 		this.xDir=xDir;
 		this.yDir=yDir;
-		
+		speed=new Random().nextInt(4)+4;
+		size=new Random().nextDouble()+0.5;
 	}
 
 	@Override
@@ -42,14 +45,18 @@ public class Asteroid extends Entity {
 		}else if(y<-64){
 			y=1100;
 		}
-		rot++;
+		rot+=2;
+		
 		xform.setToTranslation(x, y);
-		xform.rotate(rot * Math.PI/180, 32, 32);
+		xform.scale(size, size);
+		xform.rotate(rot * Math.PI/180, width/2, height/2);
+		
 	}
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
 		((Graphics2D)g).drawImage(img, xform, null);
+		
 	}
 
 }
