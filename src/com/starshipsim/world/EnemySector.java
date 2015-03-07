@@ -2,16 +2,8 @@ package com.starshipsim.world;
 
 import java.util.Random;
 
-import com.starshipsim.combat.CombatData;
-import com.starshipsim.combat.EnemyFleet;
-import com.starshipsim.entities.Asteroid;
-import com.starshipsim.entities.BlackHole;
 import com.starshipsim.entities.EnemySpaceStation;
-import com.starshipsim.entities.Entity;
-import com.starshipsim.entities.Mine;
-import com.starshipsim.entities.Ship;
-import com.starshipsim.states.CombatState;
-import com.starshipsim.states.StateManager;
+import com.starshipsim.enums.SectorState;
 
 public class EnemySector extends Sector{
 	
@@ -36,7 +28,8 @@ public class EnemySector extends Sector{
 	
 	public EnemySector()
 	{
-		setState(5);
+		super(SectorState.ENEMY);
+		
 		setHealth(100); //random num, subject to change
 		setDestroyed(false);
 		generateContent();

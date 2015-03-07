@@ -202,7 +202,7 @@ public class MapMenuPanel {
 					}else if (sector.getState() == SectorState.NEUTRAL){
 						state.setLog1("That region is neutral ");
 					}
-					else if (sector.getState() == SectorState.ENEMY_STATION){
+					else if (sector.getState() == SectorState.ENEMY){
 						state.setLog1("That region is an Enemy Base ");
 					}
 					if (sector.isHostile()) {

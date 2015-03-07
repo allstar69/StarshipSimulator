@@ -14,7 +14,6 @@ import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.panels.MenuUI;
 import com.sun.glass.events.KeyEvent;
 
 public class CombatState extends State {

@@ -3,13 +3,15 @@ package com.starshipsim.world;
 import java.util.Random;
 
 import com.starshipsim.entities.SpaceStation;
+import com.starshipsim.enums.SectorState;
 
 public class FriendlySector extends Sector {
 	private SpaceStation station;
 	
 	public FriendlySector(){
+		super(SectorState.FRIENDLY);
+		
 		setStation(new SpaceStation(0, 0));
-		setState(2);
 		generateContent();
 	}
 	public SpaceStation getStation() {

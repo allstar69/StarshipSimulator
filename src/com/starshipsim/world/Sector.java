@@ -6,15 +6,14 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import com.starshipsim.entities.Entity;
-import com.starshipsim.entities.Ship;
 import com.starshipsim.enums.SectorState;
 import com.starshipsim.files.FileIO;
 
 public abstract class Sector {
-	private boolean known = true;
+	private boolean known = false;
 	private boolean mysterious = false;
 	private boolean hostile = false;
-	SectorState state = SectorState.NEUTRAL;
+	SectorState state;
 	
 	private static Image imgUnknown = FileIO.loadImage("resources/unknown.png");
 	private static Image imgMysterious = FileIO.loadImage("resources/Mysterious.png");
@@ -23,23 +22,14 @@ public abstract class Sector {
 	private static Image imgFriendly = FileIO.loadImage("resources/freindly.png");
 	private static Image imgExplorable = FileIO.loadImage("resources/explorable.png");
 	private static Image imgDangerous = FileIO.loadImage("resources/dangerous.png");
-	private static Image imgEnemyStation = FileIO.loadImage("resources/enemy station.png");
+	private static Image imgEnemy = FileIO.loadImage("resources/enemy station.png");
 
 	protected ArrayList<Entity> entities;
 
-	/*
-	 * 1=neutral 2=friendly 3=explorable 4=dangerous 5=enemy station
-	 */
-
-	public Sector() {
-		entities = new ArrayList<Entity>();
-		setKnown(false);
-	}
-	
 	public ArrayList<Entity> getEntities() {
 		return entities;
 	}
-
+	
 	public boolean isKnown() {
 		return known;
 	}
@@ -67,13 +57,14 @@ public abstract class Sector {
 	public SectorState getState() {
 		return state;
 	}
-
-	public void setState(int state) {
-		this.state = SectorState.values()[state-1];
-	}
 	
 	public void setState(SectorState state) {
 		this.state = state;
+	}
+	
+	public Sector(SectorState state) {
+		setState(state);
+		entities = new ArrayList<Entity>();
 	}
 	
 	public void update() {
@@ -93,27 +84,29 @@ public abstract class Sector {
 			g.drawImage(imgUnknown, x, y, c);
 		} else {
 			if (isMysterious()) {
-				g.drawImage(imgMysterious, x, y,
-						c);
+				g.drawImage(imgMysterious, x, y, c);
 			} else {
 				if (isHostile()) {
-					g.drawImage(imgHostile, x,
-							y, c);
+					g.drawImage(imgHostile, x, y, c);
 				} else {
-					g.drawImage(imgNeutral, x,
-							y, c);
+					g.drawImage(imgNeutral, x, y, c);
 				}
-				if (getState() == SectorState.FRIENDLY) {
-					g.drawImage(imgFriendly, x,
-							y, c);
-				} else if (getState() == SectorState.EXPLORABLE) {
-					g.drawImage(imgExplorable,
-							x, y, c);
-				} else if (getState() == SectorState.DANGEROUS) {
-					g.drawImage(imgDangerous, x,
-							y, c);
-				} else if (getState() == SectorState.ENEMY_STATION) {
-					g.drawImage(imgEnemyStation, x, y, 64, 64, c);
+				
+				switch(this.getState()) {
+				case FRIENDLY:
+					g.drawImage(imgFriendly, x, y, c);
+					break;
+				case EXPLORABLE:
+					g.drawImage(imgExplorable, x, y, c);
+					break;
+				case DANGEROUS:
+					g.drawImage(imgDangerous, x, y, c);
+					break;
+				case ENEMY:
+					g.drawImage(imgEnemy, x, y, 64, 64, c);
+					break;
+				default:
+					break;
 				}
 			}
 		}
