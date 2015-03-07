@@ -69,13 +69,13 @@ public class SectorState extends State {
 	}
 
 	public void shipCollisions() {
-		if(checkCollision(ship, SpaceStation.class)) {
+		if(sector.checkCollision(ship, SpaceStation.class)) {
 			if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 				manager.addState(new StoreState(manager, player));
 			}
 		}
 		
-		if(checkCollision(ship, EnemySpaceStation.class)) {
+		if(sector.checkCollision(ship, EnemySpaceStation.class)) {
 			if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 				ship.setX(ship.getX()+ship.getWidth()+10);
 				ship.setY(ship.getY()+ship.getHeight()/2);
@@ -84,45 +84,21 @@ public class SectorState extends State {
 			}
 		}
 		
-		if(checkCollision(ship, Asteroid.class)){
+		if(sector.checkCollision(ship, Asteroid.class)){
 			ship.setDurability(ship.getDurability()-1);
 		}
 		
-		if(checkCollision(ship, Mine.class)) {
+		if(sector.checkCollision(ship, Mine.class)) {
 			ship.setDurability(ship.getDurability()-5);
 		}
 
-		if(checkCollision(ship, BlackHole.class)) {
+		if(sector.checkCollision(ship, BlackHole.class)) {
 			ship.setSecX(new Random().nextInt(11));
 			ship.setSecY(new Random().nextInt(11));
 		}
 		
-		sector.getEntities().remove(this.getOneIntersectingEntity(ship, Asteroid.class));
-		sector.getEntities().remove(this.getOneIntersectingEntity(ship, Mine.class));
-	}
-	
-	public Entity getOneIntersectingEntity(Entity entity, Class<?> c) {
-		for (Entity e : sector.getEntities()) {
-			if(e.getClass().equals(c)) {
-				if(entity.isIntersecting(e)) {
-					return e;
-				}
-			}
-		}
-		
-		return null;
-	}
-	
-	public boolean checkCollision(Entity entity, Class<?> c) {
-		for (Entity e : sector.getEntities()) {
-			if(e.getClass().equals(c)) {
-				if(entity.isIntersecting(e)) {
-					return true;
-				}
-			}
-		}
-		
-		return false;
+		sector.getEntities().remove(sector.getOneIntersectingEntity(ship, Asteroid.class));
+		sector.getEntities().remove(sector.getOneIntersectingEntity(ship, Mine.class));
 	}
 	
 	@Override
