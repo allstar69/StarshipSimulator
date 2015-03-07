@@ -18,7 +18,7 @@ public class SectorState extends State {
 
 	private Canvas canvas;
 	
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"));
+	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
 
 	int currentOption = 0;
 

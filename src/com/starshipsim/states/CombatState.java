@@ -34,7 +34,7 @@ public class CombatState extends State {
 	 * 3=item selection
 	 * 4=win notification
 	 */
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/space.png"));
+	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/space.png"), 0, 0);
 	
 	private KeyboardListener keyboard;
 	

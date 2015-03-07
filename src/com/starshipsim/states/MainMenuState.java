@@ -16,7 +16,7 @@ public class MainMenuState extends State {
 	private static Image largeMenu = FileIO.loadImage("resources/largemenu.png");
 	private static Image shipCursor = FileIO.loadImage("resources/smallship1.png");
 	
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"));
+	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
 	
 	private int currentOption = 0;
 	

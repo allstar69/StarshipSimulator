@@ -7,8 +7,9 @@ import java.awt.Image;
 public class TiledBackground {
 
 	private Image image;
+	private int x, y;
 	
-	public TiledBackground(Image image) {
+	public TiledBackground(Image image, int x, int y) {
 		this.image = image;
 	}
 	
@@ -16,9 +17,9 @@ public class TiledBackground {
 		int tileHorz = canvas.getWidth()/image.getWidth(null) + 1;
 		int tileVert = canvas.getHeight()/image.getHeight(null) + 1;
 		
-		for (int x = 0; x < tileHorz; x++) {
-			for (int y = 0; y < tileVert; y++) {
-				g.drawImage(image, x*image.getWidth(null), y*image.getHeight(null), null);
+		for (int i = 0; i < tileHorz; i++) {
+			for (int j = 0; j < tileVert; j++) {
+				g.drawImage(image, x + i*image.getWidth(null), y + j*image.getHeight(null), null);
 			}
 		}
 	}

@@ -34,7 +34,7 @@ public class MapState extends State {
 	private static Image keyImg = FileIO.loadImage("resources/key.png");
 	private static Image dialogueBox = FileIO.loadImage("resources/dialogueBox.png");
 	
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"));
+	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
 
 	private MapMenuPanel mapMenu;
 	private GridPanel gridDisplay;
