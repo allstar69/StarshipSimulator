@@ -10,7 +10,7 @@ import com.starshipsim.enums.SectorState;
 import com.starshipsim.files.FileIO;
 
 public abstract class Sector {
-	private boolean known = true;
+	private boolean known = false;
 	private boolean mysterious = false;
 	private boolean hostile = false;
 	SectorState state;
