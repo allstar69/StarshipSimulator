@@ -71,11 +71,11 @@ public class DangerousSector extends Sector {
 		}
 		if(dangerType==3){
 			int stationAmount = random.nextInt(10)+31;
-			int xDir=random.nextInt(3)-1;
-			int yDir=random.nextInt(3)-1;
+			int xDir=random.nextInt(5)-2;
+			int yDir=random.nextInt(5)-2;
 			while(xDir==0&&yDir==0){
-				xDir=random.nextInt(3)-1;
-				yDir=random.nextInt(3)-1;
+				xDir=random.nextInt(5)-2;
+				yDir=random.nextInt(5)-2;
 			}
 			for (int i = 0; i < stationAmount; i++) {
 				int x = random.nextInt(1800);

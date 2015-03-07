@@ -13,6 +13,7 @@ public class Asteroid extends Entity {
 	private int xDir;
 	private int yDir;
 	private int rot;
+	private int speed=5;
 	private AffineTransform xform = new AffineTransform();
 	public Asteroid(int x, int y,int width,int height,int xDir, int yDir) {
 		super(img, x, y, width, height);
@@ -29,8 +30,8 @@ public class Asteroid extends Entity {
 
 	@Override
 	public void update() {
-		x+=xDir;
-		y+=yDir;
+		x+=xDir*speed;
+		y+=yDir*speed;
 		if(x>2000){
 			x=-64;
 		}else if(x<-64){
