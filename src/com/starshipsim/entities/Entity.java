@@ -31,7 +31,7 @@ public abstract class Entity {
 	public abstract void draw(Graphics g, Canvas canvas);
 	
 	public boolean isIntersecting(Entity entity) {
-		bounds = new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
+		bounds = new Rectangle(x, y, width, height);
 		return bounds.intersects(entity.bounds);
 	}
 	
