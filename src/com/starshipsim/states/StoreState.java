@@ -26,7 +26,7 @@ public class StoreState extends State {
 	private int currentMoney = 5600;
 	private ArrayList<Item> inventory;
 	
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"));
+	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
 	
 	private String[] itemList;
 	private String[] priceList;

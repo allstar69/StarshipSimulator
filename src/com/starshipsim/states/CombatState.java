@@ -27,7 +27,7 @@ public class CombatState extends State {
 	private static int cursorY=760;
 	private static int curpos=1;
 	
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/space.png"));
+	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/space.png"), 0, 0);
 	
 	private KeyboardListener keyboard;
 	
