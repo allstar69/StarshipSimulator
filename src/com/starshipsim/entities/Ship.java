@@ -25,7 +25,7 @@ public class Ship extends Entity {
 	private ShipModule warp = new WarpCore();
 	
 	private int rot = 0;
-	private int speed = 2;
+	private int speed = 8;
 	
 	private static Image imgShip = FileIO.loadImage("resources/smallship1.png");
 	private static Image imgShip2 = FileIO.loadImage("resources/smallship2.png");

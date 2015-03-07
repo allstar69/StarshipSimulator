@@ -21,26 +21,26 @@ public class Game extends JFrame {
 
 	private final int WIDTH = 1920;
 	private final int HEIGHT = 1000;
-	
+
 	private boolean isRunning;
 	private boolean fullscreen = true;
-	
+
 	private StateManager states;
 
 	private KeyboardListener keyboard;
-	
+
 	private Canvas canvas;
-	
+
 	public JTextField f1 = new JTextField();
 	public JPanel p1 = new JPanel();
-	
+
 	private Font font = new Font("Showcard Gothic", Font.ITALIC, 24);
-	
+
 	public Game() {
 		this.setTitle("Starship Simulator");
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setUndecorated(true);
 		this.canvas = new Canvas();
 		this.canvas.setSize(new Dimension(WIDTH, HEIGHT));
@@ -51,57 +51,67 @@ public class Game extends JFrame {
 		canvas.createBufferStrategy(2);
 
 		isRunning = true;
-		
+
 		this.keyboard = new KeyboardListener();
 		this.addKeyListener(keyboard);
 		canvas.addKeyListener(keyboard);
-		
+
 		states = new StateManager(keyboard);
 	}
-	
+
 	public void run() {
 		initialize();
-		
-		while(isRunning) {
-			update();
-			draw();
+		double next_game_tick = System.currentTimeMillis();
+		int loops;
+
+		while (isRunning) {
+			loops = 0;
+	        while (System.currentTimeMillis() > next_game_tick && loops < 5) {
+
+	            update();
+	            draw();
+
+	            next_game_tick += 1000 / 60;
+	            loops++;
+	        }
+			
+			Toolkit.getDefaultToolkit().sync();
 		}
-		
+
 		end();
 	}
-	
-	//For later use
+
+	// For later use
 	public void initialize() {
 	}
-	
+
 	public void update() {
 		keyboard.poll();
 		states.getCurrentState().update();
-		
+
 		switchFullScreen();
 	}
-	
+
 	public void draw() {
 		BufferStrategy bf = canvas.getBufferStrategy();
 		Graphics2D g = (Graphics2D) bf.getDrawGraphics();
-		
+
 		g.setFont(font);
-		
+
 		states.getCurrentState().draw(g, canvas);
-		
+
 		bf.show();
-		Toolkit.getDefaultToolkit().sync();
 	}
-	
-	//For later use
+
+	// For later use
 	public void end() {
 	}
-	
+
 	public void switchFullScreen() {
-		if(keyboard.keyDownOnce(KeyEvent.VK_F5)) {
-			if(this.fullscreen == true) {
+		if (keyboard.keyDownOnce(KeyEvent.VK_F5)) {
+			if (this.fullscreen == true) {
 				this.dispose();
-				this.setExtendedState(JFrame.NORMAL); 
+				this.setExtendedState(JFrame.NORMAL);
 				this.setUndecorated(false);
 				this.setVisible(true);
 				this.fullscreen = false;
@@ -114,7 +124,7 @@ public class Game extends JFrame {
 			}
 		}
 	}
-	
+
 	public void tBox() {
 		p1.setSize(120, 30);
 		this.add(p1, BorderLayout.CENTER);
