@@ -17,12 +17,14 @@ public class Asteroid extends Entity {
 	private int speed=5;
 	private AffineTransform xform = new AffineTransform();
 	private double size;
-	public Asteroid(int x, int y,int width,int height,int xDir, int yDir) {
-		super(img, x, y, width, height);
+	public Asteroid(int x, int y, int xDir, int yDir) {
+		super(img, x, y);
 		this.xDir=xDir;
 		this.yDir=yDir;
 		speed=new Random().nextInt(4)+4;
 		size=new Random().nextDouble()+0.5;
+		width*=size;
+		height*=size;
 	}
 
 	@Override
@@ -33,6 +35,8 @@ public class Asteroid extends Entity {
 
 	@Override
 	public void update() {
+		this.updateBoxes();
+		
 		x+=xDir*speed;
 		y+=yDir*speed;
 		if(x>2000){
@@ -56,7 +60,7 @@ public class Asteroid extends Entity {
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
 		((Graphics2D)g).drawImage(img, xform, null);
-		
+		this.drawBox(g);
 	}
 
 }

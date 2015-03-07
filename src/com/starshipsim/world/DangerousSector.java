@@ -61,7 +61,7 @@ public class DangerousSector extends Sector {
 				int x = random.nextInt(1800);
 				int y = random.nextInt(1000);
 				
-				Asteroid asteroid = new Asteroid(x, y, 64, 64, xDir, yDir);
+				Asteroid asteroid = new Asteroid(x, y, xDir, yDir);
 				this.getEntities().add(asteroid);
 			}
 		}

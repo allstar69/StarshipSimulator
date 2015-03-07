@@ -15,9 +15,9 @@ public abstract class Entity {
 		this.image = image;
 		this.x = x;
 		this.y = y;
-		width=image.getWidth(null);
-		height=image.getHeight(null);
-		this.bounds = new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
+		this.width = image.getWidth(null);
+		this.height = image.getHeight(null);
+		this.bounds = new Rectangle(x, y, width, height);
 	}
 	public Entity(Image image, int x, int y, int width, int height) {
 		this.image = image;
@@ -31,6 +31,14 @@ public abstract class Entity {
 	public abstract void initialize();
 	public abstract void update();
 	public abstract void draw(Graphics g, Canvas canvas);
+	
+	public void updateBoxes() {
+		this.bounds = new Rectangle(x, y, width, height);
+	}
+	
+	public void drawBox(Graphics g) {
+		g.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
+	}
 	
 	public boolean isIntersecting(Entity entity) {
 		bounds = new Rectangle(x, y, width, height);

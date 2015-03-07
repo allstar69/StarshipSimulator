@@ -121,9 +121,11 @@ public class MapState extends State {
 			CombatData combatData = new CombatData(getShip(), enemies);
 			manager.addState(new CombatState(manager, combatData));
 		}
+		
 		if(keyboard.keyDownOnce(KeyEvent.VK_Q)) {
 			manager.addState(new SectorState(manager, player, grid));
 		}
+		
 		if(keyboard.keyDownOnce(KeyEvent.VK_R)) {
 			manager.addState(new StoreState(manager, player));
 		}
