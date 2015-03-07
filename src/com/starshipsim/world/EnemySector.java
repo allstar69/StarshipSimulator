@@ -41,17 +41,7 @@ public class EnemySector extends Sector{
 		setDestroyed(false);
 		generateContent();
 	}
-	public void checkCollision(Ship s){
-		for(int i=0; i<this.getEntities().size(); i++){
-			Entity e =this.getEntities().get(i);
-			if(s.isIntersecting(e) && e instanceof EnemySpaceStation){
-				s.setX(e.getX()+e.getWidth()+10);
-				s.setY(e.getY()+e.getHeight()/2);
-				StateManager.addState(new CombatState(null, new CombatData(s, new EnemyFleet())));
-			}
-			
-		}
-	}
+
 	//for later use
 	public void generateContent() {
 		Random random = new Random();

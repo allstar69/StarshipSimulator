@@ -8,9 +8,9 @@ public class StateManager {
 	
 	private static KeyboardListener keyboard;
 	
-	private static Stack<State> states = new Stack<>();
+	private Stack<State> states = new Stack<>();
 	
-	public static KeyboardListener getKeyboard() {
+	public KeyboardListener getKeyboard() {
 		return keyboard;
 	}
 
@@ -19,15 +19,15 @@ public class StateManager {
 		states.push(new MainMenuState(this));
 	}
 
-	public static State getCurrentState() {
+	public State getCurrentState() {
 		return states.peek();
 	}
 
-	public static void addState(State state) {
+	public void addState(State state) {
 		states.push(state);
 	}
 	
-	public static void popState() {
+	public void popState() {
 		states.pop();
 	}
 }

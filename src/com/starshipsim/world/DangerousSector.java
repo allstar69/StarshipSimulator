@@ -26,27 +26,7 @@ public class DangerousSector extends Sector {
 	public void setDangerType(int dangerType) {
 		this.dangerType = dangerType;
 	}
-	@Override
-	public void checkCollision(Ship s){
-		for(int i=0; i<this.getEntities().size(); i++){
-			Entity e =this.getEntities().get(i);
-			if(e.isIntersecting(s) && e instanceof Asteroid){
-				s.setDurability(s.getDurability()-1);
-				this.getEntities().remove(e);
-			}
-			if(s.isIntersecting(e) && e instanceof Mine){
-				
-				s.setDurability(s.getDurability()-5);
-				this.getEntities().remove(e);
-			}
-			if(s.isIntersecting(e) && e instanceof BlackHole){
-				s.setSecX(new Random().nextInt(11));
-				s.setSecY(new Random().nextInt(11));
-			}
-			
-		}
-		
-	}
+
 	public void generateContent() {
 		Random random = new Random();
 		

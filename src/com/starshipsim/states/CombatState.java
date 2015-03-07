@@ -48,7 +48,7 @@ public class CombatState extends State {
 	
 	public CombatState(StateManager manager, CombatData data) {
 		super(manager);
-		this.keyboard = StateManager.getKeyboard();
+		this.keyboard = manager.getKeyboard();
 		this.data = data;
 		this.enemies = data.getEnemies();
 		this.ships = enemies.getShips();
@@ -63,7 +63,7 @@ public class CombatState extends State {
 	@Override
 	public void update() {
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
-			StateManager.popState();
+			manager.popState();
 		}
 		if(currentMenu==0){
 			mainCombatMenu();

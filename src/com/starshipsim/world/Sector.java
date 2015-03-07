@@ -10,7 +10,7 @@ import com.starshipsim.entities.Ship;
 import com.starshipsim.enums.SectorState;
 import com.starshipsim.files.FileIO;
 
-public class Sector {
+public abstract class Sector {
 	private boolean known = true;
 	private boolean mysterious = false;
 	private boolean hostile = false;
@@ -71,22 +71,23 @@ public class Sector {
 	public void setState(int state) {
 		this.state = SectorState.values()[state-1];
 	}
+	
 	public void setState(SectorState state) {
 		this.state = state;
 	}
+	
 	public void update() {
 		for (Entity entity : entities) {
 			entity.update();
 		}
 	}
+	
 	public void draw(Graphics g, Canvas canvas) {
 		for (Entity entity : entities) {
 			entity.draw(g, canvas);
 		}
 	}
-	public void checkCollision(Ship s){
-		
-	}
+	
 	public void paint(Graphics g, Canvas c, int x, int y) {
 		if (!isKnown()) {
 			g.drawImage(imgUnknown, x, y, c);

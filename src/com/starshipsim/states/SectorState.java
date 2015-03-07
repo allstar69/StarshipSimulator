@@ -4,7 +4,15 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.Random;
 
+import com.starshipsim.combat.CombatData;
+import com.starshipsim.combat.EnemyFleet;
+import com.starshipsim.entities.Asteroid;
+import com.starshipsim.entities.BlackHole;
+import com.starshipsim.entities.EnemySpaceStation;
+import com.starshipsim.entities.Entity;
+import com.starshipsim.entities.Mine;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
@@ -43,16 +51,49 @@ public class SectorState extends State {
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		sector.setKnown(true);
 		sector.update();
-		sector.checkCollision(ship);
+		
+		this.shipCollisions();
+		
 		if(!sector.isKnown()){
 			sector.setKnown(true);
 		}
 		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
+
 		ship.move(canvas);
 	}
 
+	public void shipCollisions() {
+		for (Entity entity : sector.getEntities()) {
+			if(ship.isIntersecting(entity)) {
+				if (entity instanceof EnemySpaceStation) {
+					ship.setX(ship.getX()+ship.getWidth()+10);
+					ship.setY(ship.getY()+ship.getHeight()/2);
+					manager.addState(new CombatState(manager, new CombatData(ship, new EnemyFleet())));
+				}
+			}
+			
+			if(entity.isIntersecting(ship) && entity instanceof Asteroid){
+				ship.setDurability(ship.getDurability()-1);
+				sector.getEntities().remove(entity);
+				break;
+			}
+			
+			if(ship.isIntersecting(entity) && entity instanceof Mine){
+				
+				ship.setDurability(ship.getDurability()-5);
+				sector.getEntities().remove(entity);
+				break;
+			}
+			
+			if(ship.isIntersecting(entity) && entity instanceof BlackHole){
+				ship.setSecX(new Random().nextInt(11));
+				ship.setSecY(new Random().nextInt(11));
+			}
+		}
+	}
+	
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
 		this.canvas = canvas;
