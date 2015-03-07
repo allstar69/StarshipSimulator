@@ -13,7 +13,6 @@ import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.items.Item;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.panels.MenuUI;
 import com.starshipsim.panels.StoreMenuUI;
 
 public class StoreState extends State {

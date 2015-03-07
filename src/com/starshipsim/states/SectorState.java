@@ -13,7 +13,9 @@ import com.starshipsim.entities.BlackHole;
 import com.starshipsim.entities.EnemySpaceStation;
 import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Mine;
+import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
+import com.starshipsim.entities.SpaceStation;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
@@ -31,13 +33,15 @@ public class SectorState extends State {
 	int currentOption = 0;
 
 	private Ship ship;
+	private Player player;
 	
 	private Sector sector;
 	private Grid grid;
-	public SectorState(StateManager manager, Ship ship, Grid grid) {
+	public SectorState(StateManager manager, Player player, Grid grid) {
 		super(manager);
 		this.keyboard = manager.getKeyboard();
-		this.ship = ship;
+		this.player = player;
+		this.ship = player.getShip();
 		this.grid=grid;
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		initialize();
@@ -57,7 +61,7 @@ public class SectorState extends State {
 		if(!sector.isKnown()){
 			sector.setKnown(true);
 		}
-		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
+		if (keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
 
@@ -65,6 +69,12 @@ public class SectorState extends State {
 	}
 
 	public void shipCollisions() {
+		if(checkCollision(ship, SpaceStation.class)) {
+			if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
+				manager.addState(new StoreState(manager, player));
+			}
+		}
+		
 		if(checkCollision(ship, EnemySpaceStation.class)) {
 			ship.setX(ship.getX()+ship.getWidth()+10);
 			ship.setY(ship.getY()+ship.getHeight()/2);
@@ -73,20 +83,19 @@ public class SectorState extends State {
 		
 		if(checkCollision(ship, Asteroid.class)){
 			ship.setDurability(ship.getDurability()-1);
-			Entity entity = this.getOneIntersectingEntity(ship, Asteroid.class);
-			sector.getEntities().remove(entity);
 		}
 		
 		if(checkCollision(ship, Mine.class)) {
 			ship.setDurability(ship.getDurability()-5);
-			Entity entity = this.getOneIntersectingEntity(ship, Mine.class);
-			sector.getEntities().remove(entity);
 		}
 
 		if(checkCollision(ship, BlackHole.class)) {
 			ship.setSecX(new Random().nextInt(11));
 			ship.setSecY(new Random().nextInt(11));
 		}
+		
+		sector.getEntities().remove(this.getOneIntersectingEntity(ship, Asteroid.class));
+		sector.getEntities().remove(this.getOneIntersectingEntity(ship, Mine.class));
 	}
 	
 	public Entity getOneIntersectingEntity(Entity entity, Class<?> c) {
