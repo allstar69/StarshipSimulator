@@ -36,7 +36,7 @@ public class Ship extends Entity {
 	private AffineTransform xform = new AffineTransform();
 	
 	public Ship(int x, int y, KeyboardListener keyboard) {
-		super(imgShip, x, y);
+		super(imgShip, x, y,32,32);
 		
 		Random rand = new Random();
 		secX = rand.nextInt(11);

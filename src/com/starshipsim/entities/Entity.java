@@ -15,6 +15,8 @@ public abstract class Entity {
 		this.image = image;
 		this.x = x;
 		this.y = y;
+		width=image.getWidth(null);
+		height=image.getHeight(null);
 		this.bounds = new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
 	}
 	public Entity(Image image, int x, int y, int width, int height) {

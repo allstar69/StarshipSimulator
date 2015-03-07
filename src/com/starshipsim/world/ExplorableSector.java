@@ -3,8 +3,11 @@ package com.starshipsim.world;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.starshipsim.obstacles.*;
-import com.starshipsim.rewards.*;
+import com.starshipsim.entities.Planet;
+import com.starshipsim.obstacles.LoseItems;
+import com.starshipsim.obstacles.Obstacle;
+import com.starshipsim.obstacles.Sabotage;
+import com.starshipsim.rewards.Reward;
 
 public class ExplorableSector extends Sector {
 
@@ -13,6 +16,7 @@ public class ExplorableSector extends Sector {
 	
 	public ExplorableSector(){//randomizes the obstacles and rewards
 		setState(3);
+		generateContent();
 		generateRewards();
 		generateObstacles();	
 
@@ -86,6 +90,17 @@ public class ExplorableSector extends Sector {
 		//TODO basically going to be enhanced for loop that gives all rewards
 		
 	}
+	
+	public void generateContent(){
+		Random random = new Random();
+		
+		int x = random.nextInt(1200);
+		int y = random.nextInt(700);
+		
+		Planet planet = new Planet(x, y);
+		this.getEntities().add(planet);
+	}
+	
 	public ArrayList<Reward> getRewards() {
 		return rewards;
 	}
