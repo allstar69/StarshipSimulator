@@ -11,7 +11,6 @@ import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.entities.Asteroid;
 import com.starshipsim.entities.BlackHole;
 import com.starshipsim.entities.EnemySpaceStation;
-import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Mine;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
@@ -37,6 +36,7 @@ public class SectorState extends State {
 	
 	private Sector sector;
 	private Grid grid;
+	
 	public SectorState(StateManager manager, Player player, Grid grid) {
 		super(manager);
 		this.keyboard = manager.getKeyboard();
@@ -46,6 +46,7 @@ public class SectorState extends State {
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		initialize();
 	}
+	
 	@Override
 	public void initialize() {
 	}
@@ -79,7 +80,7 @@ public class SectorState extends State {
 			if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 				ship.setX(ship.getX()+ship.getWidth()+10);
 				ship.setY(ship.getY()+ship.getHeight()/2);
-				sector.getEntities().remove(this.getOneIntersectingEntity(ship, EnemySpaceStation.class));
+				sector.getEntities().remove(sector.getOneIntersectingEntity(ship, EnemySpaceStation.class));
 				manager.addState(new CombatState(manager, new CombatData(ship, new EnemyFleet()))); 
 			}
 		}
