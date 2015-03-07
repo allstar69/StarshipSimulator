@@ -65,33 +65,52 @@ public class SectorState extends State {
 	}
 
 	public void shipCollisions() {
-		for (Entity entity : sector.getEntities()) {
-			if(ship.isIntersecting(entity)) {
-				if (entity instanceof EnemySpaceStation) {
-					ship.setX(ship.getX()+ship.getWidth()+10);
-					ship.setY(ship.getY()+ship.getHeight()/2);
-					manager.addState(new CombatState(manager, new CombatData(ship, new EnemyFleet())));
+		if(checkCollision(ship, EnemySpaceStation.class)) {
+			ship.setX(ship.getX()+ship.getWidth()+10);
+			ship.setY(ship.getY()+ship.getHeight()/2);
+			manager.addState(new CombatState(manager, new CombatData(ship, new EnemyFleet())));
+		}
+		
+		if(checkCollision(ship, Asteroid.class)){
+			ship.setDurability(ship.getDurability()-1);
+			Entity entity = this.getOneIntersectingEntity(ship, Asteroid.class);
+			sector.getEntities().remove(entity);
+		}
+		
+		if(checkCollision(ship, Mine.class)) {
+			ship.setDurability(ship.getDurability()-5);
+			Entity entity = this.getOneIntersectingEntity(ship, Mine.class);
+			sector.getEntities().remove(entity);
+		}
+
+		if(checkCollision(ship, BlackHole.class)) {
+			ship.setSecX(new Random().nextInt(11));
+			ship.setSecY(new Random().nextInt(11));
+		}
+	}
+	
+	public Entity getOneIntersectingEntity(Entity entity, Class<?> c) {
+		for (Entity e : sector.getEntities()) {
+			if(e.getClass().equals(c)) {
+				if(entity.isIntersecting(e)) {
+					return e;
 				}
 			}
-			
-			if(entity.isIntersecting(ship) && entity instanceof Asteroid){
-				ship.setDurability(ship.getDurability()-1);
-				sector.getEntities().remove(entity);
-				break;
-			}
-			
-			if(ship.isIntersecting(entity) && entity instanceof Mine){
-				
-				ship.setDurability(ship.getDurability()-5);
-				sector.getEntities().remove(entity);
-				break;
-			}
-			
-			if(ship.isIntersecting(entity) && entity instanceof BlackHole){
-				ship.setSecX(new Random().nextInt(11));
-				ship.setSecY(new Random().nextInt(11));
+		}
+		
+		return null;
+	}
+	
+	public boolean checkCollision(Entity entity, Class<?> c) {
+		for (Entity e : sector.getEntities()) {
+			if(e.getClass().equals(c)) {
+				if(entity.isIntersecting(e)) {
+					return true;
+				}
 			}
 		}
+		
+		return false;
 	}
 	
 	@Override
