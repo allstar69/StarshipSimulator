@@ -50,7 +50,6 @@ public class SectorState extends State {
 		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
-		ship.collide(sector.getEntities());
 		ship.move(canvas);
 	}
 
