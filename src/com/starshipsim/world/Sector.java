@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import com.starshipsim.entities.Entity;
+import com.starshipsim.entities.Ship;
 import com.starshipsim.enums.SectorState;
 import com.starshipsim.files.FileIO;
 
@@ -83,7 +84,9 @@ public class Sector {
 			entity.draw(g, canvas);
 		}
 	}
-	
+	public void checkCollision(Ship s){
+		
+	}
 	public void paint(Graphics g, Canvas c, int x, int y) {
 		if (!isKnown()) {
 			g.drawImage(imgUnknown, x, y, c);

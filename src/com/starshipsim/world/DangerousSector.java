@@ -4,7 +4,9 @@ import java.util.Random;
 
 import com.starshipsim.entities.Asteroid;
 import com.starshipsim.entities.BlackHole;
+import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Mine;
+import com.starshipsim.entities.Ship;
 
 public class DangerousSector extends Sector {
 	
@@ -24,6 +26,24 @@ public class DangerousSector extends Sector {
 	public void setDangerType(int dangerType) {
 		this.dangerType = dangerType;
 	}
+	public void checkCollision(Ship s){
+		for(int i=0; i<this.getEntities().size(); i++){
+			Entity e =this.getEntities().get(i);
+			if(e.isIntersecting(s) && e instanceof Asteroid){
+				s.setDurability(s.getDurability()-1);
+				this.getEntities().remove(e);
+			}
+			if(s.isIntersecting(e) && e instanceof Mine){
+				
+				s.setDurability(s.getDurability()-5);
+				this.getEntities().remove(e);
+			}
+			if(s.isIntersecting(e) && e instanceof BlackHole){
+				s.setSecX(new Random().nextInt(11));
+				s.setSecY(new Random().nextInt(11));
+			}
+		}
+	}
 	public void generateContent() {
 		Random random = new Random();
 		
@@ -34,7 +54,7 @@ public class DangerousSector extends Sector {
 		//4=MapJammer - jam Map
 		//5=HugeSun - High Gravity/ temporary warp disable
 		if(dangerType==1){
-			this.getEntities().add(new BlackHole(500, 300));
+			this.getEntities().add(new BlackHole(500, 300, 600, 600));
 		}
 		if(dangerType==2){
 			int stationAmount = random.nextInt(10)+31;
@@ -42,7 +62,7 @@ public class DangerousSector extends Sector {
 				int x = random.nextInt(1800);
 				int y = random.nextInt(1000);
 				
-				Mine mine = new Mine(x, y);
+				Mine mine = new Mine(x, y, 64, 64);
 				this.getEntities().add(mine);
 			}
 		}
@@ -58,7 +78,7 @@ public class DangerousSector extends Sector {
 				int x = random.nextInt(1800);
 				int y = random.nextInt(1000);
 				
-				Asteroid asteroid = new Asteroid(x, y, xDir, yDir);
+				Asteroid asteroid = new Asteroid(x, y, 64, 64, xDir, yDir);
 				this.getEntities().add(asteroid);
 			}
 		}

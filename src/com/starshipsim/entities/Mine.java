@@ -9,9 +9,10 @@ import com.starshipsim.files.FileIO;
 public class Mine extends Entity {
 	private static Image img = FileIO.loadImage("resources/mine.png");
 	
-	public Mine(int x, int y) {
-		super(img, x, y);
+	public Mine(int x, int y, int width, int height) {
+		super(img, x, y, width, height);
 	}
+
 
 	@Override
 	public void initialize() {
@@ -27,7 +28,7 @@ public class Mine extends Entity {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(img, x, y, 64, 64, null);
+		g.drawImage(img, x, y, width, height, null);
 	}
 
 }

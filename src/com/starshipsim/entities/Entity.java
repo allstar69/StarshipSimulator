@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 
 public abstract class Entity {
 
-	protected int x, y;
+	protected int x, y, width, height;
 	protected Image image;
 	protected Rectangle bounds;
 	
@@ -17,12 +17,21 @@ public abstract class Entity {
 		this.y = y;
 		this.bounds = new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
 	}
+	public Entity(Image image, int x, int y, int width, int height) {
+		this.image = image;
+		this.x = x;
+		this.y = y;
+		this.width=width;
+		this.height=height;
+		this.bounds = new Rectangle(x, y, width, height);
+	}
 	
 	public abstract void initialize();
 	public abstract void update();
 	public abstract void draw(Graphics g, Canvas canvas);
 	
 	public boolean isIntersecting(Entity entity) {
+		bounds = new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
 		return bounds.intersects(entity.bounds);
 	}
 	

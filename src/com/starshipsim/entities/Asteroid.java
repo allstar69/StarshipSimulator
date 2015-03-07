@@ -14,8 +14,8 @@ public class Asteroid extends Entity {
 	private int yDir;
 	private int rot;
 	private AffineTransform xform = new AffineTransform();
-	public Asteroid(int x, int y, int xDir, int yDir) {
-		super(img, x, y);
+	public Asteroid(int x, int y,int width,int height,int xDir, int yDir) {
+		super(img, x, y, width, height);
 		this.xDir=xDir;
 		this.yDir=yDir;
 		

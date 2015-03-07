@@ -43,13 +43,14 @@ public class SectorState extends State {
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		sector.setKnown(true);
 		sector.update();
+		sector.checkCollision(ship);
 		if(!sector.isKnown()){
 			sector.setKnown(true);
 		}
 		if (keyboard.keyDown(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
-		
+		ship.collide(sector.getEntities());
 		ship.move(canvas);
 	}
 
@@ -65,6 +66,7 @@ public class SectorState extends State {
 		sector.draw(g, canvas);
 		
 		ship.draw(g, canvas);
+		g.drawString(ship.getDurability()+"/"+ship.getMaxDurability(), 32, 32);
 	}
 
 	@Override

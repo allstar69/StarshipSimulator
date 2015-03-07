@@ -9,8 +9,8 @@ import com.starshipsim.files.FileIO;
 public class BlackHole extends Entity {
 	private static Image img = FileIO.loadImage("resources/blackhole.png");
 	
-	public BlackHole(int x, int y) {
-		super(img, x, y);
+	public BlackHole(int x, int y, int width, int height) {
+		super(img, x, y, width, height);
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class BlackHole extends Entity {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(img, x, y, 600, 600, null);
+		g.drawImage(img, x, y, width, height, null);
 	}
 
 }
