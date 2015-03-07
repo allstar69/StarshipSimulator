@@ -30,7 +30,7 @@ public class DangerousSector extends Sector {
 	public void checkCollision(Ship s){
 		for(int i=0; i<this.getEntities().size(); i++){
 			Entity e =this.getEntities().get(i);
-			if(s.isIntersecting(e) && e instanceof Asteroid){
+			if(e.isIntersecting(s) && e instanceof Asteroid){
 				s.setDurability(s.getDurability()-1);
 				this.getEntities().remove(e);
 			}
