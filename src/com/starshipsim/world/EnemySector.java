@@ -5,7 +5,7 @@ import java.util.Random;
 import com.starshipsim.entities.EnemySpaceStation;
 import com.starshipsim.enums.SectorState;
 
-public class EnemySector extends Sector{
+public class EnemySector extends Sector {
 	
 	private boolean isDestroyed;
 	private int health;
@@ -45,6 +45,15 @@ public class EnemySector extends Sector{
 			int y = random.nextInt(1000);
 			
 			EnemySpaceStation station = new EnemySpaceStation(x, y);
+			
+			while(this.checkCollision(station, EnemySpaceStation.class)) {
+				x = random.nextInt(1000);
+				y = random.nextInt(1000);
+				
+				station.setX(x);
+				station.setY(y);
+			}
+			
 			this.getEntities().add(station);
 		}
 	}

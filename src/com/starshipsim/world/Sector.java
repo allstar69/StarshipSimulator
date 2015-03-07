@@ -10,7 +10,7 @@ import com.starshipsim.enums.SectorState;
 import com.starshipsim.files.FileIO;
 
 public abstract class Sector {
-	private boolean known = false;
+	private boolean known = true;
 	private boolean mysterious = false;
 	private boolean hostile = false;
 	SectorState state;
@@ -77,6 +77,30 @@ public abstract class Sector {
 		for (Entity entity : entities) {
 			entity.draw(g, canvas);
 		}
+	}
+	
+	public Entity getOneIntersectingEntity(Entity entity, Class<?> c) {
+		for (Entity e : getEntities()) {
+			if(e.getClass().equals(c)) {
+				if(entity.isIntersecting(e)) {
+					return e;
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	public boolean checkCollision(Entity entity, Class<?> c) {
+		for (Entity e : getEntities()) {
+			if(e.getClass().equals(c)) {
+				if(entity.isIntersecting(e)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	public void paint(Graphics g, Canvas c, int x, int y) {
