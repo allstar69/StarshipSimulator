@@ -17,6 +17,8 @@ public class Player extends Entity {
 	
 	private Ship ship;
 	
+	private int money;
+	
 	private ArrayList<Item> inventory;
 	
 	public Ship getShip() {
@@ -25,6 +27,14 @@ public class Player extends Entity {
 
 	public void setShip(Ship ship) {
 		this.ship = ship;
+	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
 
 	public ArrayList<Item> getInventory() {
