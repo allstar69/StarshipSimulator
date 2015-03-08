@@ -10,6 +10,7 @@ public class ItemSatellite extends Item{
 		setPrice(750);
 		setAmount(amount);
 		setName("Satellite");
+		setDescription("You know, I'm not really sure what the satellite does...");
 	}
 	
 }

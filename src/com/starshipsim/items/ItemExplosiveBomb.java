@@ -9,5 +9,6 @@ public class ItemExplosiveBomb extends Item {
 		setPrice(200);
 		setAmount(amount);
 		setName("Explosive Bomb");
+		setDescription("Explosive bombs can blow through your enemy vessels in a pinch.");
 	}
 }

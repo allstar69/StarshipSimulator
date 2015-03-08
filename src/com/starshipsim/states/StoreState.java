@@ -3,6 +3,7 @@ package com.starshipsim.states;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -101,10 +102,38 @@ public class StoreState extends State {
 		
 		int rightX = menuY + storeLeft.getWidth(null) - 50;
 		g.drawImage(storeRight, rightX, menuY, null);
-		g.drawString(itemDesc, 1300, 220);
+		drawDescription(g, rightX, menuY);
 		g.drawString("Currently Owned", 1275, 825);
 		g.drawString(Integer.toString(inventory.get(currentOption).getAmount()), 1550, 900);
 		g.drawString("Press Escape to return.", 32, 1050);
+	}
+	
+	private void drawDescription(Graphics g, int containerX, int containerY) {
+		String[] words = inventory.get(currentOption).getDescription().split(" ");
+		int lineLength = storeRight.getWidth(null) - 100;
+		int lineX = containerX + 50;
+		int lineY = containerY + 75;
+		FontMetrics mets = g.getFontMetrics();
+		int lineHeight = mets.getHeight();
+		boolean allAcountedFor = false;
+		int index = 0;
+		String drawString = "";
+		do {
+			drawString += words[index] + " ";
+			if (mets.getStringBounds(drawString, g).getWidth() > lineLength) {
+				drawString = drawString.substring(0, drawString.trim().lastIndexOf(" "));
+				g.drawString(drawString, lineX, lineY);
+				lineY += lineHeight;
+				drawString = "";
+				index--;
+			}
+			if (index >= words.length-1) {
+				allAcountedFor = true;
+				g.drawString(drawString, lineX, lineY);
+			}
+			index++;
+		} while (!allAcountedFor);
+		
 	}
 
 	@Override

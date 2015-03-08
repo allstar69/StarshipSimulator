@@ -10,6 +10,7 @@ public class ItemScanner extends Item {
 		setPrice(250);
 		setAmount(amount);
 		setName("Scanner");
+		setDescription("I assume the scanner scans things?");
 	}
 
 }

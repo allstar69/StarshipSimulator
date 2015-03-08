@@ -11,6 +11,7 @@ public class ItemFuel extends Item {
 		setPrice(10);
 		setAmount(amount);
 		setName("Fuel");
+		setDescription("Fuel allows to explore the galaxy. Run out of it and you'll be stranded.");
 	}
 	
 }

@@ -6,9 +6,13 @@ import java.util.ArrayList;
 
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.items.Item;
+import com.starshipsim.items.ItemExplosiveBomb;
 import com.starshipsim.items.ItemFuel;
 import com.starshipsim.items.ItemRepairDrone;
+import com.starshipsim.items.ItemSatellite;
+import com.starshipsim.items.ItemScanner;
 import com.starshipsim.items.ItemStunBomb;
+import com.starshipsim.weapons.ExplosiveDrone;
 
 public class Player extends Entity {
 	
@@ -48,7 +52,10 @@ public class Player extends Entity {
 		this.inventory = new ArrayList<>();
 		this.inventory.add(new ItemFuel(10));
 		this.inventory.add(new ItemRepairDrone(0));
-		this.inventory.add(new ItemStunBomb(3));
+		this.inventory.add(new ItemStunBomb(0));
+		this.inventory.add(new ItemExplosiveBomb(0));
+		this.inventory.add(new ItemSatellite(0));
+		this.inventory.add(new ItemScanner(0));
 	}
 
 	@Override

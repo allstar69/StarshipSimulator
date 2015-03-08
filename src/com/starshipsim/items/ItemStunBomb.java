@@ -6,6 +6,7 @@ public class ItemStunBomb extends Item {
 		setPrice(150);
 		setAmount(amount);
 		setName("Stun Bomb");
+		setDescription("Stun bombs can temporarily stun an enemy vessel.");
 	}
 	
 	@Override
