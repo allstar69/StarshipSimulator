@@ -36,7 +36,7 @@ public class DangerousSector extends Sector {
 		
 		switch(type) {
 		case BLACKHOLE:
-			this.getEntities().add(new BlackHole(500, 300, 600, 600));
+			this.getEntities().add(new BlackHole(600, 300, 640, 640));
 			break;
 		case METEORS:
 			int meteorAmount = random.nextInt(10)+31;
