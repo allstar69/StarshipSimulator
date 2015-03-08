@@ -43,7 +43,7 @@ public class MainMenuState extends State {
 		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 			switch(currentOption) {
 			case 0:
-				manager.addState(new MapState(manager));
+				manager.addState(new SectorState(manager));
 				keyboard.flush();
 				break;
 			case 2:

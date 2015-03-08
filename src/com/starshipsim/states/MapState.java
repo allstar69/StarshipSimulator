@@ -27,9 +27,6 @@ public class MapState extends State {
 	
 	private KeyboardListener keyboard;
 	
-	private Grid grid;
-	private Player player;
-	
 	private TiledBackground bg = new TiledBackground(ImageManager.spaceBg, 0, 0);
 
 	private MapMenuPanel mapMenu;
@@ -43,20 +40,24 @@ public class MapState extends State {
 		this.log1 = log1;
 	}
 
+	public Player getPlayer() {
+		return manager.getPlayer();
+	}
+	
 	public Ship getShip() {
-		return player.getShip();
+		return getPlayer().getShip();
 	}
 
 	public void setShip(Ship ship) {
-		this.player.setShip(ship);
+		getPlayer().setShip(ship);
 	}
 
 	public Grid getGrid() {
-		return grid;
+		return manager.getGrid();
 	}
 
 	public void setGrid(Grid grid) {
-		this.grid = grid;
+		manager.setGrid(grid);
 	}
 
 	public int getProbeCount() {
@@ -93,16 +94,11 @@ public class MapState extends State {
 	}
 	
 	@Override
-	public void initialize() {
-		player = new Player(960, 540);
-		player.setShip(new Ship(960, 540, this.keyboard));
+	public void initialize() {	
 		mapMenu = new MapMenuPanel(this, 860, 60);
 		gridDisplay = new GridPanel(this, 0, 0);
 		
 		this.probeCount = 80;
-		
-		this.grid = new Grid();
-		grid.setShipLocation(getShip(), getShip().getSecX(), getShip().getSecY());
 	}
 	
 	@Override
@@ -114,16 +110,12 @@ public class MapState extends State {
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_E)) {
 			EnemyFleet enemies = new EnemyFleet();
-			CombatData combatData = new CombatData(player, enemies);
+			CombatData combatData = new CombatData(getPlayer(), enemies);
 			manager.addState(new CombatState(manager, combatData));
 		}
 		
-		if(keyboard.keyDownOnce(KeyEvent.VK_Q)) {
-			manager.addState(new SectorState(manager, player, grid));
-		}
-		
 		if(keyboard.keyDownOnce(KeyEvent.VK_R)) {
-			manager.addState(new StoreSelectorState(manager, player));
+			manager.addState(new StoreSelectorState(manager, getPlayer()));
 		}
 	}
 	
@@ -140,7 +132,7 @@ public class MapState extends State {
 
 		gridDisplay.draw(g);
 		mapMenu.draw(g);
-		mapMenu.getMapListener().draw(g, grid);
+		mapMenu.getMapListener().draw(g, getGrid());
 		
 		//Temp
 		g.drawString("Press Escape to return to the Main Menu.", 32, 950);

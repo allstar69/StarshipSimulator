@@ -36,19 +36,27 @@ public class SectorState extends State {
 
 	int currentOption = 0;
 
-	private Ship ship;
 	private Player player;
+	private Ship ship;
 	
 	private Sector sector;
 	private Grid grid;
 	
-	public SectorState(StateManager manager, Player player, Grid grid) {
+	public SectorState(StateManager manager) {
 		super(manager);
 		this.keyboard = manager.getKeyboard();
-		this.player = player;
-		this.ship = player.getShip();
-		this.grid=grid;
-		sector = grid.getSector(ship.getSecX(), ship.getSecY());
+		
+		this.player = new Player(500, 500);
+		this.ship = new Ship(960, 540, this.keyboard);
+		player.setShip(this.ship);
+		
+		this.grid = new Grid();
+		grid.setShipLocation(player.getShip(), player.getShip().getSecX(), player.getShip().getSecY());
+		
+		manager.setPlayer(player);
+		manager.setGrid(grid);
+		
+		sector = manager.getGrid().getSector(ship.getSecX(), ship.getSecY());
 		initialize();
 	}
 	
@@ -67,7 +75,10 @@ public class SectorState extends State {
 		if(!sector.isKnown()){
 			sector.setKnown(true);
 		}
-		if (keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
+		if (keyboard.keyDownOnce(KeyEvent.VK_Q)) {
+			manager.addState(new MapState(manager));
+		}
+		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
 		
