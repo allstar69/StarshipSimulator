@@ -3,32 +3,32 @@ package com.starshipsim.entities;
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.util.Random;
 
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
+import com.starshipsim.interfaces.Enemy;
 import com.starshipsim.listeners.KeyboardListener;
 
-public class EnemyShip extends Ship implements Enemy{
+public class EnemyShip extends Ship implements Enemy {
 	
-	private static Image imgEShip = FileIO.loadImage("resources/esmallship1.png");
-	private static Image imgEShip2 = FileIO.loadImage("resources/esmallship2.png");
 	private static Random random = new Random();
 	private AffineTransform xform = new AffineTransform();
 	private double rot;
 	private double nextrot;
 	private long deltaTime=0;
+	
 	public EnemyShip(int x, int y, KeyboardListener keyboard) {
-		super(x, y, keyboard);
+		super(ImageManager.enemyShip2, x, y, keyboard);
 		rot=random.nextInt(360);
 		deltaTime=System.currentTimeMillis();
 	}
+	
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
 		
 		// TODO Auto-generated method stub
-		((Graphics2D) g).drawImage(imgEShip2, xform, canvas);
+		((Graphics2D) g).drawImage(this.getImage(), xform, canvas);
 	}
 	@Override
 	public void update() {

@@ -4,29 +4,19 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.util.ArrayList;
 
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
-import com.starshipsim.entities.Enemy;
 import com.starshipsim.entities.EnemyShip;
-import com.starshipsim.entities.EnemySpaceStation;
-import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
-import com.starshipsim.files.FileIO;
-import com.starshipsim.graphics.TiledBackground;
+import com.starshipsim.graphics.ImageManager;
+import com.starshipsim.interfaces.Enemy;
 import com.starshipsim.listeners.KeyboardListener;
 import com.sun.glass.events.KeyEvent;
 
 public class CombatState extends State {
-
-	private static Image imgHud = FileIO.loadImage("resources/combat_hud.png");
-	private static Image imgMenu = FileIO.loadImage("resources/smallmenu.png");
-	private static Image imgEnemy = FileIO.loadImage("resources/eship1.png");
-	private static Image imgEnemy2 = FileIO.loadImage("resources/enemy station.png");
-	private static Image shipCursor = FileIO.loadImage("resources/smallship1.png");
 	private int cursorX=800;
 	private int cursorY=760;
 	private int curpos=1;
@@ -35,6 +25,7 @@ public class CombatState extends State {
 	private int attacker=0;
 	private int xshift;
 	private int dxshift;
+	
 	/*Menu Options:
 	 * 0=main combat menu
 	 * 1=weapon choice menu
@@ -43,11 +34,8 @@ public class CombatState extends State {
 	 * 4=win notification
 	 * 5=enemy attack
 	 */
-	private Image bg =FileIO.loadImage("resources/space.png");
 	
 	private KeyboardListener keyboard;
-	
-	private String[] list;
 	
 	private CombatData data;
 	EnemyFleet enemies;
@@ -98,7 +86,7 @@ public class CombatState extends State {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(bg, xshift-450, 0, canvas);
+		g.drawImage(ImageManager.spaceBg2, xshift-450, 0, canvas);
 		drawExit(g);
 		
 		drawEnemyShips(g, canvas);
@@ -113,7 +101,7 @@ public class CombatState extends State {
 	
 	private void drawHUD(Graphics g, Canvas canvas) {
 		
-		g.drawImage(imgHud, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
+		g.drawImage(ImageManager.combatHud, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
 	}
 	
 	private void drawExit(Graphics g) {
@@ -147,7 +135,7 @@ public class CombatState extends State {
 		else if(currentMenu==5){
 			g.drawString("Enemy " +(attacker+1)+ " is Attacking!", centerX-100, centerY+360);
 		}
-		g.drawImage(shipCursor, cursorX, cursorY, null);
+		g.drawImage(ImageManager.ship, cursorX, cursorY, null);
 		g.drawString(("Health: "+ship.getDurability()+"/"+ship.getMaxDurability()), 200, 125);
 	}
 	
@@ -166,11 +154,11 @@ public class CombatState extends State {
 			ship.setY(200);
 			if(ship instanceof EnemyShip){
 				g.drawString(ship.getHealth()+"/"+ ship.getMaxHealth(), enemyX+(i*(450))+50, 350);
-				g.drawImage(imgEnemy, enemyX+(i*(450)), 400, 200, 130,null);
+				g.drawImage(ImageManager.enemyShip, enemyX+(i*(450)), 400, 200, 130,null);
 			}
 			else{
 				g.drawString(ship.getHealth()+"/"+ ship.getMaxHealth(), enemyX+(i*(450))+50, 250);
-				g.drawImage(imgEnemy2, enemyX+(i*(450))-100, 300, 400, 360,null);
+				g.drawImage(ImageManager.enemyShip2, enemyX+(i*(450))-100, 300, 400, 360,null);
 			}
 		}
 	}

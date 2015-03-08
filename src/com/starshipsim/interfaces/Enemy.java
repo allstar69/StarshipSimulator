@@ -1,4 +1,4 @@
-package com.starshipsim.entities;
+package com.starshipsim.interfaces;
 
 public interface Enemy {
 	public void takeDamage(int damage);

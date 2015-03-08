@@ -2,10 +2,9 @@ package com.starshipsim.panels;
 
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 
 import com.starshipsim.entities.Ship;
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.states.MapState;
 import com.starshipsim.world.Grid;
 import com.starshipsim.world.Sector;
@@ -15,8 +14,6 @@ public class GridPanel {
 	private MapState state;
 	
 	int x, y;
-	
-	private static Image mapScreen = FileIO.loadImage("resources/mapscreen.png");
 	
 	public GridPanel(MapState state, int x, int y) {
 		this.x = x;
@@ -28,7 +25,7 @@ public class GridPanel {
 		Grid grid = state.getGrid();
 		Ship ship = state.getShip();
 		
-		g.drawImage(mapScreen, this.x, this.y, null);
+		g.drawImage(ImageManager.mapScreen, this.x, this.y, null);
 		
 		Sector[][] secs = grid.getSectors();
 		for (int i = 0; i < secs.length; i++) {

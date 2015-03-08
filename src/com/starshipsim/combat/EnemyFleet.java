@@ -3,9 +3,8 @@ package com.starshipsim.combat;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.starshipsim.entities.Enemy;
 import com.starshipsim.entities.EnemyShip;
-import com.starshipsim.entities.Entity;
+import com.starshipsim.interfaces.Enemy;
 
 public class EnemyFleet {
 

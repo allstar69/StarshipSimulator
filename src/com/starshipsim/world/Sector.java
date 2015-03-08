@@ -8,21 +8,13 @@ import java.util.ArrayList;
 import com.starshipsim.entities.Entity;
 import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
 
 public abstract class Sector {
 	private boolean known = false;
 	private boolean mysterious = false;
 	private boolean hostile = false;
 	SectorStateType state;
-	
-	private static Image imgUnknown = FileIO.loadImage("resources/unknown.png");
-	private static Image imgMysterious = FileIO.loadImage("resources/Mysterious.png");
-	private static Image imgHostile = FileIO.loadImage("resources/hostile.png");
-	private static Image imgNeutral = FileIO.loadImage("resources/neutral.png");
-	private static Image imgFriendly = FileIO.loadImage("resources/freindly.png");
-	private static Image imgExplorable = FileIO.loadImage("resources/explorable.png");
-	private static Image imgDangerous = FileIO.loadImage("resources/dangerous.png");
-	private static Image imgEnemy = FileIO.loadImage("resources/enemy station.png");
 
 	protected ArrayList<Entity> entities;
 
@@ -105,29 +97,29 @@ public abstract class Sector {
 	
 	public void paint(Graphics g, Canvas c, int x, int y) {
 		if (!isKnown()) {
-			g.drawImage(imgUnknown, x, y, c);
+			g.drawImage(ImageManager.unknown, x, y, c);
 		} else {
 			if (isMysterious()) {
-				g.drawImage(imgMysterious, x, y, c);
+				g.drawImage(ImageManager.mysterious, x, y, c);
 			} else {
 				if (isHostile()) {
-					g.drawImage(imgHostile, x, y, c);
+					g.drawImage(ImageManager.hostile, x, y, c);
 				} else {
-					g.drawImage(imgNeutral, x, y, c);
+					g.drawImage(ImageManager.neutral, x, y, c);
 				}
 				
 				switch(this.getState()) {
 				case FRIENDLY:
-					g.drawImage(imgFriendly, x, y, c);
+					g.drawImage(ImageManager.friendly, x, y, c);
 					break;
 				case EXPLORABLE:
-					g.drawImage(imgExplorable, x, y, c);
+					g.drawImage(ImageManager.explorable, x, y, c);
 					break;
 				case DANGEROUS:
-					g.drawImage(imgDangerous, x, y, c);
+					g.drawImage(ImageManager.dangerous, x, y, c);
 					break;
 				case ENEMY:
-					g.drawImage(imgEnemy, x, y, 64, 64, c);
+					g.drawImage(ImageManager.enemy, x, y, 64, 64, c);
 					break;
 				default:
 					break;

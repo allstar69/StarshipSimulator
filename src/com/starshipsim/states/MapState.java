@@ -3,13 +3,12 @@ package com.starshipsim.states;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.panels.GridPanel;
@@ -30,11 +29,8 @@ public class MapState extends State {
 	
 	private Grid grid;
 	private Player player;
-
-	private static Image keyImg = FileIO.loadImage("resources/key.png");
-	private static Image dialogueBox = FileIO.loadImage("resources/dialogueBox.png");
 	
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
+	private TiledBackground bg = new TiledBackground(ImageManager.spaceBg, 0, 0);
 
 	private MapMenuPanel mapMenu;
 	private GridPanel gridDisplay;
@@ -134,8 +130,8 @@ public class MapState extends State {
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
 		bg.draw(g, canvas);
-		g.drawImage(keyImg, 860, 320, null);
-		g.drawImage(dialogueBox, 16, 832, null);
+		g.drawImage(ImageManager.key, 860, 320, null);
+		g.drawImage(ImageManager.dialogueBox, 16, 832, null);
 		
 		g.drawString(log1, 32, 872);
 		g.setColor(Color.decode("#EEEEEE"));

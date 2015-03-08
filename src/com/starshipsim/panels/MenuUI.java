@@ -19,6 +19,22 @@ public class MenuUI {
 	
 	private int currentOption = 0;
 	
+	public Image getImgMenu() {
+		return imgMenu;
+	}
+
+	public void setImgMenu(Image imgMenu) {
+		this.imgMenu = imgMenu;
+	}
+
+	public Image getImgCursor() {
+		return imgCursor;
+	}
+
+	public void setImgCursor(Image imgCursor) {
+		this.imgCursor = imgCursor;
+	}
+
 	public int getCurrentOption() {
 		return currentOption;
 	}

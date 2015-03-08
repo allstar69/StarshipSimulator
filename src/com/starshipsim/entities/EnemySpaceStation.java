@@ -2,17 +2,16 @@ package com.starshipsim.entities;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Image;
 
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
+import com.starshipsim.interfaces.Enemy;
 
-public class EnemySpaceStation extends Entity implements Enemy{
+public class EnemySpaceStation extends Entity implements Enemy {
 
-	private static Image img = FileIO.loadImage("resources/enemy station.png");
 	private int durability = 500;
 	private int maxDurability = 500;
 	public EnemySpaceStation(int x, int y) {
-		super(img, x, y,400,400);
+		super(ImageManager.enemyStation, x, y, 400, 400);
 	}
 
 	@Override
@@ -29,7 +28,7 @@ public class EnemySpaceStation extends Entity implements Enemy{
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(img, x, y, 400, 400, null);
+		g.drawImage(this.getImage(), x, y, 400, 400, null);
 	}
 
 	public int getDurability() {

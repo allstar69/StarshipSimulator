@@ -33,7 +33,7 @@ public class Planet extends Entity {
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
 		// TODO Auto-generated method stub
-		g.drawImage(img, x, y, 600, 600, null);
+		g.drawImage(this.getImage(), x, y, 600, 600, null);
 	}
 
 }

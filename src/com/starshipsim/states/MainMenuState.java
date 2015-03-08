@@ -3,20 +3,15 @@ package com.starshipsim.states;
 import java.awt.Canvas;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.panels.MenuUI;
 
 public class MainMenuState extends State {
-
-	private static Image largeMenu = FileIO.loadImage("resources/largemenu.png");
-	private static Image shipCursor = FileIO.loadImage("resources/smallship1.png");
-	
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
+	private TiledBackground bg = new TiledBackground(ImageManager.spaceBg, 0, 0);
 	
 	private int currentOption = 0;
 	
@@ -35,7 +30,7 @@ public class MainMenuState extends State {
 	
 	@Override
 	public void initialize() {
-		menu = new MenuUI(manager.getKeyboard(), largeMenu, shipCursor, list);
+		menu = new MenuUI(manager.getKeyboard(), ImageManager.largeMenu, ImageManager.ship, list);
 	}
 
 	@Override
@@ -64,8 +59,8 @@ public class MainMenuState extends State {
 		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 72));
 		
-		int menuX = (canvas.getWidth()/2) - (largeMenu.getWidth(null)/2);
-		int menuY = (canvas.getHeight()/2) - (largeMenu.getHeight(null)/2);
+		int menuX = (canvas.getWidth()/2) - (menu.getImgMenu().getWidth(null)/2);
+		int menuY = (canvas.getHeight()/2) - (menu.getImgMenu().getHeight(null)/2);
 		
 		menu.setX(menuX);
 		menu.setY(menuY);

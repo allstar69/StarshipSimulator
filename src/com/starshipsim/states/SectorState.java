@@ -19,21 +19,20 @@ import com.starshipsim.entities.Mine;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.entities.SpaceStation;
-import com.starshipsim.files.FileIO;
+import com.starshipsim.enums.SectorStateType;
+import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.world.EnemySector;
 import com.starshipsim.world.Grid;
 import com.starshipsim.world.Sector;
 import com.sun.glass.events.KeyEvent;
-import com.starshipsim.enums.*;
 
 public class SectorState extends State {
 	private KeyboardListener keyboard;
 
 	private Canvas canvas;
 	
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
+	private TiledBackground bg = new TiledBackground(ImageManager.spaceBg, 0, 0);
 
 	int currentOption = 0;
 
@@ -72,6 +71,7 @@ public class SectorState extends State {
 			manager.popState();
 		}
 		
+		ship.update();
 		ship.move(canvas);
 		addEnemyShip();
 	}

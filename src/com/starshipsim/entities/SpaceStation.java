@@ -2,17 +2,13 @@ package com.starshipsim.entities;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Image;
 
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
 
 public class SpaceStation extends Entity {
-
-	//NEED A FRIENDLY SPACE STATION IMAGE
-	private static Image img = FileIO.loadImage("resources/FriendlyStation.png");
 	
 	public SpaceStation(int x, int y) {
-		super(img, x, y);
+		super(ImageManager.friendlyStation, x, y);
 	}
 
 	@Override
@@ -30,7 +26,7 @@ public class SpaceStation extends Entity {
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
 		// TODO Auto-generated method stub
-		g.drawImage(img, x, y, 600, 600, null);
+		g.drawImage(this.getImage(), x, y, 600, 600, null);
 	}
 
 }

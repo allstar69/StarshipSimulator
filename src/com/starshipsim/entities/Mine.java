@@ -2,15 +2,12 @@ package com.starshipsim.entities;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Image;
 
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
 
 public class Mine extends Entity {
-	private static Image img = FileIO.loadImage("resources/mine.png");
-	
 	public Mine(int x, int y, int width, int height) {
-		super(img, x, y, width, height);
+		super(ImageManager.mine, x, y, width, height);
 	}
 
 
@@ -28,7 +25,7 @@ public class Mine extends Entity {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(img, x, y, width, height, null);
+		g.drawImage(this.getImage(), x, y, width, height, null);
 	}
 
 }

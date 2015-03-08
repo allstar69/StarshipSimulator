@@ -2,18 +2,15 @@ package com.starshipsim.entities;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.util.ArrayList;
 
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.items.Item;
 import com.starshipsim.items.ItemFuel;
 import com.starshipsim.items.ItemRepairDrone;
 import com.starshipsim.items.ItemStunBomb;
 
 public class Player extends Entity {
-
-	private static Image imgShip = FileIO.loadImage("resources/smallship1.png");
 	
 	private Ship ship;
 	
@@ -46,7 +43,7 @@ public class Player extends Entity {
 	}
 
 	public Player(int x, int y) {
-		super(imgShip, x, y);
+		super(ImageManager.ship, x, y);
 		this.ship = new Ship(800, 600, null);
 		this.inventory = new ArrayList<>();
 		this.inventory.add(new ItemFuel(10));

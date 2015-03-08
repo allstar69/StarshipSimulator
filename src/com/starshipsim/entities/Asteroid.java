@@ -3,14 +3,12 @@ package com.starshipsim.entities;
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.util.Random;
 
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
 
 public class Asteroid extends Entity {
-	private static Image img = FileIO.loadImage("resources/asteroid.png");
 	private int xDir;
 	private int yDir;
 	private int rot;
@@ -18,7 +16,7 @@ public class Asteroid extends Entity {
 	private AffineTransform xform = new AffineTransform();
 	private double size;
 	public Asteroid(int x, int y, int xDir, int yDir) {
-		super(img, x, y);
+		super(ImageManager.asteroid, x, y);
 		this.xDir=xDir;
 		this.yDir=yDir;
 		speed=new Random().nextInt(4)+4;
@@ -59,7 +57,7 @@ public class Asteroid extends Entity {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		((Graphics2D)g).drawImage(img, xform, null);
+		((Graphics2D)g).drawImage(this.getImage(), xform, null);
 	}
 
 }

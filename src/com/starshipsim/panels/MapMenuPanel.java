@@ -2,21 +2,17 @@ package com.starshipsim.panels;
 
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
 import com.starshipsim.enums.SectorStateType;
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.listeners.MapListener;
 import com.starshipsim.shipmodules.WarpCore;
 import com.starshipsim.states.MapState;
 import com.starshipsim.world.Sector;
 
 public class MapMenuPanel {
-	private static Image smallMenu = FileIO.loadImage("resources/smallmenu.png");
-	private static Image cursor = FileIO.loadImage("resources/cursor.png");
-
 	private int level = 0;
 	private int curY = 0;
 	private int selX = 0;
@@ -40,7 +36,7 @@ public class MapMenuPanel {
 	}
 	
 	public void draw(Graphics g) {
-		g.drawImage(smallMenu, this.x, this.y, null);
+		g.drawImage(ImageManager.smallMenu, this.x, this.y, null);
 		
 		String[] menu = new String[] {
 				"Move the Ship",
@@ -114,7 +110,7 @@ public class MapMenuPanel {
 
 	private void moveShip(Graphics g) {
 		state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
-		g.drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), null);
+		g.drawImage(ImageManager.cursor, 32 + (selX * 64), 32 + (selY * 64), null);
 		
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (selY != 0
@@ -164,7 +160,7 @@ public class MapMenuPanel {
 
 	private void getData(Graphics g) {
 		state.changeLog("Coordinates: " + ((char) selX + 97) + (selY + 1));
-		g.drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64), null);
+		g.drawImage(ImageManager.cursor, 32 + (selX * 64), 32 + (selY * 64), null);
 		
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (selY != 0) {
@@ -216,7 +212,7 @@ public class MapMenuPanel {
 	}
 
 	private void scienceStation(Graphics g) {
-		g.drawImage(smallMenu, 860, 60, null);
+		g.drawImage(ImageManager.smallMenu, 860, 60, null);
 		int i = 0;
 		g.drawString(("Probe Count"), 890, (100 + (i * 32)));
 		i++;
@@ -275,7 +271,7 @@ public class MapMenuPanel {
 		// f1.setVisible(true);
 		// graphics2d.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/mapscreen.png")),
 		// 16, 16, canvas);
-		g.drawImage(smallMenu, 860, 60, null);
+		g.drawImage(ImageManager.smallMenu, 860, 60, null);
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
@@ -294,7 +290,7 @@ public class MapMenuPanel {
 	}
 
 	private void launchProbe(Graphics g) {
-		g.drawImage(cursor, 32 + (selX * 64), 32 + (selY * 64),
+		g.drawImage(ImageManager.cursor, 32 + (selX * 64), 32 + (selY * 64),
 				null);
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));

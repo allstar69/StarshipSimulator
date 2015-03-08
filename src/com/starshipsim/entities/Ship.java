@@ -7,9 +7,14 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.util.Random;
 
-import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.shipmodules.*;
+import com.starshipsim.shipmodules.PowerSystem;
+import com.starshipsim.shipmodules.PropulsionSystem;
+import com.starshipsim.shipmodules.ShieldSystem;
+import com.starshipsim.shipmodules.ShipModule;
+import com.starshipsim.shipmodules.WarpCore;
+import com.starshipsim.shipmodules.WeaponSystem;
 import com.sun.glass.events.KeyEvent;
 
 public class Ship extends Entity {
@@ -27,16 +32,22 @@ public class Ship extends Entity {
 	private int rot = 0;
 	private int speed = 8;
 	
-	private static Image imgShip = FileIO.loadImage("resources/smallship1.png");
-	private static Image imgShip2 = FileIO.loadImage("resources/smallship2.png");
-	
 	private boolean isFlying = false;
 
 	private KeyboardListener keyboard;
 	private AffineTransform xform = new AffineTransform();
 	
 	public Ship(int x, int y, KeyboardListener keyboard) {
-		super(imgShip, x, y,32,32);
+		super(ImageManager.ship, x, y,32,32);
+		
+		Random rand = new Random();
+		secX = rand.nextInt(11);
+		secY = rand.nextInt(11);
+		this.keyboard = keyboard;
+	}
+	
+	public Ship(Image img, int x, int y, KeyboardListener keyboard) {
+		super(img, x, y,32,32);
 		
 		Random rand = new Random();
 		secX = rand.nextInt(11);
@@ -51,7 +62,11 @@ public class Ship extends Entity {
 
 	@Override
 	public void update() {
-		
+		if (isFlying) {
+			this.setImage(ImageManager.ship2);
+		} else {
+			this.setImage(ImageManager.ship);
+		}
 	}
 	
 	@Override
@@ -59,11 +74,7 @@ public class Ship extends Entity {
 		xform.setToTranslation(getX(), getY());
 		xform.rotate(getRot() * Math.PI / 4, 16, 16);
 		
-		if (isFlying) {
-			((Graphics2D) g).drawImage(imgShip2, xform, canvas);
-		} else {
-			((Graphics2D) g).drawImage(imgShip, xform, canvas);
-		}
+		((Graphics2D) g).drawImage(this.getImage(), xform, canvas);
 	}
 	
 	
@@ -80,7 +91,7 @@ public class Ship extends Entity {
 				}
 			} else if (keyboard.keyDown(KeyEvent.VK_D)) {
 				setRot(7);
-				if (getX() + 1 + imgShip.getWidth(null) < canvas.getX()
+				if (getX() + 1 + this.getImage().getWidth(null) < canvas.getX()
 						+ canvas.getWidth()) {
 					accelerateX();
 				}
@@ -112,7 +123,7 @@ public class Ship extends Entity {
 				}
 			} else if (keyboard.keyDown(KeyEvent.VK_D)) {
 				setRot(1);
-				if (getX() + 1 + imgShip.getWidth(null) < canvas.getX()
+				if (getX() + 1 + this.getImage().getWidth(null) < canvas.getX()
 						+ canvas.getWidth()) {
 					accelerateX();
 				}
@@ -124,7 +135,7 @@ public class Ship extends Entity {
 				setRot(2);
 			}
 			
-			if (getY() + 1 + imgShip.getHeight(null) < canvas.getY()+ canvas.getHeight()) {
+			if (getY() + 1 + this.getImage().getHeight(null) < canvas.getY()+ canvas.getHeight()) {
 				accelerateY();
 			}
 			else if(getSecY()+1<=11){
@@ -147,7 +158,7 @@ public class Ship extends Entity {
 		} else if (keyboard.keyDown(KeyEvent.VK_D)) {
 			setRot(0);
 			
-			if (getX() + 1 + imgShip.getWidth(null) < canvas.getX() + canvas.getWidth()) {
+			if (getX() + 1 + this.getImage().getWidth(null) < canvas.getX() + canvas.getWidth()) {
 				accelerateX();
 			}
 			else if(getSecX()+1<=11){
@@ -276,21 +287,5 @@ public class Ship extends Entity {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
-	}
-
-	public static Image getImgShip() {
-		return imgShip;
-	}
-
-	public static void setImgShip(Image imgShip) {
-		Ship.imgShip = imgShip;
-	}
-
-	public static Image getImgShip2() {
-		return imgShip2;
-	}
-
-	public static void setImgShip2(Image imgShip2) {
-		Ship.imgShip2 = imgShip2;
 	}
 }
