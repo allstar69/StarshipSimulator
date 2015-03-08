@@ -12,7 +12,7 @@ import com.starshipsim.items.ItemRepairDrone;
 import com.starshipsim.items.ItemSatellite;
 import com.starshipsim.items.ItemScanner;
 import com.starshipsim.items.ItemStunBomb;
-import com.starshipsim.weapons.ExplosiveDrone;
+
 
 public class Player extends Entity {
 	

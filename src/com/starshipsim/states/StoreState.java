@@ -52,7 +52,7 @@ public class StoreState extends State {
 
 	@Override
 	public void initialize() {
-		menu = new StoreMenuUI(manager.getKeyboard(), storeLeft, shipCursor, itemList, priceList);
+		menu = new StoreMenuUI(manager.getKeyboard(), storeLeft, shipCursor, itemList, priceList, player, isBuying);
 		
 	}
 
