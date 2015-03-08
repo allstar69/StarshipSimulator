@@ -154,11 +154,11 @@ public class CombatState extends State {
 			ship.setY(200);
 			if(ship instanceof EnemyShip){
 				g.drawString(ship.getHealth()+"/"+ ship.getMaxHealth(), enemyX+(i*(450))+50, 350);
-				g.drawImage(ImageManager.enemyShip, enemyX+(i*(450)), 400, 200, 130,null);
+				g.drawImage(ImageManager.combatEnemyShip, enemyX+(i*(450)), 400, 200, 130,null);
 			}
 			else{
 				g.drawString(ship.getHealth()+"/"+ ship.getMaxHealth(), enemyX+(i*(450))+50, 250);
-				g.drawImage(ImageManager.enemyShip2, enemyX+(i*(450))-100, 300, 400, 360,null);
+				g.drawImage(ImageManager.enemyStation, enemyX+(i*(450))-100, 300, 400, 360,null);
 			}
 		}
 	}
