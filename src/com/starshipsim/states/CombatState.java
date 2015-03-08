@@ -11,6 +11,7 @@ import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.entities.Entity;
+import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
@@ -44,6 +45,7 @@ public class CombatState extends State {
 	private CombatData data;
 	EnemyFleet enemies;
 	ArrayList<Entity> ships;
+	Player player;
 	Ship ship;
 	int currentOption = 0;
 	
@@ -53,7 +55,8 @@ public class CombatState extends State {
 		this.data = data;
 		this.enemies = data.getEnemies();
 		this.ships = enemies.getShips();
-		ship=data.getPlayer();
+		player=data.getPlayer();
+		ship=data.getPlayer().getShip();
 		initialize();
 	}
 
@@ -112,6 +115,7 @@ public class CombatState extends State {
 		//menu.draw(g);
 		if(ships.size()==0){
 			manager.popState();
+			player.setMoney(player.getMoney()+data.getEnemies().getReward());
 		}
 		if(currentMenu==0){
 			g.drawString("Attack", centerX-100, centerY+250);

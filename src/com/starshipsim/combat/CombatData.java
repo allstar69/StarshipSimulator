@@ -1,11 +1,12 @@
 package com.starshipsim.combat;
 
+import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 
 public class CombatData {
 
 	private EnemyFleet enemies;
-	private Ship player;
+	private Player player;
 	
 	public EnemyFleet getEnemies() {
 		return enemies;
@@ -15,15 +16,15 @@ public class CombatData {
 		this.enemies = enemies;
 	}
 
-	public Ship getPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Ship player) {
+	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
-	public CombatData(Ship player, EnemyFleet enemies) {
+	public CombatData(Player player, EnemyFleet enemies) {
 		this.player = player;
 		this.enemies = enemies;
 	}

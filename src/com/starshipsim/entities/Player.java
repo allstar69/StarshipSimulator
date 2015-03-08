@@ -17,7 +17,7 @@ public class Player extends Entity {
 	
 	private Ship ship;
 	
-	private int money;
+	private int money=1000;
 	
 	private ArrayList<Item> inventory;
 	

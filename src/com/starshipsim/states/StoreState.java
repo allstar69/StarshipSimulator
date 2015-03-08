@@ -22,7 +22,7 @@ public class StoreState extends State {
 	
 	private int currentOption = 0;
 	private String itemDesc = "Place Holder";
-	private int currentMoney = 5600;
+	private Player player;
 	private ArrayList<Item> inventory;
 	
 	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
@@ -37,6 +37,7 @@ public class StoreState extends State {
 		inventory = p.getInventory();
 		itemList = new String[inventory.size()];
 		priceList = new String[inventory.size()];
+		player=p;
 		for (int ii = 0; ii < inventory.size(); ii++) {
 			itemList[ii] = inventory.get(ii).getName();
 			priceList[ii] = " $" + inventory.get(ii).getPrice();
@@ -64,8 +65,8 @@ public class StoreState extends State {
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 			currentOption = menu.getCurrentOption();
-			if (currentMoney >= inventory.get(currentOption).getPrice()) {
-				currentMoney -= inventory.get(currentOption).getPrice();
+			if (player.getMoney() >= inventory.get(currentOption).getPrice()) {
+				player.setMoney(player.getMoney()-inventory.get(currentOption).getPrice());
 				inventory.get(currentOption).setAmount(inventory.get(currentOption).getAmount() + 1);
 			}
 		}
@@ -80,7 +81,7 @@ public class StoreState extends State {
 		g.setColor(Color.white);
 		g.drawString("ITEM", 130, 100);
 		g.drawString("PRICE", 950, 100);
-		g.drawString("MONEY: $" + currentMoney, 1370, 100);
+		g.drawString("MONEY: $" + player.getMoney(), 1370, 100);
 
 		int menuY = (canvas.getHeight()/2) - (storeLeft.getHeight(null)/2);
 		

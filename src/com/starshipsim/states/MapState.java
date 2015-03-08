@@ -118,7 +118,7 @@ public class MapState extends State {
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_E)) {
 			EnemyFleet enemies = new EnemyFleet();
-			CombatData combatData = new CombatData(getShip(), enemies);
+			CombatData combatData = new CombatData(player, enemies);
 			manager.addState(new CombatState(manager, combatData));
 		}
 		

@@ -87,12 +87,12 @@ public class SectorState extends State {
 				ship.setX(ship.getX()+ship.getWidth()+10);
 				ship.setY(ship.getY()+ship.getHeight()/2);
 				sector.getEntities().remove(sector.getOneIntersectingEntity(ship, EnemySpaceStation.class));
-				manager.addState(new CombatState(manager, new CombatData(ship, new StationFleet()))); 
+				manager.addState(new CombatState(manager, new CombatData(player, new StationFleet()))); 
 			}
 		}
 		if(sector.checkCollision(ship, EnemyShip.class)) {
 				
-				manager.addState(new CombatState(manager, new CombatData(ship, new EnemyFleet())));
+				manager.addState(new CombatState(manager, new CombatData(player, new EnemyFleet())));
 		}
 		if(sector.checkCollision(ship, Asteroid.class)){
 			ship.setDurability(ship.getDurability()-1);
