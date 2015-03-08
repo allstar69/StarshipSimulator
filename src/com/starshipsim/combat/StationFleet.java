@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.starshipsim.entities.EnemyShip;
+import com.starshipsim.entities.EnemySpaceStation;
 import com.starshipsim.entities.Entity;
 
-public class EnemyFleet {
-
-	private final int MAX_SHIPS = 3;
+public class StationFleet extends EnemyFleet{
 	
 	private ArrayList<Entity> ships;
 	
@@ -20,18 +19,17 @@ public class EnemyFleet {
 		this.ships = ships;
 	}
 
-	public EnemyFleet() {
+	public StationFleet() {
 		ships = new ArrayList<>();
 		generateShips();
 	}
 	
 	private void generateShips() {
 		Random random = new Random();
-		int amount = random.nextInt(MAX_SHIPS)+1;
 		
-		for (int i = 0; i < amount; i++) {
-			ships.add(new EnemyShip(0, 0, null));
-		}
+		ships.add(new EnemyShip(0, 0, null));
+		ships.add(new EnemySpaceStation(0, 0));
+		ships.add(new EnemyShip(0, 0, null));
+		
 	}
-	
 }

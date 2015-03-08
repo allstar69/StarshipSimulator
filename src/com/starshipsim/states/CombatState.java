@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.entities.EnemyShip;
+import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
@@ -21,6 +22,7 @@ public class CombatState extends State {
 	private static Image imgHud = FileIO.loadImage("resources/combat_hud.png");
 	private static Image imgMenu = FileIO.loadImage("resources/smallmenu.png");
 	private static Image imgEnemy = FileIO.loadImage("resources/eship1.png");
+	private static Image imgEnemy2 = FileIO.loadImage("resources/enemy station.png");
 	private static Image shipCursor = FileIO.loadImage("resources/smallship1.png");
 	private int cursorX=800;
 	private int cursorY=760;
@@ -41,7 +43,7 @@ public class CombatState extends State {
 	
 	private CombatData data;
 	EnemyFleet enemies;
-	ArrayList<EnemyShip> ships;
+	ArrayList<Entity> ships;
 	Ship ship;
 	int currentOption = 0;
 	
@@ -134,11 +136,16 @@ public class CombatState extends State {
 		}
 		
 		for (int i = 0; i < ships.size(); i++) {
-			EnemyShip ship = ships.get(i);
-			int enemyX = centerX - totalWidth/2;
+			Entity ship = ships.get(i);
+			int enemyX = centerX - totalWidth/2+100;
 			ship.setX(enemyX+(i*(450)));
 			ship.setY(200);
-			g.drawImage(imgEnemy, enemyX+(i*(450)), 200, 400, 260,null);
+			if(ship instanceof EnemyShip){
+				g.drawImage(imgEnemy, enemyX+(i*(450)), 300, 200, 130,null);
+			}
+			else{
+				g.drawImage(imgEnemy2, enemyX+(i*(450))-100, 200, 400, 360,null);
+			}
 		}
 	}
 	public void mainCombatMenu(){

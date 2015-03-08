@@ -16,7 +16,8 @@ public class EnemyShip extends Ship {
 	private static Image imgEShip2 = FileIO.loadImage("resources/esmallship2.png");
 	private static Random random = new Random();
 	private AffineTransform xform = new AffineTransform();
-	private double rot=2;
+	private double rot;
+	private double nextrot;
 	private long deltaTime=0;
 	public EnemyShip(int x, int y, KeyboardListener keyboard) {
 		super(x, y, keyboard);
@@ -35,12 +36,18 @@ public class EnemyShip extends Ship {
 		this.updateBoxes();
 	}
 	public void move(){
-		if(System.currentTimeMillis()>deltaTime+500){
-			rot+=15*(random.nextInt(3)-1);
+		if(System.currentTimeMillis()>deltaTime+800){
+			nextrot=rot+15*(random.nextInt(3)-1);
 			deltaTime=System.currentTimeMillis();
 		}
-		setX((int) (getX()+Math.cos(rot*Math.PI/180)*4));
-		setY((int) (getY()+Math.sin(rot*Math.PI/180)*4));
+		if(rot>=nextrot){
+			rot--;
+		}
+		if(rot<=nextrot){
+			rot++;
+		}
+		setX((int) (getX()+Math.cos(rot*Math.PI/180)*3));
+		setY((int) (getY()+Math.sin(rot*Math.PI/180)*3));
 		xform.setToTranslation(getX(), getY());
 		xform.rotate((rot) * Math.PI / 180, 16, 16);
 		

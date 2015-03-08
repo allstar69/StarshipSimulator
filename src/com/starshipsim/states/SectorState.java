@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
+import com.starshipsim.combat.StationFleet;
 import com.starshipsim.entities.Asteroid;
 import com.starshipsim.entities.BlackHole;
 import com.starshipsim.entities.EnemyShip;
@@ -86,7 +87,7 @@ public class SectorState extends State {
 				ship.setX(ship.getX()+ship.getWidth()+10);
 				ship.setY(ship.getY()+ship.getHeight()/2);
 				sector.getEntities().remove(sector.getOneIntersectingEntity(ship, EnemySpaceStation.class));
-				manager.addState(new CombatState(manager, new CombatData(ship, new EnemyFleet()))); 
+				manager.addState(new CombatState(manager, new CombatData(ship, new StationFleet()))); 
 			}
 		}
 		if(sector.checkCollision(ship, EnemyShip.class)) {
