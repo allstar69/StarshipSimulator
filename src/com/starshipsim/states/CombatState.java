@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.entities.EnemyShip;
+import com.starshipsim.entities.EnemySpaceStation;
 import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
@@ -145,9 +146,11 @@ public class CombatState extends State {
 			ship.setX(enemyX+(i*(450)));
 			ship.setY(200);
 			if(ship instanceof EnemyShip){
+				g.drawString(((EnemyShip) ship).getDurability()+"/"+((EnemyShip) ship).getMaxDurability(), enemyX+(i*(450)), 250);
 				g.drawImage(imgEnemy, enemyX+(i*(450)), 300, 200, 130,null);
 			}
 			else{
+				g.drawString(((EnemySpaceStation) ship).getDurability()+"/"+((EnemySpaceStation) ship).getMaxDurability(), enemyX+(i*(450)), 150);
 				g.drawImage(imgEnemy2, enemyX+(i*(450))-100, 200, 400, 360,null);
 			}
 		}

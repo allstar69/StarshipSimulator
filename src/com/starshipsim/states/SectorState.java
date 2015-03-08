@@ -14,6 +14,7 @@ import com.starshipsim.entities.BlackHole;
 import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.entities.EnemySpaceStation;
 import com.starshipsim.entities.Entity;
+import com.starshipsim.entities.Explosion;
 import com.starshipsim.entities.Mine;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
@@ -100,6 +101,7 @@ public class SectorState extends State {
 		
 		if(sector.checkCollision(ship, Mine.class)) {
 			ship.setDurability(ship.getDurability()-5);
+			sector.getEntities().add(new Explosion(sector.getOneIntersectingEntity(ship, Mine.class).getX()-16, sector.getOneIntersectingEntity(ship, Mine.class).getY()-16, sector.getOneIntersectingEntity(ship, Mine.class).getWidth()*2, sector.getOneIntersectingEntity(ship, Mine.class).getHeight()*2));
 		}
 
 		if(sector.checkCollision(ship, BlackHole.class)) {
