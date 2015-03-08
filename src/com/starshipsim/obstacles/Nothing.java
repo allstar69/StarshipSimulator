@@ -11,7 +11,8 @@ public class Nothing extends Obstacle {
 	}
 	public void run(){
 		
-		System.out.println("YOU GET NOTHING");
+		//don't need a run, it's job is done in generation
+		//how to notify the user that this was an obstacle they faced?
 		
 	}
 	public boolean isGetsNothing() {

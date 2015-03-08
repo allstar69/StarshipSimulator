@@ -1,5 +1,7 @@
 package com.starshipsim.obstacles;
 
+import com.starshipsim.entities.Player;
+
 public class Sabotage extends Obstacle {
 	
 	public Sabotage(int amount){
@@ -7,9 +9,9 @@ public class Sabotage extends Obstacle {
 		
 	}
 	
-	public void run(){
+	public void run(Player play){
 		
-		System.out.println("You've been sabotaged");
+		play.getShip().setDurability(play.getShip().getDurability() - 5); //sets the ships durability to 5 below what it is.
 		
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.starshipsim.entities.Planet;
+import com.starshipsim.entities.Player;
 import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.obstacles.LoseItems;
 import com.starshipsim.obstacles.Obstacle;
@@ -14,6 +15,7 @@ public class ExplorableSector extends Sector {
 
 	private ArrayList<Reward> rewards;
 	private ArrayList<Obstacle> obstacles;
+	private Player play; // when player enters explorable, sets this as the player
 	
 	public ExplorableSector(){//randomizes the obstacles and rewards
 		super(SectorStateType.EXPLORABLE);
@@ -33,7 +35,6 @@ public class ExplorableSector extends Sector {
 		
 		setRewards(tempRewards);
 	}
-	//every 'amount' is currently set to 1, most likely will be changed later
 	public void generateObstacles(){
 		ArrayList<Obstacle> tempObstacles = new ArrayList<Obstacle>();
 		
@@ -83,13 +84,17 @@ public class ExplorableSector extends Sector {
 	public void faceObstacles(){
 		
 		for(Obstacle o : getObstacles()){
-			o.run();
+			o.run(getPlay());
+			System.out.println("Obstacle being run");
 		}
 		
 	}
 	public void receiveRewards(){
 		
-		//TODO basically going to be enhanced for loop that gives all rewards
+		for(Reward r : getRewards()){
+			r.getRewardItem().run();
+			System.out.println("Reward being given");
+		}
 		
 	}
 	
@@ -114,5 +119,11 @@ public class ExplorableSector extends Sector {
 	}
 	public void setObstacles(ArrayList<Obstacle> obstacles) {
 		this.obstacles = obstacles;
+	}
+	public Player getPlay() {
+		return play;
+	}
+	public void setPlay(Player play) {
+		this.play = play;
 	}	
 }
