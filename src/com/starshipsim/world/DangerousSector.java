@@ -5,14 +5,14 @@ import java.util.Random;
 import com.starshipsim.entities.Asteroid;
 import com.starshipsim.entities.BlackHole;
 import com.starshipsim.entities.Mine;
-import com.starshipsim.enums.SectorState;
+import com.starshipsim.enums.SectorStateType;
 
 public class DangerousSector extends Sector {
 	
 	private int dangerType;
 	
 	public DangerousSector(){
-		super(SectorState.DANGEROUS);
+		super(SectorStateType.DANGEROUS);
 		
 		generateContent();
 	}

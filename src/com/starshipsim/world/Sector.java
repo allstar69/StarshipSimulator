@@ -6,14 +6,14 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import com.starshipsim.entities.Entity;
-import com.starshipsim.enums.SectorState;
+import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.files.FileIO;
 
 public abstract class Sector {
 	private boolean known = false;
 	private boolean mysterious = false;
 	private boolean hostile = false;
-	SectorState state;
+	SectorStateType state;
 	
 	private static Image imgUnknown = FileIO.loadImage("resources/unknown.png");
 	private static Image imgMysterious = FileIO.loadImage("resources/Mysterious.png");
@@ -54,15 +54,15 @@ public abstract class Sector {
 		this.hostile = hostile;
 	}
 
-	public SectorState getState() {
+	public SectorStateType getState() {
 		return state;
 	}
 	
-	public void setState(SectorState state) {
+	public void setState(SectorStateType state) {
 		this.state = state;
 	}
 	
-	public Sector(SectorState state) {
+	public Sector(SectorStateType state) {
 		setState(state);
 		entities = new ArrayList<Entity>();
 	}

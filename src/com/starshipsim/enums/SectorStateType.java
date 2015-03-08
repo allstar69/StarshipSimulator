@@ -1,6 +1,6 @@
 package com.starshipsim.enums;
 
-public enum SectorState {
+public enum SectorStateType {
 	NEUTRAL,
 	FRIENDLY,
 	EXPLORABLE,

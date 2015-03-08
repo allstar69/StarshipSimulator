@@ -17,7 +17,7 @@ public class Ship extends Entity {
 	private int maxDurability = 100;
 	private int secX;
 	private int secY;
-
+	private int distanceTravelled;
 	private ShipModule power = new PowerSystem();
 	private ShipModule shield = new ShieldSystem();
 	private ShipModule weapon = new WeaponSystem();
@@ -164,18 +164,22 @@ public class Ship extends Entity {
 
 	public void decelerateX() {
 		setX(getX()-getSpeed());
+		setDistanceTravelled(getDistanceTravelled()+1);
 	}
 	
 	public void accelerateX() {
 		setX(getX()+getSpeed());
+		setDistanceTravelled(getDistanceTravelled()+1);
 	}
 	
 	public void decelerateY() {
 		setY(getY()-getSpeed());
+		setDistanceTravelled(getDistanceTravelled()+1);
 	}
 	
 	public void accelerateY() {
 		setY(getY()+getSpeed());
+		setDistanceTravelled(getDistanceTravelled()+1);
 	}
 
 	public int getDurability() {
@@ -208,6 +212,14 @@ public class Ship extends Entity {
 
 	public void setSecY(int secY) {
 		this.secY = secY;
+	}
+
+	public int getDistanceTravelled() {
+		return distanceTravelled;
+	}
+
+	public void setDistanceTravelled(int distanceTravelled) {
+		this.distanceTravelled = distanceTravelled;
 	}
 
 	public ShipModule getPower() {
@@ -264,5 +276,21 @@ public class Ship extends Entity {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+
+	public static Image getImgShip() {
+		return imgShip;
+	}
+
+	public static void setImgShip(Image imgShip) {
+		Ship.imgShip = imgShip;
+	}
+
+	public static Image getImgShip2() {
+		return imgShip2;
+	}
+
+	public static void setImgShip2(Image imgShip2) {
+		Ship.imgShip2 = imgShip2;
 	}
 }

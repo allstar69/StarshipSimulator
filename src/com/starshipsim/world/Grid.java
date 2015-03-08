@@ -2,8 +2,9 @@ package com.starshipsim.world;
 
 import java.util.Random;
 
+import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.entities.Ship;
-import com.starshipsim.enums.SectorState;
+import com.starshipsim.enums.SectorStateType;
 
 public class Grid {
 	private Sector[][] sectors;
@@ -43,7 +44,7 @@ public class Grid {
 			int y = rand.nextInt(12);
 			
 			Sector s=sectors[x][y];
-			while(s.getState()!=SectorState.NEUTRAL){
+			while(s.getState()!=SectorStateType.NEUTRAL){
 				x = rand.nextInt(12);
 				y = rand.nextInt(12);
 				s=sectors[x][y];
@@ -56,7 +57,7 @@ public class Grid {
 			int y = rand.nextInt(12);
 			
 			Sector s=sectors[x][y];
-			while(s.getState()!=SectorState.NEUTRAL){
+			while(s.getState()!=SectorStateType.NEUTRAL){
 				x = rand.nextInt(12);
 				y = rand.nextInt(12);
 				s=sectors[x][y];
@@ -69,7 +70,7 @@ public class Grid {
 			int y = rand.nextInt(12);
 			
 			Sector s=sectors[x][y];
-			while(s.getState()!=SectorState.NEUTRAL){
+			while(s.getState()!=SectorStateType.NEUTRAL){
 				x = rand.nextInt(12);
 				y = rand.nextInt(12);
 				s=sectors[x][y];
@@ -82,7 +83,7 @@ public class Grid {
 			int y = rand.nextInt(12);
 			
 			Sector s=sectors[x][y];
-			while(s.getState()!=SectorState.NEUTRAL){
+			while(s.getState()!=SectorStateType.NEUTRAL){
 				x = rand.nextInt(12);
 				y = rand.nextInt(12);
 				s=sectors[x][y];
@@ -97,13 +98,17 @@ public class Grid {
 			}
 			s.setMysterious(true);
 		}
-		
+		Random random=new Random();
 		for(int i=0; i<hostileNum;i++){
 			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
 			while(s.isHostile()){
 				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
 			}
 			s.setHostile(true);
+			int enemynum=random.nextInt(2)+1;
+			for(int j=0; j<enemynum;j++){
+				s.getEntities().add(new EnemyShip(random.nextInt(1600), random.nextInt(800), null));
+			}
 		}
 	}
 

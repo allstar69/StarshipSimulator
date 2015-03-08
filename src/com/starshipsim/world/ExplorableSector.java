@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.starshipsim.entities.Planet;
-import com.starshipsim.enums.SectorState;
+import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.obstacles.LoseItems;
 import com.starshipsim.obstacles.Obstacle;
 import com.starshipsim.obstacles.Sabotage;
@@ -16,7 +16,7 @@ public class ExplorableSector extends Sector {
 	private ArrayList<Obstacle> obstacles;
 	
 	public ExplorableSector(){//randomizes the obstacles and rewards
-		super(SectorState.EXPLORABLE);
+		super(SectorStateType.EXPLORABLE);
 		
 		generateContent();
 		generateRewards();
@@ -78,7 +78,7 @@ public class ExplorableSector extends Sector {
 	public void run(){
 		faceObstacles();
 		receiveRewards();
-		setState(SectorState.NEUTRAL);//sets to Neutral because it has been exhausted
+		setState(SectorStateType.NEUTRAL);//sets to Neutral because it has been exhausted
 	}
 	public void faceObstacles(){
 		

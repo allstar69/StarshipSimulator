@@ -3,7 +3,7 @@ package com.starshipsim.world;
 import java.util.Random;
 
 import com.starshipsim.entities.EnemySpaceStation;
-import com.starshipsim.enums.SectorState;
+import com.starshipsim.enums.SectorStateType;
 
 public class EnemySector extends Sector {
 	
@@ -28,7 +28,7 @@ public class EnemySector extends Sector {
 	
 	public EnemySector()
 	{
-		super(SectorState.ENEMY);
+		super(SectorStateType.ENEMY);
 		
 		setHealth(100); //random num, subject to change
 		setDestroyed(false);

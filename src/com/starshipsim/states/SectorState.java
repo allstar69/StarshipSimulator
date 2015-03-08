@@ -10,7 +10,9 @@ import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.entities.Asteroid;
 import com.starshipsim.entities.BlackHole;
+import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.entities.EnemySpaceStation;
+import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Mine;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
@@ -18,9 +20,11 @@ import com.starshipsim.entities.SpaceStation;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
+import com.starshipsim.world.EnemySector;
 import com.starshipsim.world.Grid;
 import com.starshipsim.world.Sector;
 import com.sun.glass.events.KeyEvent;
+import com.starshipsim.enums.*;
 
 public class SectorState extends State {
 	private KeyboardListener keyboard;
@@ -65,8 +69,9 @@ public class SectorState extends State {
 		if (keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
-
+		
 		ship.move(canvas);
+		addEnemyShip();
 	}
 
 	public void shipCollisions() {
@@ -115,11 +120,24 @@ public class SectorState extends State {
 		
 		ship.draw(g, canvas);
 		g.drawString(ship.getDurability()+"/"+ship.getMaxDurability(), 32, 32);
+		g.drawString(""+ship.getDistanceTravelled(), 32, 64);
 	}
 
 	@Override
 	public void end() {
 
 	}
-	
+	public void addEnemyShip(){
+		if(ship.getDistanceTravelled()>1000){
+			Random random = new Random();
+			Sector sector = grid.getSector(random.nextInt(11), random.nextInt(11));
+			while(sector.getState()!=SectorStateType.ENEMY){
+				sector = grid.getSector(random.nextInt(11), random.nextInt(11));
+			}
+			Entity station = sector.getEntities().get(random.nextInt(sector.getEntities().size()));
+			sector.getEntities().add(new EnemyShip(station.getX()+station.getWidth()/2, station.getY()+station.getWidth()/2, keyboard));
+			ship.setDistanceTravelled(0);
+			sector.setHostile(true);
+		}
+	}
 }

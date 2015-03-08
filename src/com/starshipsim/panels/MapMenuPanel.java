@@ -6,7 +6,7 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
-import com.starshipsim.enums.SectorState;
+import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.listeners.MapListener;
 import com.starshipsim.shipmodules.WarpCore;
@@ -155,8 +155,6 @@ public class MapMenuPanel {
 			
 			if (sector.isHostile()) {
 				state.changeLog("Enemies Detected");
-				state.changeLog("Enemies Fled");
-				sector.setHostile(false);
 			}
 			level = 0;
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
@@ -193,16 +191,16 @@ public class MapMenuPanel {
 					state.changeLog("That region is mysterious");
 				} else {
 					
-					if (sector.getState() == SectorState.FRIENDLY) {
+					if (sector.getState() == SectorStateType.FRIENDLY) {
 						state.setLog1("That region is friendly ");
-					} else if (sector.getState() == SectorState.EXPLORABLE) {
+					} else if (sector.getState() == SectorStateType.EXPLORABLE) {
 						state.setLog1("That region is explorable ");
-					} else if (sector.getState() == SectorState.DANGEROUS) {
+					} else if (sector.getState() == SectorStateType.DANGEROUS) {
 						state.setLog1("That region is dangerous ");
-					}else if (sector.getState() == SectorState.NEUTRAL){
+					}else if (sector.getState() == SectorStateType.NEUTRAL){
 						state.setLog1("That region is neutral ");
 					}
-					else if (sector.getState() == SectorState.ENEMY){
+					else if (sector.getState() == SectorStateType.ENEMY){
 						state.setLog1("That region is an Enemy Base ");
 					}
 					if (sector.isHostile()) {
@@ -338,11 +336,11 @@ public class MapMenuPanel {
 						} else {
 							state.changeLog("That region is neutral");
 						}
-						if (sector.getState() == SectorState.FRIENDLY) {
+						if (sector.getState() == SectorStateType.FRIENDLY) {
 							state.setLog1(state.getLog1() + " and friendly");
-						} else if (sector.getState() == SectorState.EXPLORABLE) {
+						} else if (sector.getState() == SectorStateType.EXPLORABLE) {
 							state.setLog1(state.getLog1() + " and explorable");
-						} else if (sector.getState() == SectorState.DANGEROUS) {
+						} else if (sector.getState() == SectorStateType.DANGEROUS) {
 							state.setLog1(state.getLog1() + " and dangerous");
 						}
 					}
@@ -362,7 +360,7 @@ public class MapMenuPanel {
 	private void exploreSector() {
 		Sector sector = state.getGrid().getSector(state.getShip().getSecX(), state.getShip().getSecY());
 
-		if (sector.getState() == SectorState.EXPLORABLE) {
+		if (sector.getState() == SectorStateType.EXPLORABLE) {
 			Random rand = new Random();
 			int r = rand.nextInt(2) + 1;
 			if (r == 1) {
