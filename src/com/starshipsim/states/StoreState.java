@@ -24,6 +24,7 @@ public class StoreState extends State {
 	private String itemDesc = "Place Holder";
 	private Player player;
 	private ArrayList<Item> inventory;
+	private boolean isBuying;
 	
 	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
 	
@@ -32,15 +33,17 @@ public class StoreState extends State {
 
 	private StoreMenuUI menu;
 	
-	public StoreState(StateManager manager, Player p) {
+	public StoreState(StateManager manager, Player p, boolean isBuying) {
 		super(manager);
+		this.isBuying = isBuying;
 		inventory = p.getInventory();
 		itemList = new String[inventory.size()];
 		priceList = new String[inventory.size()];
 		player=p;
 		for (int ii = 0; ii < inventory.size(); ii++) {
 			itemList[ii] = inventory.get(ii).getName();
-			priceList[ii] = " $" + inventory.get(ii).getPrice();
+			priceList[ii] = " $";
+			priceList[ii] += (isBuying) ? inventory.get(ii).getPrice() : (int) (inventory.get(ii).getPrice() * .8);
 		}
 		initialize();
 	}
@@ -65,9 +68,16 @@ public class StoreState extends State {
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 			currentOption = menu.getCurrentOption();
-			if (player.getMoney() >= inventory.get(currentOption).getPrice()) {
-				player.setMoney(player.getMoney()-inventory.get(currentOption).getPrice());
-				inventory.get(currentOption).setAmount(inventory.get(currentOption).getAmount() + 1);
+			if (isBuying) {
+				if (player.getMoney() >= inventory.get(currentOption).getPrice()) {
+					player.setMoney(player.getMoney()-inventory.get(currentOption).getPrice());
+					inventory.get(currentOption).setAmount(inventory.get(currentOption).getAmount() + 1);
+				}
+			} else {
+				if (inventory.get(currentOption).getAmount() > 0) {
+					player.setMoney(player.getMoney()+ (int)(inventory.get(currentOption).getPrice() * .8));
+					inventory.get(currentOption).setAmount(inventory.get(currentOption).getAmount() - 1);
+				}
 			}
 		}
 	}
@@ -94,7 +104,7 @@ public class StoreState extends State {
 		g.drawString(itemDesc, 1300, 220);
 		g.drawString("Currently Owned", 1275, 825);
 		g.drawString(Integer.toString(inventory.get(currentOption).getAmount()), 1550, 900);
-		g.drawString("Press Escape to return to the Star Map.", 32, 1050);
+		g.drawString("Press Escape to return.", 32, 1050);
 	}
 
 	@Override

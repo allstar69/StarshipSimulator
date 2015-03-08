@@ -127,7 +127,7 @@ public class MapState extends State {
 		}
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_R)) {
-			manager.addState(new StoreState(manager, player));
+			manager.addState(new StoreSelectorState(manager, player));
 		}
 	}
 	

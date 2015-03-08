@@ -79,7 +79,7 @@ public class SectorState extends State {
 	public void shipCollisions() {
 		if(sector.checkCollision(ship, SpaceStation.class)) {
 			if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
-				manager.addState(new StoreState(manager, player));
+				manager.addState(new StoreSelectorState(manager, player));
 			}
 		}
 		
