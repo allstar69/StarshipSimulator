@@ -5,11 +5,12 @@ import java.util.Random;
 import com.starshipsim.entities.Asteroid;
 import com.starshipsim.entities.BlackHole;
 import com.starshipsim.entities.Mine;
+import com.starshipsim.enums.DangerType;
 import com.starshipsim.enums.SectorStateType;
 
 public class DangerousSector extends Sector {
 	
-	private int dangerType;
+	private DangerType type;
 	
 	public DangerousSector(){
 		super(SectorStateType.DANGEROUS);
@@ -20,50 +21,51 @@ public class DangerousSector extends Sector {
 		//warps you to a random sector
 		
 	}
-	public int getDangerType() {
-		return dangerType;
+	public DangerType getType() {
+		return type;
 	}
-	public void setDangerType(int dangerType) {
-		this.dangerType = dangerType;
+	public void setType(DangerType type) {
+		this.type = type;
 	}
 
 	public void generateContent() {
 		Random random = new Random();
 		
-		dangerType = random.nextInt(3)+1;
-		//1=BlackHole - warp ship
-		//2=MeteorShower - damage Ship
-		//3=SpaceMines - damage Ship
-		//4=MapJammer - jam Map
-		//5=HugeSun - High Gravity/ temporary warp disable
-		if(dangerType==1){
+		int num = random.nextInt(DangerType.values().length);
+		DangerType type = DangerType.values()[num];
+		
+		switch(type) {
+		case BLACKHOLE:
 			this.getEntities().add(new BlackHole(500, 300, 600, 600));
-		}
-		if(dangerType==2){
-			int stationAmount = random.nextInt(10)+31;
-			for (int i = 0; i < stationAmount; i++) {
-				int x = random.nextInt(1800);
-				int y = random.nextInt(1000);
-				
-				Mine mine = new Mine(x, y, 64, 64);
-				this.getEntities().add(mine);
-			}
-		}
-		if(dangerType==3){
-			int stationAmount = random.nextInt(10)+31;
+			break;
+		case METEORS:
+			int meteorAmount = random.nextInt(10)+31;
 			int xDir=random.nextInt(5)-2;
 			int yDir=random.nextInt(5)-2;
-			while(xDir==0&&yDir==0){
+			
+			while(xDir==0 && yDir==0){
 				xDir=random.nextInt(5)-2;
 				yDir=random.nextInt(5)-2;
 			}
-			for (int i = 0; i < stationAmount; i++) {
+			
+			for (int i = 0; i < meteorAmount; i++) {
 				int x = random.nextInt(1800);
 				int y = random.nextInt(1000);
 				
 				Asteroid asteroid = new Asteroid(x, y, xDir, yDir);
 				this.getEntities().add(asteroid);
 			}
+			break;
+		case MINES:
+			int mineAmount = random.nextInt(10)+31;
+			for (int i = 0; i < mineAmount; i++) {
+				int x = random.nextInt(1800);
+				int y = random.nextInt(1000);
+				
+				Mine mine = new Mine(x, y, 64, 64);
+				this.getEntities().add(mine);
+			}
+			break;
 		}
 	}
 }
