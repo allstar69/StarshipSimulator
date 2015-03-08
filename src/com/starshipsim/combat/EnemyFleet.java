@@ -3,6 +3,7 @@ package com.starshipsim.combat;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.starshipsim.entities.Enemy;
 import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.entities.Entity;
 
@@ -10,7 +11,7 @@ public class EnemyFleet {
 
 	private final int MAX_SHIPS = 3;
 	private int reward;
-	private ArrayList<Entity> ships;
+	private ArrayList<Enemy> ships;
 	
 	public int getReward() {
 		return reward;
@@ -20,11 +21,11 @@ public class EnemyFleet {
 		this.reward = reward;
 	}
 
-	public ArrayList<Entity> getShips() {
+	public ArrayList<Enemy> getShips() {
 		return ships;
 	}
 
-	public void setShips(ArrayList<Entity> ships) {
+	public void setShips(ArrayList<Enemy> ships) {
 		this.ships = ships;
 	}
 

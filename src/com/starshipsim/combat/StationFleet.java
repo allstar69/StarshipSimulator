@@ -3,6 +3,7 @@ package com.starshipsim.combat;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.starshipsim.entities.Enemy;
 import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.entities.EnemySpaceStation;
 import com.starshipsim.entities.Entity;
@@ -10,7 +11,7 @@ import com.starshipsim.entities.Entity;
 public class StationFleet extends EnemyFleet{
 	
 	private int reward;
-	private ArrayList<Entity> ships;
+	private ArrayList<Enemy> ships;
 	
 	public int getReward() {
 		return reward;
@@ -19,11 +20,11 @@ public class StationFleet extends EnemyFleet{
 	public void setReward(int reward) {
 		this.reward = reward;
 	}
-	public ArrayList<Entity> getShips() {
+	public ArrayList<Enemy> getShips() {
 		return ships;
 	}
 
-	public void setShips(ArrayList<Entity> ships) {
+	public void setShips(ArrayList<Enemy> ships) {
 		this.ships = ships;
 	}
 

@@ -53,7 +53,7 @@ public class Asteroid extends Entity {
 		
 		xform.setToTranslation(x, y);
 		xform.scale(size, size);
-		xform.rotate(rot * Math.PI/180, width/2, height/2);
+		xform.rotate(rot * Math.PI/180, 32, 32);
 		
 	}
 

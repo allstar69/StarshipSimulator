@@ -6,7 +6,7 @@ import java.awt.Image;
 
 import com.starshipsim.files.FileIO;
 
-public class EnemySpaceStation extends Entity {
+public class EnemySpaceStation extends Entity implements Enemy{
 
 	private static Image img = FileIO.loadImage("resources/enemy station.png");
 	private int durability = 500;
@@ -47,5 +47,32 @@ public class EnemySpaceStation extends Entity {
 	public void setMaxDurability(int maxDurability) {
 		this.maxDurability = maxDurability;
 	}
+
+	@Override
+	public void takeDamage(int damage) {
+		// TODO Auto-generated method stub
+		setDurability(getDurability()-damage);
+	}
+
+	@Override
+	public int dealDamage() {
+		return 20;
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getHealth() {
+		// TODO Auto-generated method stub
+		return getDurability();
+	}
+
+	@Override
+	public int getMaxHealth() {
+		// TODO Auto-generated method stub
+		return getMaxDurability();
+	}
+
+	
 
 }

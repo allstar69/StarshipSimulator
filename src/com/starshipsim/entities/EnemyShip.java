@@ -10,7 +10,7 @@ import java.util.Random;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.listeners.KeyboardListener;
 
-public class EnemyShip extends Ship {
+public class EnemyShip extends Ship implements Enemy{
 	
 	private static Image imgEShip = FileIO.loadImage("resources/esmallship1.png");
 	private static Image imgEShip2 = FileIO.loadImage("resources/esmallship2.png");
@@ -57,5 +57,29 @@ public class EnemyShip extends Ship {
 	}
 	public void setRot(double rot) {
 		this.rot = rot;
+	}
+	@Override
+	public void takeDamage(int damage) {
+		// TODO Auto-generated method stub
+		setDurability(getDurability()-damage);
+	}
+
+	@Override
+	public int dealDamage() {
+		return 5;
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getHealth() {
+		// TODO Auto-generated method stub
+		return getDurability();
+	}
+
+	@Override
+	public int getMaxHealth() {
+		// TODO Auto-generated method stub
+		return getMaxDurability();
 	}
 }

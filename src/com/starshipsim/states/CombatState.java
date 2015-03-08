@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
+import com.starshipsim.entities.Enemy;
 import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.entities.EnemySpaceStation;
 import com.starshipsim.entities.Entity;
@@ -29,15 +30,20 @@ public class CombatState extends State {
 	private int cursorX=800;
 	private int cursorY=760;
 	private int curpos=1;
+	private int selectedship=1;
 	private int currentMenu=0;
+	private int attacker=0;
+	private int xshift;
+	private int dxshift;
 	/*Menu Options:
 	 * 0=main combat menu
 	 * 1=weapon choice menu
 	 * 2=enemy selection
 	 * 3=item selection
 	 * 4=win notification
+	 * 5=enemy attack
 	 */
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/space.png"), 0, 0);
+	private Image bg =FileIO.loadImage("resources/space.png");
 	
 	private KeyboardListener keyboard;
 	
@@ -45,7 +51,7 @@ public class CombatState extends State {
 	
 	private CombatData data;
 	EnemyFleet enemies;
-	ArrayList<Entity> ships;
+	ArrayList<Enemy> ships;
 	Player player;
 	Ship ship;
 	int currentOption = 0;
@@ -67,6 +73,12 @@ public class CombatState extends State {
 
 	@Override
 	public void update() {
+		if(xshift>dxshift){
+			xshift-=15;
+		}
+		else if(xshift<dxshift){
+			xshift+=15;
+		}
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
@@ -76,11 +88,17 @@ public class CombatState extends State {
 		else if(currentMenu==2){
 			enemyChoiceMenu();
 		}
+		else if(currentMenu==4){
+			win();
+		}
+		else if(currentMenu==5){
+			enemyAttack();
+		}
 	}
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		bg.draw(g, canvas);
+		g.drawImage(bg, xshift-450, 0, canvas);
 		drawExit(g);
 		
 		drawEnemyShips(g, canvas);
@@ -109,14 +127,10 @@ public class CombatState extends State {
 		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
 		
-		int menuX = centerX - (imgMenu.getWidth(null)/2);
-		int menuY = centerY;
-		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 40));
 		//menu.draw(g);
 		if(ships.size()==0){
-			manager.popState();
-			player.setMoney(player.getMoney()+data.getEnemies().getReward());
+			currentMenu=4;
 		}
 		if(currentMenu==0){
 			g.drawString("Attack", centerX-100, centerY+250);
@@ -127,13 +141,18 @@ public class CombatState extends State {
 		else if(currentMenu==2){
 			g.drawString("Which Enemy will you Attack?", centerX-360, centerY+360);
 		}
-		
+		else if(currentMenu==4){
+			g.drawString("You won $" + data.getEnemies().getReward(), centerX-100, centerY+360);
+		}
+		else if(currentMenu==5){
+			g.drawString("Enemy " +(attacker+1)+ " is Attacking!", centerX-100, centerY+360);
+		}
 		g.drawImage(shipCursor, cursorX, cursorY, null);
 		g.drawString(("Health: "+ship.getDurability()+"/"+ship.getMaxDurability()), 200, 125);
 	}
 	
 	private void drawEnemyShips(Graphics g, Canvas canvas) {
-		int centerX = canvas.getWidth()/2;
+		int centerX = canvas.getWidth()/2+xshift;
 		
 		int totalWidth = 0;
 		for (int i = 0; i < ships.size(); i++) {
@@ -141,17 +160,17 @@ public class CombatState extends State {
 		}
 		
 		for (int i = 0; i < ships.size(); i++) {
-			Entity ship = ships.get(i);
+			Enemy ship = ships.get(i);
 			int enemyX = centerX - totalWidth/2+100;
 			ship.setX(enemyX+(i*(450)));
 			ship.setY(200);
 			if(ship instanceof EnemyShip){
-				g.drawString(((EnemyShip) ship).getDurability()+"/"+((EnemyShip) ship).getMaxDurability(), enemyX+(i*(450)), 250);
-				g.drawImage(imgEnemy, enemyX+(i*(450)), 300, 200, 130,null);
+				g.drawString(ship.getHealth()+"/"+ ship.getMaxHealth(), enemyX+(i*(450))+50, 350);
+				g.drawImage(imgEnemy, enemyX+(i*(450)), 400, 200, 130,null);
 			}
 			else{
-				g.drawString(((EnemySpaceStation) ship).getDurability()+"/"+((EnemySpaceStation) ship).getMaxDurability(), enemyX+(i*(450)), 150);
-				g.drawImage(imgEnemy2, enemyX+(i*(450))-100, 200, 400, 360,null);
+				g.drawString(ship.getHealth()+"/"+ ship.getMaxHealth(), enemyX+(i*(450))+50, 250);
+				g.drawImage(imgEnemy2, enemyX+(i*(450))-100, 300, 400, 360,null);
 			}
 		}
 	}
@@ -179,8 +198,8 @@ public class CombatState extends State {
 		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 			if(curpos==1){
 				currentMenu=2;
-				cursorX=ships.get(0).getX()-32;
-				cursorY=ships.get(0).getY()+130;
+				cursorX=ships.get(selectedship-1).getX()-32;
+				cursorY=ships.get(selectedship-1).getY()+130;
 			}
 			else if(curpos==2){
 							
@@ -197,31 +216,56 @@ public class CombatState extends State {
 			
 		}
 	public void enemyChoiceMenu(){
-		if(curpos==1){
-			cursorX=ships.get(0).getX()-32;
-			cursorY=ships.get(0).getY()+130;
+			cursorX=ships.get(selectedship-1).getX()-32;
+			cursorY=ships.get(selectedship-1).getY()+130;
+			dxshift=450*(ships.size()-selectedship)-(225*(ships.size()-1));
+		
+		if(keyboard.keyDownOnce(KeyEvent.VK_A) && selectedship>1){
+			selectedship--;
 		}
-		else if(curpos==2){
-			cursorX=ships.get(1).getX()-32;
-			cursorY=ships.get(1).getY()+130;
-		}
-		else if(curpos==3){
-			cursorX=ships.get(2).getX()-32;
-			cursorY=ships.get(2).getY()+130;
-		}
-		if(keyboard.keyDownOnce(KeyEvent.VK_A) && curpos>1){
-			curpos--;
-		}
-		else if(keyboard.keyDownOnce(KeyEvent.VK_D) && curpos<ships.size()){
-			curpos++;
+		else if(keyboard.keyDownOnce(KeyEvent.VK_D) && selectedship<ships.size()){
+			selectedship++;
 		}
 		else if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
-			currentMenu=0;
-			ships.remove(curpos-1);
+			
+			ships.get(selectedship-1).takeDamage(20);
+			if((ships.get(selectedship-1)).getHealth()<=0){
+				ships.remove(selectedship-1);
+				selectedship=1;
+				dxshift=450*(ships.size()-selectedship)-(225*(ships.size()-1));
+			}
+			currentMenu=5;
 			curpos=1;
-			cursorX=800;
-			cursorY=760;
 		}
 	}
-
+	public void win(){
+		cursorY=870;
+		cursorX=800;
+		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
+			
+			manager.popState();
+			player.setMoney(player.getMoney()+data.getEnemies().getReward());
+		}
+	}
+	public void enemyAttack(){
+		cursorY=870;
+		cursorX=800;
+		dxshift=450*(ships.size()-(attacker+1))-(225*(ships.size()-1));
+		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
+			if(attacker+1<ships.size()){
+				
+				attacker+=1;
+				
+			}
+			else{
+				dxshift=450*(ships.size()-selectedship)-(225*(ships.size()-1));
+				currentMenu=0;
+				curpos=1;
+				cursorY=760;
+				cursorX=800;
+				attacker=0;
+			}
+			ship.setDurability(ship.getDurability()-ships.get(attacker).dealDamage());
+		}
+	}
 }
