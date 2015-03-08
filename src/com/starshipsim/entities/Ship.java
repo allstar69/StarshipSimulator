@@ -96,7 +96,7 @@ public class Ship extends Entity {
 				decelerateY();
 			}
 			else if(getSecY()-1>=0){
-				setY(970);
+				setY(1050);
 				setSecY(getSecY()-1);
 			}
 			isFlying = true;
