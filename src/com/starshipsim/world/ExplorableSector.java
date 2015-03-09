@@ -6,6 +6,7 @@ import java.util.Random;
 import com.starshipsim.entities.Planet;
 import com.starshipsim.entities.Player;
 import com.starshipsim.enums.SectorStateType;
+import com.starshipsim.items.Item;
 import com.starshipsim.obstacles.LoseItems;
 import com.starshipsim.obstacles.Obstacle;
 import com.starshipsim.obstacles.Sabotage;
@@ -90,11 +91,12 @@ public class ExplorableSector extends Sector {
 		
 	}
 	public void receiveRewards(){
-		
+		ArrayList<Item> tempInventory = getPlay().getInventory();
+
 		for(Reward r : getRewards()){
-			r.getRewardItem().run();
-			System.out.println("Reward being given");
+			tempInventory.add(r.getRewardItem());
 		}
+		getPlay().setInventory(tempInventory);
 		
 	}
 	
