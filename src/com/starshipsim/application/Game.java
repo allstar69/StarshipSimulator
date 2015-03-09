@@ -22,7 +22,7 @@ public class Game extends JFrame {
 	private static final long serialVersionUID = -3705761607281945291L;
 
 	private final int WIDTH = 1920;
-	private final int HEIGHT = 1000;
+	private final int HEIGHT = 1080;
 
 	private boolean isRunning;
 	private boolean fullscreen = true;

@@ -8,7 +8,7 @@ import com.starshipsim.graphics.Button;
 import com.starshipsim.graphics.StarBackgroundFx;
 
 public class MainMenuState extends State {
-	private StarBackgroundFx bg = new StarBackgroundFx(100, 1920, 1000);
+	private StarBackgroundFx bg = new StarBackgroundFx(100, 1920, 1080);
 	private Button playButton;
 	private Button loadButton;
 	private Button exitButton;
