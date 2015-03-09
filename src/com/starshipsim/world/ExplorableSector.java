@@ -101,8 +101,10 @@ public class ExplorableSector extends Sector {
 		ArrayList<Item> tempInventory = getPlay().getInventory();
 
 		for(Reward r : getRewards()){
-			tempInventory.add(r.getRewardItem());
-			getUpdate().add(r.getRewardItem().toString());
+			if(r != null) {
+				tempInventory.add(r.getRewardItem());
+				getUpdate().add(r.getRewardItem().toString());
+			}
 		}
 		getPlay().setInventory(tempInventory);
 		
