@@ -88,6 +88,7 @@ public class ExplorableSector extends Sector {
 		faceObstacles();
 		receiveRewards();
 		setState(SectorStateType.NEUTRAL);//sets to Neutral because it has been exhausted
+		
 	}
 	public void faceObstacles(){
 		
