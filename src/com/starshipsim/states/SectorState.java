@@ -66,9 +66,13 @@ public class SectorState extends State {
 
 	@Override
 	public void update() {
+		for(int i=0;i<12;i++){
+			for(int j=0;j<12;j++){
+				grid.getSector(j, i).update();
+			}
+		}
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		sector.setKnown(true);
-		sector.update();
 		
 		this.shipCollisions();
 		
@@ -146,16 +150,20 @@ public class SectorState extends State {
 
 	}
 	public void addEnemyShip(){
-		if(ship.getDistanceTravelled()>1000){
+		if(ship.getDistanceTravelled()>2000){
 			Random random = new Random();
-			Sector sector = grid.getSector(random.nextInt(11), random.nextInt(11));
-			while(sector.getState()!=SectorStateType.ENEMY){
-				sector = grid.getSector(random.nextInt(11), random.nextInt(11));
+			int randx=random.nextInt(12);
+			int randy=random.nextInt(12);
+			Sector s=grid.getSector(randx, randy);
+			while(s.getState()!=SectorStateType.ENEMY){
+				randx=random.nextInt(12);
+				randy=random.nextInt(12);
+				s=grid.getSector(randx, randy);
 			}
-			Entity station = sector.getEntities().get(random.nextInt(sector.getEntities().size()));
-			sector.getEntities().add(new EnemyShip(station.getX()+station.getWidth()/2, station.getY()+station.getWidth()/2, keyboard));
+			Entity station = s.getEntities().get(random.nextInt(s.getEntities().size()));
+			s.getEntities().add(new EnemyShip(grid,station.getX()+station.getWidth()/2, station.getY()+station.getWidth()/2, randx, randy, keyboard));
 			ship.setDistanceTravelled(0);
-			sector.setHostile(true);
+			s.setHostile(true);
 		}
 	}
 }

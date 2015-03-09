@@ -60,8 +60,8 @@ public abstract class Sector {
 	}
 	
 	public void update() {
-		for (Entity entity : entities) {
-			entity.update();
+		for (int i =0; i<entities.size();i++) {
+			entities.get(i).update();
 		}
 	}
 	

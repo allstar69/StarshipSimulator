@@ -10,10 +10,10 @@ public class Grid {
 	private Sector[][] sectors;
 	
 	private int mysteryNum=15;
-	private int hostileNum=75;
-	private int friendlyNum=25;
-	private int dangerNum=20;
-	private int exploreNum=20;
+	private int hostileNum=50;
+	private int friendlyNum=15;
+	private int dangerNum=25;
+	private int exploreNum=25;
 	private int enemyNum = 5;
 	
 	public Sector[][] getSectors() {
@@ -100,14 +100,18 @@ public class Grid {
 		}
 		Random random=new Random();
 		for(int i=0; i<hostileNum;i++){
-			Sector s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+			int randx=rand.nextInt(12);
+			int randy=rand.nextInt(12);
+			Sector s=sectors[randx][randy];
 			while(s.isHostile()){
-				s=sectors[rand.nextInt(12)][rand.nextInt(12)];
+				randx=rand.nextInt(12);
+				randy=rand.nextInt(12);
+				s=sectors[randx][randy];
 			}
 			s.setHostile(true);
 			int enemynum=random.nextInt(2)+1;
 			for(int j=0; j<enemynum;j++){
-				s.getEntities().add(new EnemyShip(random.nextInt(1600), random.nextInt(800), null));
+				s.getEntities().add(new EnemyShip(this, random.nextInt(1600), random.nextInt(800), randx, randy, null));
 			}
 		}
 	}
