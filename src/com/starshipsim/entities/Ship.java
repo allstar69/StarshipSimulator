@@ -30,6 +30,7 @@ public class Ship extends Entity {
 	private ShipModule warp = new WarpCore();
 	
 	private int rot = 0;
+	private int drot=0;
 	private int speed = 8;
 	
 	private boolean isFlying = false;
@@ -72,16 +73,31 @@ public class Ship extends Entity {
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
 		xform.setToTranslation(getX(), getY());
-		xform.rotate(getRot() * Math.PI / 4, 16, 16);
+		xform.rotate(getRot() * Math.PI / 180, 16, 16);
 		
 		((Graphics2D) g).drawImage(this.getImage(), xform, canvas);
 	}
 	
 	
 	public void move(Canvas canvas) {
+		if(rot>=270 && drot<90){
+			rot-=360;
+		}
+		else if(rot<90 && drot>=270){
+			rot+=360;
+		}
+		if(rot>drot){
+			rot-=15;
+			
+		}
+		else if(rot<drot){
+			
+			
+			rot+=15;
+		}
 		if (keyboard.keyDown(KeyEvent.VK_W)) {
 			if (keyboard.keyDown(KeyEvent.VK_A)) {
-				setRot(5);
+				setDrot(225);
 				if (getX() - 1 > canvas.getX()) {
 					decelerateX();
 				}
@@ -90,7 +106,7 @@ public class Ship extends Entity {
 					setSecX(getSecX()-1);
 				}
 			} else if (keyboard.keyDown(KeyEvent.VK_D)) {
-				setRot(7);
+				setDrot(315);
 				if (getX() + 1 + this.getImage().getWidth(null) < canvas.getX()
 						+ canvas.getWidth()) {
 					accelerateX();
@@ -100,7 +116,7 @@ public class Ship extends Entity {
 					setSecX(getSecX()+1);
 				}
 			} else {
-				setRot(6);
+				setDrot(270);
 			}
 			
 			if (getY() - 1 > canvas.getY()) {
@@ -113,7 +129,7 @@ public class Ship extends Entity {
 			isFlying = true;
 		} else if (keyboard.keyDown(KeyEvent.VK_S)) {
 			if (keyboard.keyDown(KeyEvent.VK_A)) {
-				setRot(3);
+				setDrot(135);
 				if (getX() - 1 > canvas.getX()) {
 					decelerateX();
 				}
@@ -122,7 +138,7 @@ public class Ship extends Entity {
 					setSecX(getSecX()-1);
 				}
 			} else if (keyboard.keyDown(KeyEvent.VK_D)) {
-				setRot(1);
+				setDrot(45);
 				if (getX() + 1 + this.getImage().getWidth(null) < canvas.getX()
 						+ canvas.getWidth()) {
 					accelerateX();
@@ -132,7 +148,7 @@ public class Ship extends Entity {
 					setSecX(getSecX()+1);
 				}
 			} else {
-				setRot(2);
+				setDrot(90);
 			}
 			
 			if (getY() + 1 + this.getImage().getHeight(null) < canvas.getY()+ canvas.getHeight()) {
@@ -145,7 +161,7 @@ public class Ship extends Entity {
 			
 			isFlying = true;
 		} else if (keyboard.keyDown(KeyEvent.VK_A)) {
-			setRot(4);
+			setDrot(180);
 			
 			if (getX() - 1 > canvas.getX()) {
 				decelerateX();
@@ -156,7 +172,7 @@ public class Ship extends Entity {
 			}
 			isFlying = true;
 		} else if (keyboard.keyDown(KeyEvent.VK_D)) {
-			setRot(0);
+			setDrot(0);
 			
 			if (getX() + 1 + this.getImage().getWidth(null) < canvas.getX() + canvas.getWidth()) {
 				accelerateX();
@@ -281,6 +297,14 @@ public class Ship extends Entity {
 		this.rot = rot;
 	}
 
+	public int getDrot() {
+		return drot;
+	}
+
+	public void setDrot(int drot) {
+		this.drot = drot;
+	}
+
 	public int getSpeed() {
 		return speed;
 	}
@@ -289,3 +313,4 @@ public class Ship extends Entity {
 		this.speed = speed;
 	}
 }
+
