@@ -8,6 +8,7 @@ public class ItemCurrency extends Item {
 		setName("Currency");
 		setDescription("People can't buy this.");
 		setMoney(true);
+		setIndex(-1);
 	}
 
 	@Override

@@ -45,7 +45,38 @@ public class Player extends Entity {
 	public void setInventory(ArrayList<Item> inventory) {
 		this.inventory = inventory;
 	}
-
+	public void updateInventory(int newItemNum, Item newItem){
+		int currentAmount = 0;
+		
+		 //0 = Fuel, 1 = Repair Drone, 2 = Stun Bomb, 3 = ExplosiveBomb, 4 = Satellite, 5 = Scanner
+		
+			currentAmount = inventory.get(newItemNum).getAmount();
+			inventory.remove(newItemNum);
+			currentAmount += newItem.getAmount();
+			switch(newItemNum){
+			case 0:
+				inventory.add(0, new ItemFuel(currentAmount));
+				break;
+			case 1:
+				inventory.add(1, new ItemRepairDrone(currentAmount));
+				break;
+			case 2:
+				inventory.add(2, new ItemStunBomb(currentAmount));
+				break;
+			case 3:
+				inventory.add(3, new ItemExplosiveBomb(currentAmount));
+				break;
+			case 4:
+				inventory.add(4, new ItemSatellite(currentAmount));
+				break;
+			case 5:
+				inventory.add(5, new ItemScanner(currentAmount));
+				break;			
+			}
+			
+		
+		
+	}
 	public Player(int x, int y) {
 		super(ImageManager.ship, x, y);
 		this.ship = new Ship(800, 600, null);

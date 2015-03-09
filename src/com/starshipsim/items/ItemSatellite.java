@@ -11,6 +11,7 @@ public class ItemSatellite extends Item{
 		setAmount(amount);
 		setName("Satellite");
 		setDescription("You know, I'm not really sure what the satellite does...");
+		setIndex(4);
 	}
 	
 }

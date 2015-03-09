@@ -6,6 +6,7 @@ public abstract class Item {
 	int price;
 	String name;
 	String description;
+	int index;
 	boolean isMoney;
 	
 	public abstract void run();
@@ -46,6 +47,13 @@ public abstract class Item {
 	}
 	public void setMoney(boolean isMoney) {
 		this.isMoney = isMoney;
+	}
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 	public String toString(){
