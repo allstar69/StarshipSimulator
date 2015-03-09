@@ -8,6 +8,7 @@ import com.starshipsim.entities.Player;
 import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.items.Item;
 import com.starshipsim.obstacles.LoseItems;
+import com.starshipsim.obstacles.Nothing;
 import com.starshipsim.obstacles.Obstacle;
 import com.starshipsim.obstacles.Sabotage;
 import com.starshipsim.rewards.Reward;
@@ -17,6 +18,7 @@ public class ExplorableSector extends Sector {
 	private ArrayList<Reward> rewards;
 	private ArrayList<Obstacle> obstacles;
 	private Player play; // when player enters explorable, sets this as the player
+	private ArrayList<String> update;
 	
 	public ExplorableSector(){//randomizes the obstacles and rewards
 		super(SectorStateType.EXPLORABLE);
@@ -54,6 +56,7 @@ public class ExplorableSector extends Sector {
 				if(chance == 0){
 					//clears out all rewards
 					setRewards(new ArrayList<Reward>());
+					tempObstacles.add(new Nothing(0));
 				}
 			}
 		}else{//They weren't sabotaged
@@ -65,11 +68,13 @@ public class ExplorableSector extends Sector {
 				chance = ran.nextInt(5);	//20% chance of getting no rewards IF you lost items
 				if(chance == 0){
 					setRewards(new ArrayList<Reward>());
+					tempObstacles.add(new Nothing(0));
 				}
 			}else{							//they weren't sabotaged and did not lose any items
 				chance = ran.nextInt(5);	//20% chance of getting no rewards 
 				if(chance == 0){
 					setRewards(new ArrayList<Reward>());
+					tempObstacles.add(new Nothing(0));
 				}
 			}
 		}
@@ -78,6 +83,7 @@ public class ExplorableSector extends Sector {
 		setObstacles(tempObstacles);
 	}
 	public void run(Player player){
+		setUpdate(new ArrayList<String>());
 		setPlay(player);
 		faceObstacles();
 		receiveRewards();
@@ -87,6 +93,7 @@ public class ExplorableSector extends Sector {
 		
 		for(Obstacle o : getObstacles()){
 			o.run(getPlay());
+			getUpdate().add(o.toString());
 		}
 		
 	}
@@ -95,11 +102,13 @@ public class ExplorableSector extends Sector {
 
 		for(Reward r : getRewards()){
 			tempInventory.add(r.getRewardItem());
+			getUpdate().add(r.getRewardItem().toString());
 		}
 		getPlay().setInventory(tempInventory);
 		
 	}
-	
+
+
 	public void generateContent(){
 		Random random = new Random();
 		
@@ -127,5 +136,11 @@ public class ExplorableSector extends Sector {
 	}
 	public void setPlay(Player play) {
 		this.play = play;
+	}
+	public ArrayList<String> getUpdate() {
+		return update;
+	}
+	public void setUpdate(ArrayList<String> update) {
+		this.update = update;
 	}	
 }

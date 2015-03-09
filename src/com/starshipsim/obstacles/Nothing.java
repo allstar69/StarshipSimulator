@@ -21,5 +21,7 @@ public class Nothing extends Obstacle {
 	public void setGetsNothing(boolean getsNothing) {
 		this.getsNothing = getsNothing;
 	}
-
+	public String toString(){
+		return "You will receive no rewards!";
+	}
 }

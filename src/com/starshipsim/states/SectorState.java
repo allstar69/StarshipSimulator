@@ -129,6 +129,7 @@ public class SectorState extends State {
 		if(sector.checkCollision(ship, Planet.class)){
 			if(sector.getState() == SectorStateType.EXPLORABLE){
 				if(keyboard.keyDown(KeyEvent.VK_ENTER)){
+					manager.addState(new ExplorableState(manager, player, (ExplorableSector) sector));
 					((ExplorableSector) sector).run(player);
 				}
 			}

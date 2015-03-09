@@ -20,4 +20,8 @@ public class LoseItems extends Obstacle {
 		currentInv.remove(num);//removes a random item in the inventory
 		play.setInventory(currentInv);//resets the player's inventory to the new inventory.
 	}
+	
+	public String toString(){
+		return "You have lost a random item in your inventory.";
+	}
 }

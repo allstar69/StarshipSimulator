@@ -41,6 +41,8 @@ public abstract class Item {
 		this.description = description;
 	}
 	
-	
+	public String toString(){
+		return "You have received " + getAmount() + " of " + getName() + ".";
+	}
 	
 }
