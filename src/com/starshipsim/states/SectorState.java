@@ -11,6 +11,7 @@ import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.combat.StationFleet;
 import com.starshipsim.entities.Asteroid;
 import com.starshipsim.entities.BlackHole;
+import com.starshipsim.entities.Bullet;
 import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.entities.EnemySpaceStation;
 import com.starshipsim.entities.Entity;
@@ -78,7 +79,7 @@ public class SectorState extends State {
 		sector.setKnown(true);
 		
 		this.shipCollisions();
-		
+		this.bulletCollisions();
 		if(!sector.isKnown()){
 			sector.setKnown(true);
 		}
@@ -88,12 +89,26 @@ public class SectorState extends State {
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
-		
+		if(keyboard.keyDownOnce(KeyEvent.VK_SPACE)){
+			sector.getEntities().add(new Bullet(ship.getRot(), ship.getX(), ship.getY(), 32, 32));
+		}
 		ship.update();
 		ship.move(canvas);
 		addEnemyShip();
 	}
-
+	
+	public void bulletCollisions(){
+		if(sector.checkCollision(Bullet.class, Asteroid.class)){
+			sector.getEntities().remove(sector.getOneIntersectingEntity(Bullet.class, Asteroid.class));
+			player.setMoney(player.getMoney()+10);
+		}
+		if(sector.checkCollision(Bullet.class, Mine.class)){
+			sector.getEntities().add(new Explosion(sector.getOneIntersectingEntity(Bullet.class, Mine.class).getX()-16, sector.getOneIntersectingEntity(Bullet.class, Mine.class).getY()-16, sector.getOneIntersectingEntity(Bullet.class, Mine.class).getWidth()*2, sector.getOneIntersectingEntity(Bullet.class, Mine.class).getHeight()*2));
+			sector.getEntities().remove(sector.getOneIntersectingEntity(Bullet.class, Mine.class));
+			player.setMoney(player.getMoney()+5);
+		}
+	}
+	
 	public void shipCollisions() {
 		if(sector.checkCollision(ship, SpaceStation.class)) {
 			if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {

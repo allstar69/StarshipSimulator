@@ -21,6 +21,7 @@ public class ImageManager {
 	public static Image explosion = FileIO.loadImage("resources/Explosion.png");
 	public static Image mine = FileIO.loadImage("resources/mine.png");
 	public static Image friendlyStation = FileIO.loadImage("resources/FriendlyStation.png");
+	public static Image proj1=FileIO.loadImage("resources/proj1.png");
 	
 	//GUI
 	public static Image combatHud = FileIO.loadImage("resources/combat_hud.png");
@@ -46,6 +47,7 @@ public class ImageManager {
 	public static Image redStar = FileIO.loadImage("resources/stars/redStar.png");
 	public static Image whiteStar = FileIO.loadImage("resources/stars/whiteStar.png");
 	public static Image blueStar = FileIO.loadImage("resources/stars/blueStar.png");
+	
 	
 	
 }

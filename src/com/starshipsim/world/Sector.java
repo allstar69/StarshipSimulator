@@ -83,6 +83,20 @@ public abstract class Sector {
 		return null;
 	}
 	
+	public Entity getOneIntersectingEntity(Class<?> entity, Class<?> c) {
+		for (Entity e : getEntities()) {
+			for (Entity ent : getEntities()) {
+				if( ent.getClass().equals(entity) &&e.getClass().equals(c)) {
+					if(ent.isIntersecting(e)) {
+						return e;
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
+	
 	public boolean checkCollision(Entity entity, Class<?> c) {
 		for (Entity e : getEntities()) {
 			if(e.getClass().equals(c)) {
@@ -94,7 +108,19 @@ public abstract class Sector {
 		
 		return false;
 	}
-	
+	public boolean checkCollision(Class<?> entity, Class<?> c) {
+		for (Entity e : getEntities()) {
+			for (Entity ent : getEntities()) {
+				if( ent.getClass().equals(entity) &&e.getClass().equals(c)) {
+					if(ent.isIntersecting(e)) {
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
 	public void paint(Graphics g, Canvas c, int x, int y) {
 		if (!isKnown()) {
 			g.drawImage(ImageManager.unknown, x, y, c);
