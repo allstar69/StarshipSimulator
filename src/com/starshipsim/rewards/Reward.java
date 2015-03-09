@@ -34,7 +34,7 @@ public class Reward {
 			setRewardItem(new Ammo(genNum(100, 500)));
 			break;
 		case 7:
-			
+			setRewardItem(new ItemCurrency(genNum(50, 250)));
 			break;
 		}
 	}
