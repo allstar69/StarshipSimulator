@@ -214,25 +214,21 @@ public class MapMenuPanel {
 	private void scienceStation(Graphics g) {
 		g.drawImage(ImageManager.smallMenu, 860, 60, null);
 		int i = 0;
-		g.drawString(("Probe Count"), 890, (100 + (i * 32)));
+		g.drawString(("Scanner Count"), 890, (100 + (i * 32)));
 		i++;
-		g.drawString(("Launch Probe"), 890, (100 + (i * 32)));
+		g.drawString(("Launch Scanner"), 890, (100 + (i * 32)));
 		i++;
 		g.drawString(("Explore Sector"), 890, (100 + (i * 32)));
-		i++;
-		g.drawString(("Replenish Probes"), 890, (100 + (i * 32)));
-		i++;
-		g.drawString(("Dump Probes"), 890, (100 + (i * 32)));
 		if (state.getScienceLevel() == 0) {
 
 			if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 				if (curY == 0) {
-					curY = 4;
+					curY = 2;
 				} else {
 					curY -= 1;
 				}
 			} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
-				if (curY == 4) {
+				if (curY == 2) {
 					curY = 0;
 				} else {
 					curY += 1;
@@ -240,19 +236,13 @@ public class MapMenuPanel {
 			}
 			if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 				if (curY == 0) {
-					state.changeLog("Current Probe Count: " + state.getProbeCount());
+					state.changeLog("Current Probe Count: " + state.getPlayer().getInventory().get(5).getAmount());
 				}
 				if (curY == 1) {
 					state.setScienceLevel(curY + 1);
 				}
 				if (curY == 2) {
 					state.setScienceLevel(curY + 1);
-				}
-				if (curY == 3) {
-					refillProbes();
-				}
-				if (curY == 4) {
-					dumpProbes();
 				}
 			} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
 				level = 0;
@@ -321,7 +311,7 @@ public class MapMenuPanel {
 			Sector sector = state.getGrid().getSector(selX, selY);
 
 			if (!sector.isKnown()) {
-				if (state.getProbeCount() > 0) {
+				if (state.getPlayer().getInventory().get(5).getAmount() > 0) {
 					sector.setKnown(true);
 					
 					if (sector.isMysterious()) {
@@ -340,7 +330,7 @@ public class MapMenuPanel {
 							state.setLog1(state.getLog1() + " and dangerous");
 						}
 					}
-					state.setProbeCount(state.getProbeCount()-1);
+					state.getPlayer().getInventory().get(5).setAmount(state.getPlayer().getInventory().get(5).getAmount()-1);
 					state.setScienceLevel(0);
 				} else {
 					state.changeLog("Sorry, you're out of probes.");
@@ -366,15 +356,5 @@ public class MapMenuPanel {
 			}
 		}
 		state.setScienceLevel(0);
-	}
-
-	private void refillProbes() {
-		state.setProbeCount(state.maxProbeCount);
-		state.changeLog("Full Probes!");
-	}
-
-	private void dumpProbes() {
-		state.setProbeCount(0);
-		state.changeLog("Empty Probes!");
 	}
 }
