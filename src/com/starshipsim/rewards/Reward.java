@@ -10,7 +10,7 @@ public class Reward {
 	
 	public Reward(){
 		Random ran = new Random();
-		int num = ran.nextInt(7);
+		int num = ran.nextInt(8);
 		switch(num){
 		case 0:
 			setRewardItem(new ItemFuel(genNum(1,10)));
@@ -31,7 +31,10 @@ public class Reward {
 			setRewardItem(new ItemScanner(genNum(2, 7)));
 			break;
 		case 6:
-			setRewardItem(new Ammo(genNum(10, 100)));
+			setRewardItem(new Ammo(genNum(100, 500)));
+			break;
+		case 7:
+			
 			break;
 		}
 	}
