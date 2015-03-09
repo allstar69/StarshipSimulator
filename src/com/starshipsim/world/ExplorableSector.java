@@ -7,6 +7,7 @@ import com.starshipsim.entities.Planet;
 import com.starshipsim.entities.Player;
 import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.items.Item;
+import com.starshipsim.items.ItemCurrency;
 import com.starshipsim.obstacles.LoseItems;
 import com.starshipsim.obstacles.Nothing;
 import com.starshipsim.obstacles.Obstacle;
@@ -103,7 +104,11 @@ public class ExplorableSector extends Sector {
 
 		for(Reward r : getRewards()){
 			if(r != null) {
-				tempInventory.add(r.getRewardItem());
+				if(r.getRewardItem().isMoney()){
+					getPlay().setMoney(getPlay().getMoney() + r.getRewardItem().getAmount());
+				}else{
+					tempInventory.add(r.getRewardItem());
+				}
 				getUpdate().add(r.getRewardItem().toString());
 			}
 		}

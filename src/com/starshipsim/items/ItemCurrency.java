@@ -3,10 +3,11 @@ package com.starshipsim.items;
 public class ItemCurrency extends Item {
 
 	public ItemCurrency(int amount){
-		setPrice(0);
+		setPrice(1);
 		setAmount(amount);
 		setName("Currency");
 		setDescription("People can't buy this.");
+		setMoney(true);
 	}
 
 	@Override
@@ -15,5 +16,9 @@ public class ItemCurrency extends Item {
 		//sets money to getMoney() + getAmount();
 		
 	}
-	
+	public String toString(){
+		
+		return "You have received $" + getAmount() + ".";
+		
+	}
 }

@@ -6,6 +6,7 @@ public abstract class Item {
 	int price;
 	String name;
 	String description;
+	boolean isMoney;
 	
 	public abstract void run();
 	
@@ -40,9 +41,16 @@ public abstract class Item {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+	public boolean isMoney() {
+		return isMoney;
+	}
+	public void setMoney(boolean isMoney) {
+		this.isMoney = isMoney;
+	}
+
 	public String toString(){
-		return "You have received " + getAmount() + " of " + getName() + ".";
+		String retVal = "You have received " + getAmount() + " of " + getName() + ".";
+		return retVal;
 	}
 	
 }
