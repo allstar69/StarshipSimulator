@@ -35,6 +35,7 @@ public class StoreSelectorState extends State {
 	public StoreSelectorState(StateManager manager, Player p) {
 		super(manager);
 		this.p = p;
+		p.getShip().setDurability(p.getShip().getMaxDurability());
 		initialize();
 	}
 	
