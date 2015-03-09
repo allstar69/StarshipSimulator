@@ -51,6 +51,10 @@ public class StateManager {
 	public State getCurrentState() {
 		return states.peek();
 	}
+	
+	public State getPreviousState() {
+		return states.get(states.size()-2);
+	}
 
 	public void addState(State state) {
 		states.push(state);
