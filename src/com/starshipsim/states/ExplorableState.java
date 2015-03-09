@@ -19,7 +19,6 @@ public class ExplorableState extends State{
 	public ExplorableState(StateManager manager, Player player, ExplorableSector tempes) {
 		super(manager);
 		setEs(tempes);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -49,8 +48,9 @@ public class ExplorableState extends State{
 		g.setColor(Color.white);
 		
 		for(int i = 0; i < es.getUpdate().size(); i++){
-			g.drawString(es.getUpdate().get(i), 100, 100*(i + 1) + 400);
+			g.drawString(es.getUpdate().get(i), 50, 100*(i + 1) + 200);
 		}
+		g.drawString("Press Enter or Escape to Exit", 50, 900);
 		
 	}
 
