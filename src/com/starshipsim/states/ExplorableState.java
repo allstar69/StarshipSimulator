@@ -49,7 +49,7 @@ public class ExplorableState extends State{
 		g.setColor(Color.white);
 		
 		for(int i = 0; i < es.getUpdate().size(); i++){
-			g.drawString(es.getUpdate().get(i), 100, 100*(i + 1));
+			g.drawString(es.getUpdate().get(i), 100, 100*(i + 1) + 400);
 		}
 		
 	}

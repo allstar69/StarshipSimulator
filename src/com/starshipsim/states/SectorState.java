@@ -131,6 +131,7 @@ public class SectorState extends State {
 				if(keyboard.keyDown(KeyEvent.VK_ENTER)){
 					manager.addState(new ExplorableState(manager, player, (ExplorableSector) sector));
 					((ExplorableSector) sector).run(player);
+					sector.getEntities().remove(sector.getOneIntersectingEntity(ship, Planet.class));
 				}
 			}
 		}
