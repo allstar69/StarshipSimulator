@@ -16,6 +16,7 @@ import com.starshipsim.entities.EnemySpaceStation;
 import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Explosion;
 import com.starshipsim.entities.Mine;
+import com.starshipsim.entities.Planet;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.entities.SpaceStation;
@@ -23,6 +24,8 @@ import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
+import com.starshipsim.world.DangerousSector;
+import com.starshipsim.world.ExplorableSector;
 import com.starshipsim.world.Grid;
 import com.starshipsim.world.Sector;
 import com.sun.glass.events.KeyEvent;
@@ -122,6 +125,13 @@ public class SectorState extends State {
 		if(sector.checkCollision(ship, BlackHole.class)) {
 			ship.setSecX(new Random().nextInt(11));
 			ship.setSecY(new Random().nextInt(11));
+		}
+		if(sector.checkCollision(ship, Planet.class)){
+			if(sector.getState() == SectorStateType.EXPLORABLE){
+				if(keyboard.keyDown(KeyEvent.VK_ENTER)){
+					((ExplorableSector) sector).run(player);
+				}
+			}
 		}
 		
 		sector.getEntities().remove(sector.getOneIntersectingEntity(ship, Asteroid.class));

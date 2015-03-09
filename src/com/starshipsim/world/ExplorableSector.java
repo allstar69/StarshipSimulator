@@ -77,7 +77,8 @@ public class ExplorableSector extends Sector {
 		
 		setObstacles(tempObstacles);
 	}
-	public void run(){
+	public void run(Player player){
+		setPlay(player);
 		faceObstacles();
 		receiveRewards();
 		setState(SectorStateType.NEUTRAL);//sets to Neutral because it has been exhausted
@@ -86,7 +87,6 @@ public class ExplorableSector extends Sector {
 		
 		for(Obstacle o : getObstacles()){
 			o.run(getPlay());
-			System.out.println("Obstacle being run");
 		}
 		
 	}
