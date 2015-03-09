@@ -1,21 +1,27 @@
 package com.starshipsim.states;
 
+import java.awt.event.MouseListener;
 import java.util.Stack;
 
 import com.starshipsim.entities.Player;
-import com.starshipsim.entities.Ship;
+import com.starshipsim.listeners.GameMouseListener;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.world.Grid;
 
 public class StateManager {
 	
 	private KeyboardListener keyboard;
+	private GameMouseListener mouse;
 	
 	private Stack<State> states = new Stack<>();
 	
 	private Player player;
 	private Grid grid;
 	
+	public GameMouseListener getMouse() {
+		return mouse;
+	}
+
 	public Grid getGrid() {
 		return grid;
 	}
@@ -36,8 +42,9 @@ public class StateManager {
 		return keyboard;
 	}
 
-	public StateManager(KeyboardListener keyboard) {		
+	public StateManager(KeyboardListener keyboard, GameMouseListener mouse) {		
 		this.keyboard = keyboard;
+		this.mouse = mouse;
 		
 		states.push(new MainMenuState(this));
 	}

@@ -42,4 +42,10 @@ public class ImageManager {
 	public static Image dangerous = FileIO.loadImage("resources/dangerous.png");
 	public static Image enemy = FileIO.loadImage("resources/enemy station.png");
 	
+	//Stars
+	public static Image redStar = FileIO.loadImage("resources/stars/redStar.png");
+	public static Image whiteStar = FileIO.loadImage("resources/stars/whiteStar.png");
+	public static Image blueStar = FileIO.loadImage("resources/stars/blueStar.png");
+	
+	
 }

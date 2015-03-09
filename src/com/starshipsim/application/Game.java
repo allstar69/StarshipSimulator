@@ -2,6 +2,7 @@ package com.starshipsim.application;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.starshipsim.listeners.GameMouseListener;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.states.StateManager;
 
@@ -28,6 +30,7 @@ public class Game extends JFrame {
 	private StateManager states;
 
 	private KeyboardListener keyboard;
+	private GameMouseListener mouse;
 
 	private Canvas canvas;
 
@@ -49,14 +52,17 @@ public class Game extends JFrame {
 		this.setVisible(true);
 		this.setIgnoreRepaint(true);
 		canvas.createBufferStrategy(2);
+		canvas.setBackground(Color.black);
 
 		isRunning = true;
 
 		this.keyboard = new KeyboardListener();
+		this.mouse = new GameMouseListener();
 		this.addKeyListener(keyboard);
 		canvas.addKeyListener(keyboard);
+		canvas.addMouseListener(mouse);
 
-		states = new StateManager(keyboard);
+		states = new StateManager(keyboard, mouse);
 	}
 
 	public void run() {
@@ -98,6 +104,7 @@ public class Game extends JFrame {
 
 		g.setFont(font);
 
+		g.clearRect(0, 0, this.WIDTH, this.HEIGHT);
 		states.getCurrentState().draw(g, canvas);
 
 		bf.show();

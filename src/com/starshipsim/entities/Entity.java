@@ -7,7 +7,9 @@ import java.awt.Rectangle;
 
 public abstract class Entity {
 
-	protected int x, y, width, height;
+	protected int x, y;
+	int width = 0; 
+	int height = 0;
 	protected Image image;
 	protected Rectangle bounds;
 	
@@ -15,8 +17,11 @@ public abstract class Entity {
 		this.image = image;
 		this.x = x;
 		this.y = y;
-		this.width = image.getWidth(null);
-		this.height = image.getHeight(null);
+		
+		if(image != null) {
+			this.width = image.getWidth(null);
+			this.height = image.getHeight(null);
+		}
 		this.bounds = new Rectangle(x, y, width, height);
 	}
 	public Entity(Image image, int x, int y, int width, int height) {
