@@ -58,7 +58,6 @@ public class Asteroid extends Entity {
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
 		((Graphics2D)g).drawImage(this.getImage(), xform, null);
-		this.drawBox(g);
 	}
 
 }

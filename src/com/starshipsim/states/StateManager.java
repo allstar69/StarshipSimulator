@@ -1,6 +1,5 @@
 package com.starshipsim.states;
 
-import java.awt.event.MouseListener;
 import java.util.Stack;
 
 import com.starshipsim.entities.Player;
