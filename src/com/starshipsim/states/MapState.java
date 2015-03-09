@@ -135,10 +135,9 @@ public class MapState extends State {
 		mapMenu.getMapListener().draw(g, getGrid());
 		
 		//Temp
-		g.drawString("Press Escape to return to the Main Menu.", 32, 950);
+		g.drawString("Press Escape to exit the map.", 32, 950);
 		g.drawString("Press E to enter Combat.", 32,  1000);
-		g.drawString("Press Q to explore Sector", 32,  1050);
-		g.drawString("Press R to view the store", 450,  1000);
+		g.drawString("Press R to view the store", 32,  1050);
 	}
 
 	public void end() {

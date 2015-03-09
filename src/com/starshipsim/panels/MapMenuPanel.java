@@ -333,7 +333,7 @@ public class MapMenuPanel {
 					state.getPlayer().getInventory().get(5).setAmount(state.getPlayer().getInventory().get(5).getAmount()-1);
 					state.setScienceLevel(0);
 				} else {
-					state.changeLog("Sorry, you're out of probes.");
+					state.changeLog("Sorry, you're out of scanners.");
 				}
 			} else {
 				state.changeLog("That sector is already known");
