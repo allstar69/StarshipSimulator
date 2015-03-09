@@ -45,8 +45,8 @@ public class EnemyShip extends Ship implements Enemy {
 		this.updateBoxes();
 	}
 	public void move(){
-		if(System.currentTimeMillis()>deltaTime+100){
-			nextrot=rot+15*(random.nextInt(3)-1);
+		if(System.currentTimeMillis()>deltaTime+500){
+			nextrot=rot+90*(random.nextInt(3)-1);
 			deltaTime=System.currentTimeMillis();
 		}
 		if(rot>=nextrot){
@@ -55,38 +55,57 @@ public class EnemyShip extends Ship implements Enemy {
 		if(rot<=nextrot){
 			rot++;
 		}
-		setX((int) (getX()+Math.cos(rot*Math.PI/180)*5));
-		setY((int) (getY()+Math.sin(rot*Math.PI/180)*5));
+		setX((int) (getX()+Math.cos(rot*Math.PI/180)*6));
+		setY((int) (getY()+Math.sin(rot*Math.PI/180)*6));
 		xform.setToTranslation(getX(), getY());
 		xform.rotate((rot) * Math.PI / 180, 16, 16);
-		if(getX()<0 && getSecX()>0){
-			grid.getSector(getSecX()-1, getSecY()).getEntities().add(this);
-			setX(1900);
-			
-			grid.getSector(getSecX(), getSecY()).getEntities().remove(this);
-			setSecX(getSecX()-1);
+		if(getX()<0){
+			if(getSecX()>0){
+				grid.getSector(getSecX()-1, getSecY()).getEntities().add(this);
+				setX(1900);
+				
+				grid.getSector(getSecX(), getSecY()).getEntities().remove(this);
+				setSecX(getSecX()-1);
+			}
+			else{
+				rot+=180;
+			}
 		}
-		if(getY()<0 && getSecY()>0){
-			grid.getSector(getSecX(), getSecY()-1).getEntities().add(this);
-			setY(1000);
-			
-			grid.getSector(getSecX(), getSecY()).getEntities().remove(this);
-			setSecY(getSecY()-1);
+		if(getY()<0){
+			if(getSecY()>0){
+				grid.getSector(getSecX(), getSecY()-1).getEntities().add(this);
+				setY(1000);
+				
+				grid.getSector(getSecX(), getSecY()).getEntities().remove(this);
+				setSecY(getSecY()-1);
+			}
+			else{
+				rot+=180;
+			}
 		}
-		if(getX()>1900 && getSecX()<10){
-			grid.getSector(getSecX()+1, getSecY()).getEntities().add(this);
-			setX(0);
-			
-			grid.getSector(getSecX(), getSecY()).getEntities().remove(this);
-			setSecX(getSecX()+1);
-			
+		if(getX()>1900){
+			if(getSecX()<11){
+				grid.getSector(getSecX()+1, getSecY()).getEntities().add(this);
+				setX(0);
+				
+				grid.getSector(getSecX(), getSecY()).getEntities().remove(this);
+				setSecX(getSecX()+1);
+			}
+			else{
+				rot+=180;
+			}
 		}
-		if(getY()>1000 && getSecY()<10){
-			grid.getSector(getSecX(), getSecY()+1).getEntities().add(this);
-			setY(0);
-			
-			grid.getSector(getSecX(), getSecY()).getEntities().remove(this);
-			setSecY(getSecY()+1);
+		if(getY()>1000){
+			if(getSecY()<11){
+				grid.getSector(getSecX(), getSecY()+1).getEntities().add(this);
+				setY(0);
+				
+				grid.getSector(getSecX(), getSecY()).getEntities().remove(this);
+				setSecY(getSecY()+1);
+			}
+			else{
+				rot+=180;
+			}
 		}
 		
 	}
