@@ -119,25 +119,25 @@ public class MapMenuPanel {
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (selY != 0
 					&& selY != state.getShip().getSecY()
-							- ((WarpCoreModule) warp).getMaxWarp()) {
+							- warp.MAX_WARP) {
 				selY--;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
 			if (selY != 11
 					&& selY != state.getShip().getSecY()
-							+ ((WarpCoreModule) warp).getMaxWarp()) {
+							+ warp.MAX_WARP) {
 				selY++;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_A)) {
 			if (selX != 0
 					&& selX != state.getShip().getSecX()
-							- ((WarpCoreModule) warp).getMaxWarp()) {
+							- warp.MAX_WARP) {
 				selX--;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_D)) {
 			if (selX != 11
 					&& selX != state.getShip().getSecX()
-							+ ((WarpCoreModule) warp).getMaxWarp()) {
+							+ warp.MAX_WARP) {
 				selX++;
 			}
 		}

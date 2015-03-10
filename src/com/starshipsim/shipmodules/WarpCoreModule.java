@@ -4,19 +4,11 @@ import com.starshipsim.entities.Ship;
 import com.starshipsim.enums.Quality;
 
 public class WarpCoreModule extends ShipModule {
-	private int maxWarp = 3;
-
-	public int getMaxWarp() {
-		return maxWarp;
-	}
-
-	public void setMaxWarp(int maxWarp) {
-		this.maxWarp = maxWarp;
-	}
+	public final int MAX_WARP;
 	
 	public WarpCoreModule(Quality quality) {
 		super(quality);
-		// TODO Auto-generated constructor stub
+		MAX_WARP = quality.ordinal() + 2;
 	}
 
 	public void warp(Ship ship, int x, int y) {
