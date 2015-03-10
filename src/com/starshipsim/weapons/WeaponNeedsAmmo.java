@@ -10,13 +10,6 @@ public class WeaponNeedsAmmo extends Weapon{
 	private int currentAmmo;
 	private int maxAmmo;
 	
-	public int shoot(){
-		
-		//TODO 
-		setCurrentAmmo(getCurrentAmmo() - 1);
-		return currentAmmo;
-		
-	}
 	public void refillAmmo(Ammo tempAmmo){
 		int ammoAmount = tempAmmo.getAmount();
 		setCurrentAmmo(getCurrentAmmo() + ammoAmount);
