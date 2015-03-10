@@ -32,9 +32,7 @@ public class NotifyState extends State{
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
-		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
-			manager.popState();
-		}
+	
 		
 	}
 

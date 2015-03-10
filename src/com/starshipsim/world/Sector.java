@@ -16,6 +16,7 @@ public abstract class Sector {
 	private boolean mysterious = false;
 	private boolean hostile = false;
 	SectorStateType state;
+	private boolean explored;
 
 	protected ArrayList<Entity> entities;
 
@@ -60,6 +61,14 @@ public abstract class Sector {
 		entities = new ArrayList<Entity>();
 	}
 	
+	public boolean isExplored() {
+		return explored;
+	}
+
+	public void setExplored(boolean explored) {
+		this.explored = explored;
+	}
+
 	public void update() {
 		boolean isHostile=false;
 		for (int i =0; i<entities.size();i++) {

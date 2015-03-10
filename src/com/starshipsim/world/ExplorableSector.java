@@ -21,9 +21,10 @@ public class ExplorableSector extends Sector {
 	private Player play; // when player enters explorable, sets this as the player
 	private ArrayList<String> update;
 	
+	
 	public ExplorableSector(){//randomizes the obstacles and rewards
 		super(SectorStateType.EXPLORABLE);
-		
+		setExplored(false);
 		generateContent();
 		generateRewards();
 		generateObstacles();	
@@ -148,5 +149,5 @@ public class ExplorableSector extends Sector {
 	}
 	public void setUpdate(ArrayList<String> update) {
 		this.update = update;
-	}	
+	}
 }

@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.starshipsim.combat.CombatData;
@@ -141,11 +142,19 @@ public class SectorState extends State {
 			ship.setSecY(new Random().nextInt(11));
 		}
 		if(sector.checkCollision(ship, Planet.class)){
-			if(sector.getState() == SectorStateType.EXPLORABLE){
+			if(sector.getState() == SectorStateType.EXPLORABLE || sector.getState() == SectorStateType.NEUTRAL){
 				if(keyboard.keyDown(KeyEvent.VK_ENTER)){
-					manager.addState(new ExplorableState(manager, player, (ExplorableSector) sector));
-					((ExplorableSector) sector).run(player);
-					sector.getEntities().remove(sector.getOneIntersectingEntity(ship, Planet.class));
+						if(sector.isExplored()){
+							ArrayList<String> tempMessage = new ArrayList<String>();
+							tempMessage.add("You have already explored this planet!");
+							manager.addState(new NotifyState(manager, tempMessage));
+							
+						}else{
+							manager.addState(new ExplorableState(manager, player, (ExplorableSector) sector));
+							((ExplorableSector) sector).run(player);
+							sector.setExplored(true);
+						}
+					
 				}
 			}
 		}

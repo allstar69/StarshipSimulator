@@ -33,9 +33,6 @@ public class ExplorableState extends State{
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
-		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
-			manager.popState();
-		}
 		
 	}
 
@@ -50,7 +47,7 @@ public class ExplorableState extends State{
 		for(int i = 0; i < es.getUpdate().size(); i++){
 			g.drawString(es.getUpdate().get(i), 50, 100*(i + 1) + 200);
 		}
-		g.drawString("Press Enter or Escape to Exit", 50, 900);
+		g.drawString("Press Escape to Exit", 50, 900);
 		
 	}
 
