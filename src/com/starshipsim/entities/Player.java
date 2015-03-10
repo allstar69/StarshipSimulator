@@ -12,6 +12,7 @@ import com.starshipsim.items.ItemRepairDrone;
 import com.starshipsim.items.ItemSatellite;
 import com.starshipsim.items.ItemScanner;
 import com.starshipsim.items.ItemStunBomb;
+import com.starshipsim.listeners.MoneyListener;
 
 
 public class Player extends Entity {
@@ -19,6 +20,7 @@ public class Player extends Entity {
 	private Ship ship;
 	
 	private int money=1000;
+	private MoneyListener ml = new MoneyListener();
 	
 	private ArrayList<Item> inventory;
 	
@@ -45,6 +47,11 @@ public class Player extends Entity {
 	public void setInventory(ArrayList<Item> inventory) {
 		this.inventory = inventory;
 	}
+	
+	public MoneyListener getMoenyListener(){
+		return ml;
+	}
+	
 	public void updateInventory(int newItemNum, Item newItem){
 		int currentAmount = 0;
 		
