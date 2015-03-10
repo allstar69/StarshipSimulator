@@ -13,6 +13,7 @@ import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.interfaces.Enemy;
+import com.starshipsim.items.Item;
 import com.starshipsim.listeners.KeyboardListener;
 import com.sun.glass.events.KeyEvent;
 
@@ -25,7 +26,7 @@ public class CombatState extends State {
 	private int attacker=0;
 	private int xshift;
 	private int dxshift;
-	
+	private int currentItem=0;
 	/*Menu Options:
 	 * 0=main combat menu
 	 * 1=weapon choice menu
@@ -43,6 +44,7 @@ public class CombatState extends State {
 	Player player;
 	Ship ship;
 	int currentOption = 0;
+	ArrayList<Item> items=new ArrayList<>();
 	
 	public CombatState(StateManager manager, CombatData data) {
 		super(manager);
@@ -57,6 +59,11 @@ public class CombatState extends State {
 
 	@Override
 	public void initialize() {
+		for(Item i : player.getInventory()){
+			if(i.getAmount()>0){
+				items.add(i);
+			}
+		}
 	}
 
 	@Override
@@ -75,6 +82,9 @@ public class CombatState extends State {
 		}
 		else if(currentMenu==2){
 			enemyChoiceMenu();
+		}
+		else if(currentMenu==3){
+			itemMenu();
 		}
 		else if(currentMenu==4){
 			win();
@@ -128,6 +138,32 @@ public class CombatState extends State {
 		}
 		else if(currentMenu==2){
 			g.drawString("Which Enemy will you Attack?", centerX-360, centerY+360);
+		}
+		else if(currentMenu==3){
+			
+			
+			String item1;
+			if(currentItem==0){
+				item1=items.get(items.size()-1).getName()+"   x   "+items.get(items.size()-1).getAmount();
+			}
+			else{
+				item1 = items.get(currentItem-1).getName()+"   x   "+items.get(currentItem-1).getAmount();
+			}
+			String item2 = items.get(currentItem).getName()+"   x   "+items.get(currentItem).getAmount();
+			String item3;
+			if(currentItem==items.size()-1){
+				item3=items.get(0).getName()+"   x   "+items.get(0).getAmount();
+			}
+			else{
+				item3 = items.get(currentItem+1).getName()+"   x   "+items.get(currentItem+1).getAmount();
+			}
+			if(items.size()==1){
+				item1="";
+				item3="";
+			}
+			g.drawString(item1, centerX-100, centerY+280);
+			g.drawString(item2, centerX-100, centerY+360);
+			g.drawString(item3, centerX-100, centerY+440);
 		}
 		else if(currentMenu==4){
 			g.drawString("You won $" + data.getEnemies().getReward(), centerX-100, centerY+360);
@@ -193,7 +229,9 @@ public class CombatState extends State {
 							
 			}
 			else if(curpos==3){
-				
+				if(items.size()>0){
+					currentMenu=3;
+				}
 			}
 			else if(curpos==4){
 				manager.popState();
@@ -225,6 +263,14 @@ public class CombatState extends State {
 			currentMenu=5;
 			curpos=1;
 		}
+		if(keyboard.keyDownOnce(KeyEvent.VK_SHIFT)){
+			dxshift=0;
+			currentMenu=0;
+			curpos=1;
+			cursorY=760;
+			cursorX=800;
+			attacker=0;
+		}
 	}
 	public void win(){
 		cursorY=870;
@@ -254,6 +300,30 @@ public class CombatState extends State {
 				attacker=0;
 			}
 			ship.setDurability(ship.getDurability()-ships.get(attacker).dealDamage());
+		}
+	}
+	public void itemMenu(){
+		cursorY=870;
+		cursorX=550;
+		if(keyboard.keyDownOnce(KeyEvent.VK_W)){
+			currentItem--;
+			if(currentItem<0){
+				currentItem=items.size()-1;
+			}
+		}
+		else if(keyboard.keyDownOnce(KeyEvent.VK_S)){
+			currentItem++;
+			if(currentItem>items.size()-1){
+				currentItem=0;
+			}
+		}
+		if(keyboard.keyDownOnce(KeyEvent.VK_SHIFT)){
+			dxshift=0;
+			currentMenu=0;
+			curpos=1;
+			cursorY=760;
+			cursorX=800;
+			attacker=0;
 		}
 	}
 }
