@@ -13,7 +13,7 @@ public class Reward {
 		int num = ran.nextInt(8);
 		switch(num){
 		case 0:
-			setRewardItem(new ItemFuel(genNum(1,10)));
+			setRewardItem(new ItemFuel(genNum(50,200)));
 			break;
 		case 1:
 			setRewardItem(new ItemRepairDrone(genNum(1,5)));
@@ -31,7 +31,7 @@ public class Reward {
 			setRewardItem(new ItemScanner(genNum(2, 7)));
 			break;
 		case 6:
-			setRewardItem(new Ammo(genNum(100, 500)));
+			setRewardItem(new ItemFuel(genNum(50, 200)));
 			break;
 		case 7:
 			setRewardItem(new ItemCurrency(genNum(50, 250)));
