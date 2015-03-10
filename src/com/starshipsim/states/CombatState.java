@@ -27,6 +27,7 @@ public class CombatState extends State {
 	private int xshift;
 	private int dxshift;
 	private int currentItem=0;
+	private boolean shieldsUp=false;
 	/*Menu Options:
 	 * 0=main combat menu
 	 * 1=weapon choice menu
@@ -132,7 +133,12 @@ public class CombatState extends State {
 		}
 		if(currentMenu==0){
 			g.drawString("Attack", centerX-100, centerY+250);
-			g.drawString("Defend", centerX-650, centerY+360);
+			if(!shieldsUp){
+				g.drawString("Use Shield", centerX-650, centerY+360);
+			}
+			else{
+				g.drawString("Remove Shield", centerX-650, centerY+360);
+			}
 			g.drawString("Items", centerX+600, centerY+360);
 			g.drawString("Run", centerX-80, centerY+480);
 		}
@@ -173,6 +179,10 @@ public class CombatState extends State {
 		}
 		g.drawImage(ImageManager.ship, cursorX, cursorY, null);
 		g.drawString(("Health: "+ship.getDurability()+"/"+ship.getMaxDurability()), 200, 125);
+		g.setColor(Color.green);
+		g.fillRoundRect(1600, 125, ship.getShield().getCurrentDurability()*2, 50, 10, 10);
+		g.setColor(Color.white);
+		g.drawRoundRect(1600, 125, ship.getShield().getMaxDurability()*2, 50, 10, 10);
 	}
 	
 	private void drawEnemyShips(Graphics g, Canvas canvas) {
@@ -226,7 +236,17 @@ public class CombatState extends State {
 				cursorY=ships.get(selectedship-1).getY()+130;
 			}
 			else if(curpos==2){
-							
+				if(shieldsUp ){
+					shieldsUp=false;
+					currentMenu=5;
+					curpos=1;
+				}
+				else if(!shieldsUp && ship.getShield().getCurrentDurability()>(ship.getShield().getMaxDurability()/2)){
+					shieldsUp=true;
+					currentMenu=5;
+					curpos=1;
+				}
+				
 			}
 			else if(curpos==3){
 				if(items.size()>0){
@@ -298,8 +318,21 @@ public class CombatState extends State {
 				cursorY=760;
 				cursorX=800;
 				attacker=0;
+				ship.getShield().setCurrentDurability(ship.getShield().getCurrentDurability()+10);
+				if(ship.getShield().getCurrentDurability()>ship.getShield().getMaxDurability()){
+					ship.getShield().setCurrentDurability(ship.getShield().getMaxDurability());
+				}
 			}
-			ship.setDurability(ship.getDurability()-ships.get(attacker).dealDamage());
+			if(shieldsUp){
+				ship.getShield().setCurrentDurability(ship.getShield().getCurrentDurability()-ships.get(attacker).dealDamage()*2);
+				if(ship.getShield().getCurrentDurability()<0){
+					ship.getShield().setCurrentDurability(0);
+					shieldsUp=false;
+				}
+			}
+			else{
+				ship.setDurability(ship.getDurability()-ships.get(attacker).dealDamage());
+			}
 		}
 	}
 	public void itemMenu(){
