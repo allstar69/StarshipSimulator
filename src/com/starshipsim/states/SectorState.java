@@ -200,21 +200,38 @@ public class SectorState extends State {
 	public void end() {
 
 	}
+	public boolean checkForEnemySectors(){
+		boolean enemiesLeft = false;
+		
+		for(int i = 0; i < 12; i++){
+			for(int j = 0; j < 12; j++){
+				if(grid.getSector(i, j).getState() == SectorStateType.ENEMY){
+					enemiesLeft = true;
+				}
+			}
+		}
+		System.out.println("There are enemies left: " + enemiesLeft);
+		return enemiesLeft;
+	}
 	public void addEnemyShip(){
 		if(ship.getDistanceTravelled()>2000){
-			Random random = new Random();
-			int randx=random.nextInt(12);
-			int randy=random.nextInt(12);
-			Sector s=grid.getSector(randx, randy);
-			while(s.getState()!=SectorStateType.ENEMY){
-				randx=random.nextInt(12);
-				randy=random.nextInt(12);
-				s=grid.getSector(randx, randy);
+			if(checkForEnemySectors()){
+				Random random = new Random();
+				int randx=random.nextInt(12);
+				int randy=random.nextInt(12);
+				Sector s=grid.getSector(randx, randy);
+				while(s.getState()!=SectorStateType.ENEMY){
+					randx=random.nextInt(12);
+					randy=random.nextInt(12);
+					s=grid.getSector(randx, randy);
+				}
+				Entity station = s.getEntities().get(random.nextInt(s.getEntities().size()));
+				s.getEntities().add(new EnemyShip(grid,station.getX()+station.getWidth()/2, station.getY()+station.getWidth()/2, randx, randy, keyboard));
+				s.setHostile(true);
 			}
-			Entity station = s.getEntities().get(random.nextInt(s.getEntities().size()));
-			s.getEntities().add(new EnemyShip(grid,station.getX()+station.getWidth()/2, station.getY()+station.getWidth()/2, randx, randy, keyboard));
+			
 			ship.setDistanceTravelled(0);
-			s.setHostile(true);
+			
 		}
 	}
 }
