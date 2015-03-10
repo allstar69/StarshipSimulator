@@ -32,6 +32,7 @@ import com.starshipsim.shipmodules.PropulsionModule;
 import com.starshipsim.shipmodules.ShieldModule;
 import com.starshipsim.shipmodules.WarpCoreModule;
 import com.starshipsim.shipmodules.WeaponModule;
+import com.starshipsim.weapons.Weapon;
 import com.starshipsim.world.ExplorableSector;
 import com.starshipsim.world.Grid;
 import com.starshipsim.world.Sector;
@@ -70,9 +71,15 @@ public class SectorState extends State {
 	}
 	
 	public ShipData createShip() {
+		Weapon phaser = new Weapon(Quality.LOW);
+		ArrayList<Weapon> weapons = new ArrayList<>();
+		weapons.add(phaser);
+		weapons.add(phaser);
+		weapons.add(phaser);
+		
 		PowerModule power = new PowerModule(Quality.LOW);
 		ShieldModule shield = new ShieldModule(Quality.LOW);
-		WeaponModule weapon = new WeaponModule(Quality.LOW);
+		WeaponModule weapon = new WeaponModule(Quality.LOW, weapons);
 		PropulsionModule propulsion = new PropulsionModule(Quality.LOW);
 		WarpCoreModule warp = new WarpCoreModule(Quality.LOW);
 		

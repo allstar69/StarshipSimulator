@@ -12,7 +12,7 @@ import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.ImageManager;
 
 public abstract class Sector {
-	private boolean known = true;
+	private boolean known = false;
 	private boolean mysterious = false;
 	private boolean hostile = false;
 	SectorStateType state;

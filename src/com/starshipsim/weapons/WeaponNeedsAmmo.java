@@ -1,13 +1,20 @@
 package com.starshipsim.weapons;
 
+import com.starshipsim.enums.Quality;
+
 public class WeaponNeedsAmmo extends Weapon{
+	public WeaponNeedsAmmo(Quality quality) {
+		super(quality);
+		// TODO Auto-generated constructor stub
+	}
 	private int currentAmmo;
 	private int maxAmmo;
 	
-	public void shoot(){
+	public int shoot(){
 		
 		//TODO 
 		setCurrentAmmo(getCurrentAmmo() - 1);
+		return currentAmmo;
 		
 	}
 	public void refillAmmo(Ammo tempAmmo){
