@@ -17,6 +17,7 @@ public class Bullet extends Entity{
 		this.setX(x);
 		this.setY(y);
 		this.xform.setToTranslation(x, y);
+		this.xform.rotate((rot) * Math.PI / 180, 16, 16);
 	}
 
 	@Override
