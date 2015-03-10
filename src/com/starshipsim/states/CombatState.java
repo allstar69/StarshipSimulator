@@ -15,6 +15,7 @@ import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.interfaces.Enemy;
 import com.starshipsim.items.Item;
 import com.starshipsim.listeners.KeyboardListener;
+import com.starshipsim.shipmodules.ShieldModule;
 import com.sun.glass.events.KeyEvent;
 
 public class CombatState extends State {
@@ -27,6 +28,7 @@ public class CombatState extends State {
 	private int xshift;
 	private int dxshift;
 	private int currentItem=0;
+	private boolean shieldsUp=false;
 	/*Menu Options:
 	 * 0=main combat menu
 	 * 1=weapon choice menu
@@ -120,6 +122,9 @@ public class CombatState extends State {
 	}
 	
 	private void drawBattleMenu(Graphics g, Canvas canvas) {
+		Ship ship = this.player.getShip();
+		ShieldModule shield = ship.getData().getShield();
+		
 		int centerX = canvas.getWidth()/2;
 		int centerY = canvas.getHeight()/2;
 		
@@ -132,7 +137,12 @@ public class CombatState extends State {
 		}
 		if(currentMenu==0){
 			g.drawString("Attack", centerX-100, centerY+250);
-			g.drawString("Defend", centerX-650, centerY+360);
+			if(!shieldsUp){
+				g.drawString("Use Shield", centerX-650, centerY+360);
+			}
+			else{
+				g.drawString("Remove Shield", centerX-650, centerY+360);
+			}
 			g.drawString("Items", centerX+600, centerY+360);
 			g.drawString("Run", centerX-80, centerY+480);
 		}
@@ -173,6 +183,10 @@ public class CombatState extends State {
 		}
 		g.drawImage(ImageManager.ship, cursorX, cursorY, null);
 		g.drawString(("Health: "+ship.getDurability()+"/"+ship.getMaxDurability()), 200, 125);
+		g.setColor(Color.green);
+		g.fillRoundRect(1600, 125, shield.getCurrentDurability()*2, 50, 10, 10);
+		g.setColor(Color.white);
+		g.drawRoundRect(1600, 125, shield.getMaxDurability()*2, 50, 10, 10);
 	}
 	
 	private void drawEnemyShips(Graphics g, Canvas canvas) {
@@ -199,6 +213,9 @@ public class CombatState extends State {
 		}
 	}
 	public void mainCombatMenu(){
+		Ship ship = this.player.getShip();
+		ShieldModule shield = ship.getData().getShield();
+		
 		if(keyboard.keyDownOnce(KeyEvent.VK_W)){
 			cursorX=800;
 			cursorY=760;
@@ -226,7 +243,17 @@ public class CombatState extends State {
 				cursorY=ships.get(selectedship-1).getY()+130;
 			}
 			else if(curpos==2){
-							
+				if(shieldsUp ){
+					shieldsUp=false;
+					currentMenu=5;
+					curpos=1;
+				}
+				else if(!shieldsUp && shield.getCurrentDurability()>(shield.getMaxDurability()/2)){
+					shieldsUp=true;
+					currentMenu=5;
+					curpos=1;
+				}
+				
 			}
 			else if(curpos==3){
 				if(items.size()>0){
@@ -282,6 +309,9 @@ public class CombatState extends State {
 		}
 	}
 	public void enemyAttack(){
+		Ship ship = this.player.getShip();
+		ShieldModule shield = ship.getData().getShield();
+		
 		cursorY=870;
 		cursorX=800;
 		dxshift=450*(ships.size()-(attacker+1))-(225*(ships.size()-1));
@@ -298,8 +328,21 @@ public class CombatState extends State {
 				cursorY=760;
 				cursorX=800;
 				attacker=0;
+				shield.setCurrentDurability(shield.getCurrentDurability()+10);
+				if(shield.getCurrentDurability()>shield.getMaxDurability()){
+					shield.setCurrentDurability(shield.getMaxDurability());
+				}
 			}
-			ship.setDurability(ship.getDurability()-ships.get(attacker).dealDamage());
+			if(shieldsUp){
+				shield.setCurrentDurability(shield.getCurrentDurability()-ships.get(attacker).dealDamage()*2);
+				if(shield.getCurrentDurability()<0){
+					shield.setCurrentDurability(0);
+					shieldsUp=false;
+				}
+			}
+			else{
+				ship.setDurability(ship.getDurability()-ships.get(attacker).dealDamage());
+			}
 		}
 	}
 	public void itemMenu(){

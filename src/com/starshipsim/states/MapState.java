@@ -133,6 +133,7 @@ public class MapState extends State {
 		gridDisplay.draw(g);
 		mapMenu.draw(g);
 		mapMenu.getMapListener().draw(g, getGrid());
+		getPlayer().getMoenyListener().draw(g, getPlayer().getMoney());
 		
 		//Temp
 		g.drawString("Press Escape to exit the map.", 32, 950);
