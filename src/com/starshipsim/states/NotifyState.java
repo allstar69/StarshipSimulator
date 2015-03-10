@@ -50,7 +50,7 @@ public class NotifyState extends State{
 			g.drawString(getMessages().get(i), 50, i * 100 + 250);
 			
 		}
-		g.drawString("Press Enter or Escape to Exit", 50, 900);
+		g.drawString("Press Escape to Exit", 50, 900);
 		
 	}
 
