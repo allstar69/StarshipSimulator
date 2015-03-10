@@ -51,7 +51,7 @@ public class SectorState extends State {
 		this.keyboard = manager.getKeyboard();
 		
 		this.player = new Player(500, 500);
-		this.ship = new Ship(960, 540, this.keyboard);
+		this.ship = new Ship(player, 960, 540, this.keyboard);
 		player.setShip(this.ship);
 		
 		this.grid = new Grid();
@@ -88,7 +88,7 @@ public class SectorState extends State {
 		}
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
-		}
+		}		
 		if(keyboard.keyDownOnce(KeyEvent.VK_SPACE)){
 			sector.getEntities().add(new Bullet(ship.getRot(), ship.getX(), ship.getY(), 32, 32));
 		}
@@ -170,6 +170,10 @@ public class SectorState extends State {
 		ship.draw(g, canvas);
 		g.drawString(ship.getDurability()+"/"+ship.getMaxDurability(), 32, 32);
 		g.drawString(""+ship.getDistanceTravelled(), 32, 64);
+		g.setColor(Color.green);
+		g.fillRect(32, 96, player.getInventory().get(0).getAmount(), 32);
+		g.setColor(Color.white);
+		g.drawRect(32, 96, 100, 32);
 	}
 
 	@Override

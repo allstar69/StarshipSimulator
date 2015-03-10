@@ -13,7 +13,8 @@ public class Bullet extends Entity{
 	public Bullet(int rot,int x, int y, int width, int height) {
 		super(ImageManager.proj1, x, y, width, height);
 		this.rot=rot;
-		
+		this.setX(x);
+		this.setY(y);
 	}
 
 	@Override

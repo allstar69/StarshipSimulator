@@ -79,9 +79,9 @@ public class Player extends Entity {
 	}
 	public Player(int x, int y) {
 		super(ImageManager.ship, x, y);
-		this.ship = new Ship(800, 600, null);
+		this.ship = new Ship(this, 800, 600, null);
 		this.inventory = new ArrayList<>();
-		this.inventory.add(new ItemFuel(10));
+		this.inventory.add(new ItemFuel(100));
 		this.inventory.add(new ItemRepairDrone(0));
 		this.inventory.add(new ItemStunBomb(0));
 		this.inventory.add(new ItemExplosiveBomb(0));

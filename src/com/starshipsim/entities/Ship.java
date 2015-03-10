@@ -37,14 +37,15 @@ public class Ship extends Entity {
 
 	private KeyboardListener keyboard;
 	private AffineTransform xform = new AffineTransform();
-	
-	public Ship(int x, int y, KeyboardListener keyboard) {
+	private Player player;
+	public Ship(Player p,int x, int y, KeyboardListener keyboard) {
 		super(ImageManager.ship, x, y,32,32);
 		
 		Random rand = new Random();
 		secX = rand.nextInt(11);
 		secY = rand.nextInt(11);
 		this.keyboard = keyboard;
+		player=p;
 	}
 	
 	public Ship(Image img, int x, int y, KeyboardListener keyboard) {
@@ -95,6 +96,15 @@ public class Ship extends Entity {
 			
 			rot+=15;
 		}
+		if(keyboard.keyDown(KeyEvent.VK_SHIFT) && player.getInventory().get(0).getAmount()>0 && isFlying){
+			setSpeed(16);
+			if(distanceTravelled%5==0){
+				player.getInventory().get(0).setAmount(player.getInventory().get(0).getAmount()-1);
+			}
+		}
+		else{
+			setSpeed(6);
+		}
 		if (keyboard.keyDown(KeyEvent.VK_W)) {
 			if (keyboard.keyDown(KeyEvent.VK_A)) {
 				setDrot(225);
@@ -126,6 +136,7 @@ public class Ship extends Entity {
 				setY(1050);
 				setSecY(getSecY()-1);
 			}
+			setDistanceTravelled(getDistanceTravelled()+1);
 			isFlying = true;
 		} else if (keyboard.keyDown(KeyEvent.VK_S)) {
 			if (keyboard.keyDown(KeyEvent.VK_A)) {
@@ -158,7 +169,7 @@ public class Ship extends Entity {
 				setY(0);
 				setSecY(getSecY()+1);
 			}
-			
+			setDistanceTravelled(getDistanceTravelled()+1);
 			isFlying = true;
 		} else if (keyboard.keyDown(KeyEvent.VK_A)) {
 			setDrot(180);
@@ -170,6 +181,7 @@ public class Ship extends Entity {
 				setX(1880);
 				setSecX(getSecX()-1);
 			}
+			setDistanceTravelled(getDistanceTravelled()+1);
 			isFlying = true;
 		} else if (keyboard.keyDown(KeyEvent.VK_D)) {
 			setDrot(0);
@@ -182,7 +194,7 @@ public class Ship extends Entity {
 				setSecX(getSecX()+1);
 			}
 			
-			
+			setDistanceTravelled(getDistanceTravelled()+1);
 			isFlying = true;
 		} else {
 			isFlying = false;
@@ -191,22 +203,19 @@ public class Ship extends Entity {
 
 	public void decelerateX() {
 		setX(getX()-getSpeed());
-		setDistanceTravelled(getDistanceTravelled()+1);
+		
 	}
 	
 	public void accelerateX() {
 		setX(getX()+getSpeed());
-		setDistanceTravelled(getDistanceTravelled()+1);
 	}
 	
 	public void decelerateY() {
 		setY(getY()-getSpeed());
-		setDistanceTravelled(getDistanceTravelled()+1);
 	}
 	
 	public void accelerateY() {
 		setY(getY()+getSpeed());
-		setDistanceTravelled(getDistanceTravelled()+1);
 	}
 
 	public int getDurability() {
