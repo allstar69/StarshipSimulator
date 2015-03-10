@@ -28,8 +28,8 @@ public class Bullet extends Entity{
 	public void update() {
 		setX(getX() + (int)(Math.cos(rot*Math.PI/180)*20));
 		setY(getY() + (int)(Math.sin(rot*Math.PI/180)*20));
-		xform.rotate((rot) * Math.PI / 180, 16, 16);
 		xform.setToTranslation(getX(), getY());
+		xform.rotate((rot) * Math.PI / 180, 16, 16);
 	}
 	
 	@Override
