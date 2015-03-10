@@ -53,6 +53,9 @@ public class Player extends Entity {
 			currentAmount = inventory.get(newItemNum).getAmount();
 			inventory.remove(newItemNum);
 			currentAmount += newItem.getAmount();
+			if(currentAmount < 0){
+				currentAmount = 0;
+			}
 			switch(newItemNum){
 			case 0:
 				inventory.add(0, new ItemFuel(currentAmount));
