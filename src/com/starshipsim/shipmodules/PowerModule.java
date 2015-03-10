@@ -1,6 +1,8 @@
 package com.starshipsim.shipmodules;
 
-public class PowerSystem extends ShipModule {
+import com.starshipsim.enums.Quality;
+
+public class PowerModule extends ShipModule {
 
 	private int maxPower = 10;
 	private int currentPower = 10;
@@ -21,6 +23,11 @@ public class PowerSystem extends ShipModule {
 		this.currentPower = currentPower;
 	}
 
+	public PowerModule(Quality quality) {
+		super(quality);
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public String toString() {
 		String s = super.toString();

@@ -5,10 +5,11 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import com.starshipsim.entities.Ship;
 import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.listeners.MapListener;
-import com.starshipsim.shipmodules.WarpCore;
+import com.starshipsim.shipmodules.WarpCoreModule;
 import com.starshipsim.states.MapState;
 import com.starshipsim.world.Sector;
 
@@ -109,31 +110,34 @@ public class MapMenuPanel {
 	}
 
 	private void moveShip(Graphics g) {
+		Ship ship = state.getShip();
+		WarpCoreModule warp = ship.getData().getWarp();
+		
 		state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 		g.drawImage(ImageManager.cursor, 32 + (selX * 64), 32 + (selY * 64), null);
 		
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (selY != 0
 					&& selY != state.getShip().getSecY()
-							- ((WarpCore) state.getShip().getWarp()).getMaxWarp()) {
+							- ((WarpCoreModule) warp).getMaxWarp()) {
 				selY--;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
 			if (selY != 11
 					&& selY != state.getShip().getSecY()
-							+ ((WarpCore) state.getShip().getWarp()).getMaxWarp()) {
+							+ ((WarpCoreModule) warp).getMaxWarp()) {
 				selY++;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_A)) {
 			if (selX != 0
 					&& selX != state.getShip().getSecX()
-							- ((WarpCore) state.getShip().getWarp()).getMaxWarp()) {
+							- ((WarpCoreModule) warp).getMaxWarp()) {
 				selX--;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_D)) {
 			if (selX != 11
 					&& selX != state.getShip().getSecX()
-							+ ((WarpCore) state.getShip().getWarp()).getMaxWarp()) {
+							+ ((WarpCoreModule) warp).getMaxWarp()) {
 				selX++;
 			}
 		}

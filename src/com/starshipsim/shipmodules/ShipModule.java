@@ -1,6 +1,10 @@
 package com.starshipsim.shipmodules;
 
+import com.starshipsim.enums.Quality;
+
 public abstract class ShipModule {
+	private Quality quality;
+	
 	private String pieceName = "";
 	private int price = 100;
 
@@ -55,6 +59,10 @@ public abstract class ShipModule {
 
 	public void setCurrentDurability(int currentDurability) {
 		this.currentDurability = currentDurability;
+	}
+	
+	public ShipModule(Quality quality) {
+		this.quality = quality;
 	}
 
 	public void damage(int damageNum) {

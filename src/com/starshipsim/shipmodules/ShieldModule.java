@@ -1,6 +1,8 @@
 package com.starshipsim.shipmodules;
 
-public class ShieldSystem extends ShipModule {
+import com.starshipsim.enums.Quality;
+
+public class ShieldModule extends ShipModule {
 	private boolean isRaised = false;
 
 	public boolean isRaised() {
@@ -16,6 +18,11 @@ public class ShieldSystem extends ShipModule {
 		if (getCurrentDurability() > getMaxDurability()) {
 			setCurrentDurability(0);
 		}
+	}
+	
+	public ShieldModule(Quality quality) {
+		super(quality);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

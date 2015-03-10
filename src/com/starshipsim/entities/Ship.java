@@ -7,14 +7,9 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.util.Random;
 
+import com.starshipsim.data.ShipData;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.shipmodules.PowerSystem;
-import com.starshipsim.shipmodules.PropulsionSystem;
-import com.starshipsim.shipmodules.ShieldSystem;
-import com.starshipsim.shipmodules.ShipModule;
-import com.starshipsim.shipmodules.WarpCore;
-import com.starshipsim.shipmodules.WeaponSystem;
 import com.sun.glass.events.KeyEvent;
 
 public class Ship extends Entity {
@@ -23,11 +18,7 @@ public class Ship extends Entity {
 	private int secX;
 	private int secY;
 	private int distanceTravelled;
-	private ShipModule power = new PowerSystem();
-	private ShipModule shield = new ShieldSystem();
-	private ShipModule weapon = new WeaponSystem();
-	private ShipModule propulsion = new PropulsionSystem();
-	private ShipModule warp = new WarpCore();
+	private ShipData data;
 	
 	private int rot = 0;
 	private int drot=0;
@@ -38,9 +29,23 @@ public class Ship extends Entity {
 	private KeyboardListener keyboard;
 	private AffineTransform xform = new AffineTransform();
 	private Player player;
-	public Ship(Player p,int x, int y, KeyboardListener keyboard) {
+	
+	public ShipData getData() {
+		return data;
+	}
+
+	public void setData(ShipData data) {
+		this.data = data;
+	}
+
+	public boolean isFlying() {
+		return isFlying;
+	}
+
+	public Ship(Player p, int x, int y, ShipData data, KeyboardListener keyboard) {
 		super(ImageManager.ship, x, y,32,32);
 		
+		this.data = data;
 		Random rand = new Random();
 		secX = rand.nextInt(11);
 		secY = rand.nextInt(11);
@@ -260,46 +265,6 @@ public class Ship extends Entity {
 
 	public void setDistanceTravelled(int distanceTravelled) {
 		this.distanceTravelled = distanceTravelled;
-	}
-
-	public ShipModule getPower() {
-		return power;
-	}
-
-	public void setPower(ShipModule power) {
-		this.power = power;
-	}
-
-	public ShipModule getShield() {
-		return shield;
-	}
-
-	public void setShield(ShipModule shield) {
-		this.shield = shield;
-	}
-
-	public ShipModule getWeapon() {
-		return weapon;
-	}
-
-	public void setWeapon(ShipModule weapon) {
-		this.weapon = weapon;
-	}
-
-	public ShipModule getPropulsion() {
-		return propulsion;
-	}
-
-	public void setPropulsion(ShipModule propulsion) {
-		this.propulsion = propulsion;
-	}
-
-	public ShipModule getWarp() {
-		return warp;
-	}
-
-	public void setWarp(ShipModule warp) {
-		this.warp = warp;
 	}
 
 	public int getRot() {

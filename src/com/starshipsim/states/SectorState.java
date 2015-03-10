@@ -10,6 +10,7 @@ import java.util.Random;
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.combat.StationFleet;
+import com.starshipsim.data.ShipData;
 import com.starshipsim.entities.Asteroid;
 import com.starshipsim.entities.BlackHole;
 import com.starshipsim.entities.Bullet;
@@ -22,10 +23,15 @@ import com.starshipsim.entities.Planet;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.entities.SpaceStation;
+import com.starshipsim.enums.Quality;
 import com.starshipsim.enums.SectorStateType;
-import com.starshipsim.graphics.ImageManager;
-import com.starshipsim.graphics.TiledBackground;
+import com.starshipsim.graphics.StarBackgroundFx;
 import com.starshipsim.listeners.KeyboardListener;
+import com.starshipsim.shipmodules.PowerModule;
+import com.starshipsim.shipmodules.PropulsionModule;
+import com.starshipsim.shipmodules.ShieldModule;
+import com.starshipsim.shipmodules.WarpCoreModule;
+import com.starshipsim.shipmodules.WeaponModule;
 import com.starshipsim.world.ExplorableSector;
 import com.starshipsim.world.Grid;
 import com.starshipsim.world.Sector;
@@ -36,7 +42,7 @@ public class SectorState extends State {
 
 	private Canvas canvas;
 	
-	private TiledBackground bg = new TiledBackground(ImageManager.spaceBg, 0, 0);
+	private StarBackgroundFx bg = new StarBackgroundFx(100, 1920, 1080);
 
 	int currentOption = 0;
 
@@ -50,9 +56,8 @@ public class SectorState extends State {
 		super(manager);
 		this.keyboard = manager.getKeyboard();
 		
-		this.player = new Player(500, 500);
-		this.ship = new Ship(player, 960, 540, this.keyboard);
-		player.setShip(this.ship);
+		this.player = new Player(createShip(), 500, 500, this.keyboard);
+		this.ship = player.getShip();
 		
 		this.grid = new Grid();
 		grid.setShipLocation(player.getShip(), player.getShip().getSecX(), player.getShip().getSecY());
@@ -64,12 +69,24 @@ public class SectorState extends State {
 		initialize();
 	}
 	
+	public ShipData createShip() {
+		PowerModule power = new PowerModule(Quality.LOW);
+		ShieldModule shield = new ShieldModule(Quality.LOW);
+		WeaponModule weapon = new WeaponModule(Quality.LOW);
+		PropulsionModule propulsion = new PropulsionModule(Quality.LOW);
+		WarpCoreModule warp = new WarpCoreModule(Quality.LOW);
+		
+		ShipData data = new ShipData(power, shield, weapon, propulsion, warp);
+		
+		return data;
+	}
+	
 	@Override
 	public void initialize() {
 	}
 
 	@Override
-	public void update() {
+	public void update() {	
 		for(int i=0;i<12;i++){
 			for(int j=0;j<12;j++){
 				grid.getSector(j, i).update();

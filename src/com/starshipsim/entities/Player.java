@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import com.starshipsim.data.ShipData;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.items.Item;
 import com.starshipsim.items.ItemExplosiveBomb;
@@ -12,6 +13,7 @@ import com.starshipsim.items.ItemRepairDrone;
 import com.starshipsim.items.ItemSatellite;
 import com.starshipsim.items.ItemScanner;
 import com.starshipsim.items.ItemStunBomb;
+import com.starshipsim.listeners.KeyboardListener;
 
 
 public class Player extends Entity {
@@ -80,9 +82,9 @@ public class Player extends Entity {
 		
 		
 	}
-	public Player(int x, int y) {
+	public Player(ShipData data, int x, int y, KeyboardListener keyboard) {
 		super(ImageManager.ship, x, y);
-		this.ship = new Ship(this, 800, 600, null);
+		this.ship = new Ship(this, 800, 600, data, keyboard);
 		this.inventory = new ArrayList<>();
 		this.inventory.add(new ItemFuel(100));
 		this.inventory.add(new ItemRepairDrone(0));

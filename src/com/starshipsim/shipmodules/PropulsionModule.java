@@ -1,8 +1,9 @@
 package com.starshipsim.shipmodules;
 
 import com.starshipsim.entities.Ship;
+import com.starshipsim.enums.Quality;
 
-public class PropulsionSystem extends ShipModule {
+public class PropulsionModule extends ShipModule {
 	private int distance = 10;
 	private int manuverablity = 1;
 
@@ -26,6 +27,11 @@ public class PropulsionSystem extends ShipModule {
 
 	}
 
+	public PropulsionModule(Quality quality) {
+		super(quality);
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public String toString() {
 		String s = super.toString();
