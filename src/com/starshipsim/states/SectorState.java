@@ -111,9 +111,16 @@ public class SectorState extends State {
 	
 	public void shipCollisions() {
 		if(sector.checkCollision(ship, SpaceStation.class)) {
-			if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
-				manager.addState(new StoreSelectorState(manager, player));
-			}
+				if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
+					if (!sector.isHostile()) {
+						manager.addState(new StoreSelectorState(manager, player));
+					} else {
+						ArrayList<String> msg = new ArrayList<String>();
+						msg.add("You must clear all hostiles form the sector before");
+						msg.add("docking with the station!");
+						manager.addState(new NotifyState(manager, msg));
+					}
+				}
 		}
 		
 		if(sector.checkCollision(ship, EnemySpaceStation.class)) {
@@ -144,17 +151,22 @@ public class SectorState extends State {
 		if(sector.checkCollision(ship, Planet.class)){
 			if(sector.getState() == SectorStateType.EXPLORABLE || sector.getState() == SectorStateType.NEUTRAL){
 				if(keyboard.keyDown(KeyEvent.VK_ENTER)){
+					if (!sector.isHostile()) {	
 						if(sector.isExplored()){
 							ArrayList<String> tempMessage = new ArrayList<String>();
 							tempMessage.add("You have already explored this planet!");
-							manager.addState(new NotifyState(manager, tempMessage));
-							
-						}else{
+							manager.addState(new NotifyState(manager, tempMessage));	
+						} else {
 							manager.addState(new ExplorableState(manager, player, (ExplorableSector) sector));
 							((ExplorableSector) sector).run(player);
 							sector.setExplored(true);
 						}
-					
+					} else {
+						ArrayList<String> msg = new ArrayList<String>();
+						msg.add("You must clear all hostiles form the sector before");
+						msg.add("exploring the planet!");
+						manager.addState(new NotifyState(manager, msg));
+					}
 				}
 			}
 		}
