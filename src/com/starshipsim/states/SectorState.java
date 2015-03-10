@@ -25,7 +25,6 @@ import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.world.DangerousSector;
 import com.starshipsim.world.ExplorableSector;
 import com.starshipsim.world.Grid;
 import com.starshipsim.world.Sector;
@@ -90,7 +89,7 @@ public class SectorState extends State {
 			manager.popState();
 		}		
 		if(keyboard.keyDownOnce(KeyEvent.VK_SPACE)){
-			sector.getEntities().add(new Bullet(ship.getRot(), ship.getX(), ship.getY(), 32, 32));
+			sector.getEntities().add(ship.shootBullet());
 		}
 		ship.update();
 		ship.move(canvas);

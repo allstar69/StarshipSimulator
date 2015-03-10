@@ -201,6 +201,10 @@ public class Ship extends Entity {
 		}
 	}
 
+	public Bullet shootBullet() {
+		return new Bullet(getRot(), getX(), getY(), 32, 32);
+	}
+	
 	public void decelerateX() {
 		setX(getX()-getSpeed());
 		
