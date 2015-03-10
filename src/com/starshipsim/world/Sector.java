@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
 
+import com.starshipsim.entities.EnemyShip;
 import com.starshipsim.entities.Entity;
 import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.files.FileIO;
@@ -60,10 +61,17 @@ public abstract class Sector {
 	}
 	
 	public void update() {
+		boolean isHostile=false;
 		for (int i =0; i<entities.size();i++) {
+			if(entities.get(i) instanceof EnemyShip){
+				isHostile=true;
+			}
 			entities.get(i).update();
+			
 		}
+		hostile=isHostile;
 	}
+	
 	
 	public void draw(Graphics g, Canvas canvas) {
 		for (Entity entity : entities) {
