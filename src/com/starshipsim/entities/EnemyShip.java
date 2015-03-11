@@ -48,8 +48,6 @@ public class EnemyShip extends Ship implements Enemy {
 		Weapon phaser = new Weapon(Quality.LOW);
 		ArrayList<Weapon> weapons = new ArrayList<>();
 		weapons.add(phaser);
-		weapons.add(phaser);
-		weapons.add(phaser);
 
 		PowerModule power = new PowerModule(Quality.LOW);
 		ShieldModule shield = new ShieldModule(Quality.LOW);
