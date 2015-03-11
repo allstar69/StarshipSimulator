@@ -11,6 +11,7 @@ import com.starshipsim.entities.Ship;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
+import com.starshipsim.listeners.MapListener;
 import com.starshipsim.panels.GridPanel;
 import com.starshipsim.panels.MapMenuPanel;
 import com.starshipsim.world.Grid;
@@ -132,7 +133,7 @@ public class MapState extends State {
 
 		gridDisplay.draw(g);
 		mapMenu.draw(g);
-		mapMenu.getMapListener().draw(g, getGrid());
+		getPlayer().getMapListener().draw(g, getGrid());
 		getPlayer().getMoenyListener().draw(g, getPlayer().getMoney());
 		
 		//Temp

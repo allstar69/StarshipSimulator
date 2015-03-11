@@ -18,17 +18,10 @@ public class MapMenuPanel {
 	private int curY = 0;
 	private int selX = 0;
 	private int selY = 0;
-	
-	private MapListener mp = new MapListener();
 
 	int x, y;
 	
 	private MapState state;
-	
-	public MapListener getMapListener()
-	{
-		return mp;
-	}
 
 	public MapMenuPanel(MapState state, int x, int y) {
 		this.x = x;
