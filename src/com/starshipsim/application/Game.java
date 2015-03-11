@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -36,6 +37,7 @@ public class Game extends JFrame {
 
 	public JTextField f1 = new JTextField();
 	public JPanel p1 = new JPanel();
+	public ImageIcon icon = new ImageIcon("resources/smallship1.png");
 
 	private Font font = new Font("Showcard Gothic", Font.ITALIC, 24);
 
@@ -51,6 +53,7 @@ public class Game extends JFrame {
 		this.pack();
 		this.setVisible(true);
 		this.setIgnoreRepaint(true);
+		this.setIconImage(icon.getImage());
 		canvas.createBufferStrategy(2);
 		canvas.setBackground(Color.black);
 
