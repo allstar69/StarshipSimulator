@@ -10,6 +10,7 @@ import java.util.Random;
 import com.starshipsim.data.ShipData;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.listeners.KeyboardListener;
+import com.starshipsim.shipmodules.WeaponModule;
 import com.sun.glass.events.KeyEvent;
 
 public class Ship extends Entity {
@@ -18,7 +19,7 @@ public class Ship extends Entity {
 	private int secX;
 	private int secY;
 	private int distanceTravelled;
-	private ShipData data;
+	protected ShipData data;
 	
 	private int rot = 0;
 	private int drot=0;
@@ -41,6 +42,12 @@ public class Ship extends Entity {
 	public boolean isFlying() {
 		return isFlying;
 	}
+	
+	public int dealDamage() {
+		WeaponModule weapons = this.data.getWeapon();
+		int damage = weapons.shootAll();
+		return damage;
+	}
 
 	public Ship(Player p, int x, int y, ShipData data, KeyboardListener keyboard) {
 		super(ImageManager.ship, x, y,32,32);
@@ -53,9 +60,10 @@ public class Ship extends Entity {
 		player=p;
 	}
 	
-	public Ship(Image img, int x, int y, KeyboardListener keyboard) {
+	public Ship(Image img, int x, int y, ShipData data, KeyboardListener keyboard) {
 		super(img, x, y,32,32);
 		
+		this.data = data;
 		Random rand = new Random();
 		secX = rand.nextInt(11);
 		secY = rand.nextInt(11);

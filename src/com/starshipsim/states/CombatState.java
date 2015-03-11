@@ -281,7 +281,7 @@ public class CombatState extends State {
 		}
 		else if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
 			
-			ships.get(selectedship-1).takeDamage(20);
+			ships.get(selectedship-1).takeDamage(player.getShip().getData().getWeapon().shootAll());
 			if((ships.get(selectedship-1)).getHealth()<=0){
 				ships.remove(selectedship-1);
 				selectedship=1;
