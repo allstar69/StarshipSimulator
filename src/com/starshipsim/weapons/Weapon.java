@@ -15,7 +15,7 @@ public class Weapon extends WeaponItem {
 	
 	public int shoot() {
 		Random random = new Random();
-		return random.nextInt(baseDamage)+3;
+		return random.nextInt(5)+this.baseDamage;
 	}
 
 }

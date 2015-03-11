@@ -6,7 +6,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
-import java.awt.event.MouseListener;
 
 import com.starshipsim.interfaces.Drawable;
 import com.starshipsim.listeners.GameMouseListener;
