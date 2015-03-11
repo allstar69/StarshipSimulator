@@ -249,7 +249,6 @@ public class SectorState extends State {
 				}
 			}
 		}
-		System.out.println("There are enemies left: " + enemiesLeft);
 		return enemiesLeft;
 	}
 	public void addEnemyShip(){
