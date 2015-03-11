@@ -102,19 +102,24 @@ public class SectorState extends State {
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		sector.setKnown(true);
 		
-		this.shipCollisions();
+		if(!ship.isDestroyed()){
+			this.shipCollisions();
+			if(ship.getDurability()<=0){
+				sector.getEntities().add(new Explosion(ship.getX()-300, ship.getY()-300, ship.getWidth()+600, ship.getHeight()+600));
+			}
+		}
 		this.bulletCollisions();
 		this.enemyShipColisions();
 		if(!sector.isKnown()){
 			sector.setKnown(true);
 		}
-		if (keyboard.keyDownOnce(KeyEvent.VK_Q)) {
+		if (keyboard.keyDownOnce(KeyEvent.VK_Q) && !ship.isDestroyed()) {
 			manager.addState(new MapState(manager));
 		}
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}		
-		if(keyboard.keyDownOnce(KeyEvent.VK_SPACE)){
+		if(keyboard.keyDownOnce(KeyEvent.VK_SPACE) && !ship.isDestroyed()){
 			sector.getEntities().add(ship.shootBullet());
 		}
 		ship.update();
@@ -221,12 +226,19 @@ public class SectorState extends State {
 		
 		bg.draw(g, canvas);
 		
-		g.setColor(Color.white);
-		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
+		
 		
 		sector.draw(g, canvas);
-		
-		ship.draw(g, canvas);
+		if(!ship.isDestroyed()){
+			ship.draw(g, canvas);
+		}
+		else{
+			g.setColor(Color.red);
+			g.setFont(new Font("Showcard Gothic", Font.ITALIC, 80));
+			g.drawString("Game Over", canvas.getWidth()/2-260, canvas.getHeight()/2+40);
+		}
+		g.setColor(Color.white);
+		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
 		g.drawString(ship.getDurability()+"/"+ship.getMaxDurability(), 32, 32);
 		g.drawString(""+ship.getDistanceTravelled(), 32, 64);
 		g.setColor(Color.green);

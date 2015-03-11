@@ -76,7 +76,7 @@ public class CombatState extends State {
 		else if(xshift<dxshift){
 			xshift+=15;
 		}
-		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
+		if(ship.getDurability()<=0) {
 			manager.popState();
 		}
 		if(currentMenu==0){
