@@ -17,6 +17,8 @@ import com.starshipsim.interfaces.Enemy;
 import com.starshipsim.items.Item;
 import com.starshipsim.items.ItemExplosiveBomb;
 import com.starshipsim.items.ItemRepairDrone;
+import com.starshipsim.items.ItemScanner;
+import com.starshipsim.items.ItemStunBomb;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.shipmodules.ShieldModule;
 import com.sun.glass.events.KeyEvent;
@@ -32,6 +34,8 @@ public class CombatState extends State {
 	private int dxshift;
 	private int currentItem=0;
 	private boolean shieldsUp=false;
+	private boolean hasBeenScanned=false;
+	private int enemiesStunned=0;
 	/*Menu Options:
 	 * 0=main combat menu
 	 * 1=weapon choice menu
@@ -44,13 +48,13 @@ public class CombatState extends State {
 	private KeyboardListener keyboard;
 	
 	private CombatData data;
-	EnemyFleet enemies;
-	ArrayList<Enemy> ships;
-	Player player;
-	Ship ship;
-	int currentOption = 0;
-	ArrayList<Item> items=new ArrayList<>();
-	ArrayList<Entity> effects=new ArrayList<>();
+	private EnemyFleet enemies;
+	private ArrayList<Enemy> ships;
+	private Player player;
+	private Ship ship;
+	private int currentOption = 0;
+	private ArrayList<Item> items=new ArrayList<>();
+	private ArrayList<Entity> effects=new ArrayList<>();
 	
 	public CombatState(StateManager manager, CombatData data) {
 		super(manager);
@@ -185,7 +189,12 @@ public class CombatState extends State {
 			g.drawString("You won $" + data.getEnemies().getReward(), centerX-100, centerY+360);
 		}
 		else if(currentMenu==5){
-			g.drawString("Enemy " +(attacker+1)+ " is Attacking!", centerX-100, centerY+360);
+			if(this.enemiesStunned>0){
+				g.drawString("Enemies are Stunned!", centerX-100, centerY+360);
+			}
+			else{
+				g.drawString("Enemy " +(attacker+1)+ " is Attacking!", centerX-100, centerY+360);
+			}
 		}
 		g.drawImage(ImageManager.ship, cursorX, cursorY, null);
 		g.drawString(("Health: "+ship.getDurability()+"/"+ship.getMaxDurability()), 200, 125);
@@ -317,37 +326,52 @@ public class CombatState extends State {
 	public void enemyAttack(){
 		Ship ship = this.player.getShip();
 		ShieldModule shield = ship.getData().getShield();
-		
-		cursorY=870;
-		cursorX=800;
-		dxshift=450*(ships.size()-(attacker+1))-(225*(ships.size()-1));
-		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
-			if(attacker+1<ships.size()){
-				
-				attacker+=1;
-				
+		if(enemiesStunned>0 && keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
+			enemiesStunned-=1;
+			currentMenu=0;
+			curpos=1;
+			cursorY=760;
+			cursorX=800;
+			attacker=0;
+			shield.setCurrentDurability(shield.getCurrentDurability()+10);
+			if(shield.getCurrentDurability()>shield.getMaxDurability()){
+				shield.setCurrentDurability(shield.getMaxDurability());
 			}
-			else{
-				dxshift=450*(ships.size()-selectedship)-(225*(ships.size()-1));
-				currentMenu=0;
-				curpos=1;
-				cursorY=760;
-				cursorX=800;
-				attacker=0;
-				shield.setCurrentDurability(shield.getCurrentDurability()+10);
-				if(shield.getCurrentDurability()>shield.getMaxDurability()){
-					shield.setCurrentDurability(shield.getMaxDurability());
+		}
+		else if(enemiesStunned==0){
+			
+			
+			cursorY=870;
+			cursorX=800;
+			dxshift=450*(ships.size()-(attacker+1))-(225*(ships.size()-1));
+			if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
+				if(attacker+1<ships.size()){
+					
+					attacker+=1;
+					
 				}
-			}
-			if(shieldsUp){
-				shield.setCurrentDurability(shield.getCurrentDurability()-ships.get(attacker).dealDamage()*2);
-				if(shield.getCurrentDurability()<0){
-					shield.setCurrentDurability(0);
-					shieldsUp=false;
+				else{
+					dxshift=450*(ships.size()-selectedship)-(225*(ships.size()-1));
+					currentMenu=0;
+					curpos=1;
+					cursorY=760;
+					cursorX=800;
+					attacker=0;
+					shield.setCurrentDurability(shield.getCurrentDurability()+10);
+					if(shield.getCurrentDurability()>shield.getMaxDurability()){
+						shield.setCurrentDurability(shield.getMaxDurability());
+					}
 				}
-			}
-			else{
-				ship.setDurability(ship.getDurability()-ships.get(attacker).dealDamage());
+				if(shieldsUp){
+					shield.setCurrentDurability(shield.getCurrentDurability()-ships.get(attacker).dealDamage()*2);
+					if(shield.getCurrentDurability()<0){
+						shield.setCurrentDurability(0);
+						shieldsUp=false;
+					}
+				}
+				else{
+					ship.setDurability(ship.getDurability()-ships.get(attacker).dealDamage());
+				}
 			}
 		}
 	}
@@ -384,8 +408,6 @@ public class CombatState extends State {
 			if(ship.getDurability()>ship.getMaxDurability()){
 				ship.setDurability(ship.getMaxDurability());
 			}
-			currentMenu=5;
-			curpos=1;
 		}
 		if(items.get(currentItem) instanceof ItemExplosiveBomb){
 			for(Enemy e: ships){
@@ -394,8 +416,16 @@ public class CombatState extends State {
 					ships.remove(e);
 				}
 			}
-			currentMenu=5;
-			curpos=1;
 		}
+		if(items.get(currentItem) instanceof ItemStunBomb){
+			enemiesStunned=3;
+		}
+		items.get(currentItem).setAmount(items.get(currentItem).getAmount()-1);
+		if(items.get(currentItem).getAmount()==0){
+			items.remove(currentItem);
+			currentItem=0;
+		}
+		currentMenu=5;
+		curpos=1;
 	}
 }
