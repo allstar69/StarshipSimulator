@@ -10,17 +10,43 @@ import com.starshipsim.ui.UIComponent;
 
 public abstract class ButtonUI extends UIComponent {
 
-	private final int startX, startY, startWidth, startHeight;
+	private int startX, startY, startWidth, startHeight;
 	private String text;
 	private GameMouseListener mouse;
+	private int spread;
 	
-	public ButtonUI(String str, int x, int y, int width, int height, GameMouseListener mouse) {
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public int getStartX() {
+		return startX;
+	}
+
+	public int getStartY() {
+		return startY;
+	}
+
+	public void setStartX(int startX) {
+		this.startX = startX;
+	}
+
+	public void setStartY(int startY) {
+		this.startY = startY;
+	}
+
+	public ButtonUI(String str, int x, int y, int width, int height, int spread, GameMouseListener mouse) {
 		super(x, y, width, height);
 		
 		this.startX = x;
 		this.startY = y;
 		this.startWidth = width;
 		this.startHeight = height;
+		this.spread = spread;
 		
 		this.mouse = mouse;
 		this.text = str;
@@ -29,7 +55,7 @@ public abstract class ButtonUI extends UIComponent {
 	@Override
 	public void update(Canvas canvas) {
 		if(this.mouseInside(canvas)) {
-			if(getX() > startX-10 || getY() > startY-10 || getWidth() < startWidth+20 || getHeight() < startHeight+20) 
+			if(getX() > startX-spread || getY() > startY-spread || getWidth() < startWidth+spread*2 || getHeight() < startHeight+spread*2) 
 				expand();
 			
 			if(mouse.isLeftPressed()) {

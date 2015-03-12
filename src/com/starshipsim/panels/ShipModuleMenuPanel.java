@@ -12,12 +12,13 @@ import com.starshipsim.items.Item;
 import com.starshipsim.shipmodules.ShipModule;
 import com.starshipsim.states.StateManager;
 import com.starshipsim.ui.DescriptionBoxUI;
+import com.starshipsim.ui.ScrollbarUI;
 
 public class ShipModuleMenuPanel implements Drawable {
 
 	private ArrayList<ShipModule> modules;
-	private ArrayList<ButtonUI> buttons;
 	private DescriptionBoxUI desc;
+	private ScrollbarUI shipModules;
 	
 	private int x, y;
 	
@@ -30,18 +31,8 @@ public class ShipModuleMenuPanel implements Drawable {
 		initializeButtons(manager);
 	}
 	
-	public void initializeButtons(StateManager manager) {
-		buttons = new ArrayList<>();
-
-		for (int i = 0; i < modules.size(); i++) {
-			ShipModuleButton button = new ShipModuleButton(x, y + (i*125), 300, 100, manager.getMouse(), modules.get(i), desc) {
-				@Override
-				public void clicked() {
-				}
-			};
-			
-			buttons.add(button);
-		}
+	public void initializeButtons(StateManager manager) {		
+		shipModules = new ScrollbarUI(modules, x, y, 350, 650, 5, manager.getMouse(), this.desc);
 	}
 	
 	private void fetchModulesInventory(Player player) {
@@ -69,16 +60,9 @@ public class ShipModuleMenuPanel implements Drawable {
 	
 	@Override
 	public void update(Canvas canvas) {
-		int count = 0;
-		for (ButtonUI buttonUI : buttons) {
-			buttonUI.update(canvas);
-			
-			if(!buttonUI.mouseInside(canvas)) {
-				count++;
-			}
-		}
+		this.shipModules.update(canvas);
 		
-		if(count == buttons.size()) {
+		if(this.shipModules.getMouseInsideAmount(canvas) == this.shipModules.getButtons().length) {
 			desc.setVisible(false);
 		}
 		
@@ -87,10 +71,7 @@ public class ShipModuleMenuPanel implements Drawable {
 
 	@Override
 	public void draw(Graphics g) {
-		for (ButtonUI buttonUI : buttons) {
-			buttonUI.draw(g);
-		}
-		
+		this.shipModules.draw(g);
 		desc.draw(g);
 	}
 

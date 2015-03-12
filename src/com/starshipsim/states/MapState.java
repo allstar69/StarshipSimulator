@@ -8,7 +8,7 @@ import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.graphics.ImageManager;
-import com.starshipsim.graphics.TiledBackground;
+import com.starshipsim.graphics.StarBackgroundFx;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.panels.GridPanel;
 import com.starshipsim.panels.MapMenuPanel;
@@ -26,7 +26,7 @@ public class MapState extends State {
 	
 	private KeyboardListener keyboard;
 	
-	private TiledBackground bg = new TiledBackground(ImageManager.spaceBg, 0, 0);
+	private StarBackgroundFx bg = new StarBackgroundFx(100, manager.getCanvas().getWidth(), manager.getCanvas().getHeight());
 
 	private MapMenuPanel mapMenu;
 	private GridPanel gridDisplay;
@@ -102,7 +102,8 @@ public class MapState extends State {
 	
 	@Override
 	public void update() {
-		//testing new state manager code
+		bg.update();
+		
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
@@ -124,7 +125,7 @@ public class MapState extends State {
 	
 	@Override
 	public void draw(Graphics g) {
-		bg.draw(g, this.getCanvas());
+		bg.draw(g);
 		g.drawImage(ImageManager.key, 860, 320, null);
 		g.drawImage(ImageManager.dialogueBox, 16, 832, null);
 		

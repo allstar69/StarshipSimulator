@@ -7,7 +7,7 @@ import com.starshipsim.listeners.GameMouseListener;
 import com.starshipsim.shipmodules.ShipModule;
 import com.starshipsim.ui.DescriptionBoxUI;
 
-public abstract class ShipModuleButton extends ButtonUI {
+public class ShipModuleButton extends ButtonUI {
 
 	private ShipModule module;
 	private DescriptionBoxUI desc;
@@ -20,8 +20,8 @@ public abstract class ShipModuleButton extends ButtonUI {
 		this.module = module;
 	}
 
-	public ShipModuleButton(int x, int y, int width, int height, GameMouseListener mouse, ShipModule module, DescriptionBoxUI desc) {
-		super(module.getName(), x, y, width, height, mouse);
+	public ShipModuleButton(int x, int y, int width, int height, int spread, GameMouseListener mouse, ShipModule module, DescriptionBoxUI desc) {
+		super(module.getName(), x, y, width, height, spread, mouse);
 		this.module = module;
 		this.desc = desc;
 	}
@@ -38,6 +38,12 @@ public abstract class ShipModuleButton extends ButtonUI {
 			desc.getDesc().add(module.getName());
 			desc.getDesc().add("Quality: " + module.getQuality().toString());
 		}
+	}
+
+	@Override
+	public void clicked() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

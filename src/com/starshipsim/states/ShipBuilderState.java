@@ -19,13 +19,13 @@ public class ShipBuilderState extends State {
 	public ShipBuilderState(StateManager manager, Player player) {
 		super(manager);
 		this.selectorPanel = new ShipSelectorPanel(player.getShip());
-		this.shipModuleMenu = new ShipModuleMenuPanel(this.getManager(), player, 1570, 50);
+		this.shipModuleMenu = new ShipModuleMenuPanel(this.getManager(), player, 1525, 50);
 		
 		initializeButtons();
 	}
 	
 	public void initializeButtons() {
-		this.exitButton = new ButtonUI("Return", 50, 930, 300, 100, manager.getMouse()) {
+		this.exitButton = new ButtonUI("Return", 50, 930, 300, 100, 10, manager.getMouse()) {
 			@Override
 			public void clicked() {
 				manager.popState();

@@ -19,21 +19,21 @@ public class MainMenuState extends State {
 
 	@Override
 	public void initialize() {
-		playButton = new ButtonUI("Play", 50, 300, 300, 100, manager.getMouse()) {
+		playButton = new ButtonUI("Play", 50, 300, 300, 100, 10, manager.getMouse()) {
 			@Override
 			public void clicked() {
 				manager.addState(new SectorState(manager));
 			}
 		};
 
-		loadButton = new ButtonUI("Load", 50, 425, 300, 100, manager.getMouse()) {
+		loadButton = new ButtonUI("Load", 50, 425, 300, 100, 10, manager.getMouse()) {
 			@Override
 			public void clicked() {
 
 			}
 		};
 
-		exitButton = new ButtonUI("Exit", 50, 550, 300, 100, manager.getMouse()) {
+		exitButton = new ButtonUI("Exit", 50, 550, 300, 100, 10, manager.getMouse()) {
 			@Override
 			public void clicked() {
 				System.exit(0);

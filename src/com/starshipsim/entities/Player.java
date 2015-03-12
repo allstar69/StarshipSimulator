@@ -112,6 +112,10 @@ public class Player extends Entity {
 		//Test Modules
 		this.inventory.add(new WarpCoreModule(Quality.EPIC));
 		this.inventory.add(new Weapon("Blaster", Quality.EPIC));
+		this.inventory.add(new WarpCoreModule(Quality.MEDIUM));
+		this.inventory.add(new Weapon("Blaster", Quality.LOW));
+		this.inventory.add(new WarpCoreModule(Quality.VERY_HIGH));
+		this.inventory.add(new Weapon("Blaster", Quality.VERY_LOW));
 	}
 
 	@Override
