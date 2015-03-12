@@ -410,11 +410,16 @@ public class CombatState extends State {
 			}
 		}
 		if(items.get(currentItem) instanceof ItemExplosiveBomb){
-			for(Enemy e: ships){
-				e.takeDamage(100);
-				if(e.getHealth()<0){
-					ships.remove(e);
+			for(int i=0;i<ships.size();i++){
+				ships.get(i).takeDamage(100);
+			}
+			int i=0;
+			while(i<ships.size()){
+				if(ships.get(i).getHealth()<=0){
+					ships.remove(i);
+					i--;
 				}
+				i++;
 			}
 		}
 		if(items.get(currentItem) instanceof ItemStunBomb){

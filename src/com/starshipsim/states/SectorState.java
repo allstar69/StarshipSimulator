@@ -179,11 +179,11 @@ public class SectorState extends State {
 				manager.addState(new CombatState(manager, new CombatData(player, new EnemyFleet())));
 		}
 		if(sector.checkCollision(ship, Asteroid.class)){
-			ship.setDurability(ship.getDurability()-1);
+			ship.setDurability(ship.getDurability()-5);
 		}
 		
 		if(sector.checkCollision(ship, Mine.class)) {
-			ship.setDurability(ship.getDurability()-5);
+			ship.setDurability(ship.getDurability()-10);
 			sector.getEntities().add(new Explosion(sector.getOneIntersectingEntity(ship, Mine.class).getX()-16, sector.getOneIntersectingEntity(ship, Mine.class).getY()-16, sector.getOneIntersectingEntity(ship, Mine.class).getWidth()*2, sector.getOneIntersectingEntity(ship, Mine.class).getHeight()*2));
 		}
 
