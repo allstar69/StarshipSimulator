@@ -110,30 +110,30 @@ public class StoreState extends State {
 	
 	private void drawDescription(Graphics g, int containerX, int containerY) {
 		String[] words = inventory.get(currentOption).getDescription().split(" ");
-		int lineLength = storeRight.getWidth(null) - 100;
-		int lineX = containerX + 50;
-		int lineY = containerY + 75;
+		ArrayList<String> display = new ArrayList<String>();
+		
 		FontMetrics mets = g.getFontMetrics();
 		int lineHeight = mets.getHeight();
-		boolean allAcountedFor = false;
-		int index = 0;
+		int lineLength = storeRight.getWidth(null) - 100;
+
 		String drawString = "";
-		do {
-			drawString += words[index] + " ";
+		for (int i = 0; i < words.length; i++) {
+			drawString += words[i] + " ";
+			
 			if (mets.getStringBounds(drawString, g).getWidth() > lineLength) {
 				drawString = drawString.substring(0, drawString.trim().lastIndexOf(" "));
-				g.drawString(drawString, lineX, lineY);
-				lineY += lineHeight;
+				display.add(drawString);
 				drawString = "";
-				index--;
+				
+				i--;
 			}
-			if (index >= words.length-1) {
-				allAcountedFor = true;
-				g.drawString(drawString, lineX, lineY);
-			}
-			index++;
-		} while (!allAcountedFor);
+		}
 		
+		display.add(drawString);
+	
+		for (int j = 0; j < display.size(); j++) {
+			g.drawString(display.get(j), containerX + 50, containerY + lineHeight*(j+1));
+		}
 	}
 
 	@Override
