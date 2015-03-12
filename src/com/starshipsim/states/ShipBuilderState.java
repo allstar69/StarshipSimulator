@@ -19,7 +19,7 @@ public class ShipBuilderState extends State {
 	public ShipBuilderState(StateManager manager, Player player) {
 		super(manager);
 		this.selectorPanel = new ShipSelectorPanel(player.getShip());
-		this.shipModuleMenu = new ShipModuleMenuPanel(this.getManager(), player);
+		this.shipModuleMenu = new ShipModuleMenuPanel(this.getManager(), player, 1570, 50);
 		
 		initializeButtons();
 	}

@@ -19,18 +19,20 @@ public class ShipModuleMenuPanel implements Drawable {
 	private ArrayList<ButtonUI> buttons;
 	private DescriptionBoxUI desc;
 	
-	public ShipModuleMenuPanel(StateManager manager, Player player) {		
+	private int x, y;
+	
+	public ShipModuleMenuPanel(StateManager manager, Player player, int x, int y) {		
 		fetchModulesInventory(player);
 		this.desc = new DescriptionBoxUI(500, 500, 250, 150);
 		this.desc.setVisible(false);
+		this.x = x;
+		this.y = y;
 		initializeButtons(manager);
 	}
 	
 	public void initializeButtons(StateManager manager) {
 		buttons = new ArrayList<>();
-		
-		int x = 800;
-		int y = 50;
+
 		for (int i = 0; i < modules.size(); i++) {
 			ShipModuleButton button = new ShipModuleButton(x, y + (i*125), 300, 100, manager.getMouse(), modules.get(i), desc) {
 				@Override
