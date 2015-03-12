@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import com.starshipsim.combat.CombatData;
 import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.entities.EnemyShip;
+import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.interfaces.Enemy;
 import com.starshipsim.items.Item;
+import com.starshipsim.items.ItemExplosiveBomb;
+import com.starshipsim.items.ItemRepairDrone;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.shipmodules.ShieldModule;
 import com.sun.glass.events.KeyEvent;
@@ -47,6 +50,7 @@ public class CombatState extends State {
 	Ship ship;
 	int currentOption = 0;
 	ArrayList<Item> items=new ArrayList<>();
+	ArrayList<Entity> effects=new ArrayList<>();
 	
 	public CombatState(StateManager manager, CombatData data) {
 		super(manager);
@@ -62,7 +66,7 @@ public class CombatState extends State {
 	@Override
 	public void initialize() {
 		for(Item i : player.getInventory()){
-			if(i.getAmount()>0){
+			if(i.getAmount()>0 &&  i.isBattleItem()){
 				items.add(i);
 			}
 		}
@@ -347,7 +351,7 @@ public class CombatState extends State {
 	}
 	public void itemMenu(){
 		cursorY=870;
-		cursorX=550;
+		cursorX=800;
 		if(keyboard.keyDownOnce(KeyEvent.VK_W)){
 			currentItem--;
 			if(currentItem<0){
@@ -367,6 +371,29 @@ public class CombatState extends State {
 			cursorY=760;
 			cursorX=800;
 			attacker=0;
+		}
+		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
+			useItem();
+		}
+	}
+	public void useItem(){
+		if(items.get(currentItem) instanceof ItemRepairDrone){
+			ship.setDurability(ship.getDurability()+100);
+			if(ship.getDurability()>ship.getMaxDurability()){
+				ship.setDurability(ship.getMaxDurability());
+			}
+			currentMenu=5;
+			curpos=1;
+		}
+		if(items.get(currentItem) instanceof ItemExplosiveBomb){
+			for(Enemy e: ships){
+				e.takeDamage(100);
+				if(e.getHealth()<0){
+					ships.remove(e);
+				}
+			}
+			currentMenu=5;
+			curpos=1;
 		}
 	}
 }

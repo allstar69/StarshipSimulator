@@ -8,7 +8,7 @@ public abstract class Item {
 	String description;
 	int index;
 	boolean isMoney;
-	
+	boolean isBattleItem=false;
 	public abstract void run();
 	
 	public int getAmount() {
@@ -48,6 +48,14 @@ public abstract class Item {
 	public void setMoney(boolean isMoney) {
 		this.isMoney = isMoney;
 	}
+	public boolean isBattleItem() {
+		return isBattleItem;
+	}
+
+	public void setBattleItem(boolean isBattleItem) {
+		this.isBattleItem = isBattleItem;
+	}
+
 	public int getIndex() {
 		return index;
 	}

@@ -14,8 +14,8 @@ import com.starshipsim.shipmodules.WeaponModule;
 import com.sun.glass.events.KeyEvent;
 
 public class Ship extends Entity {
-	private int durability = 100;
-	private int maxDurability = 100;
+	private int durability = 200;
+	private int maxDurability = 200;
 	private int secX;
 	private int secY;
 	private int distanceTravelled;

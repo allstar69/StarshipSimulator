@@ -12,6 +12,7 @@ public class ItemScanner extends Item {
 		setName("Scanner");
 		setDescription("I assume the scanner scans things?");
 		setIndex(5);
+		setBattleItem(true);
 	}
 
 }
