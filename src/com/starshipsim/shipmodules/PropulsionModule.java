@@ -37,4 +37,10 @@ public class PropulsionModule extends ShipModule {
 		s += "\n        Current Coordinates: ";
 		return s;
 	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }

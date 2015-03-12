@@ -15,4 +15,10 @@ public class WarpCoreModule extends ShipModule {
 		ship.setSecX(x);
 		ship.setSecY(y);
 	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }

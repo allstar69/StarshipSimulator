@@ -40,4 +40,10 @@ public class WeaponModule extends ShipModule {
 		
 		return damage;
 	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -118,7 +118,7 @@ public class MapState extends State {
 		}
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_F)) {
-			manager.addState(new ShipBuilderState(manager, this.getShip()));
+			manager.addState(new ShipBuilderState(manager, this.getPlayer()));
 		}
 	}
 	

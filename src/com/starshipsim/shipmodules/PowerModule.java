@@ -35,4 +35,10 @@ public class PowerModule extends ShipModule {
 		return s;
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import com.starshipsim.data.ShipData;
+import com.starshipsim.enums.Quality;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.items.Item;
 import com.starshipsim.items.ItemExplosiveBomb;
@@ -16,6 +17,8 @@ import com.starshipsim.items.ItemStunBomb;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.listeners.MapListener;
 import com.starshipsim.listeners.MoneyListener;
+import com.starshipsim.shipmodules.WarpCoreModule;
+import com.starshipsim.weapons.Weapon;
 
 public class Player extends Entity {
 	
@@ -105,6 +108,10 @@ public class Player extends Entity {
 		this.inventory.add(new ItemExplosiveBomb(0));
 		this.inventory.add(new ItemSatellite(0));
 		this.inventory.add(new ItemScanner(0));
+		
+		//Test Modules
+		this.inventory.add(new WarpCoreModule(Quality.EPIC));
+		this.inventory.add(new Weapon("Blaster", Quality.EPIC));
 	}
 
 	@Override

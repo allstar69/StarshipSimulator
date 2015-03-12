@@ -1,8 +1,9 @@
 package com.starshipsim.shipmodules;
 
 import com.starshipsim.enums.Quality;
+import com.starshipsim.items.Item;
 
-public abstract class ShipModule {
+public abstract class ShipModule extends Item {
 	private Quality quality;
 	
 	private String name;
