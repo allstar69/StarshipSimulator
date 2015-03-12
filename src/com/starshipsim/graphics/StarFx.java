@@ -34,7 +34,7 @@ public class StarFx extends Entity {
 
 	@Override
 	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(this.getImage(), x, y, canvas);
+		g.drawImage(this.getImage(), x, y, null);
 	}
 	
 }

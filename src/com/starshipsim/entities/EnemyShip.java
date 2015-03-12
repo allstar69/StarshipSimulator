@@ -45,7 +45,7 @@ public class EnemyShip extends Ship implements Enemy {
 	}
 
 	private static ShipData createShip() {
-		Weapon phaser = new Weapon(Quality.LOW);
+		Weapon phaser = new Weapon("Phaser", Quality.LOW);
 		ArrayList<Weapon> weapons = new ArrayList<>();
 		weapons.add(phaser);
 

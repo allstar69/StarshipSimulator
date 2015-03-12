@@ -5,7 +5,7 @@ import com.starshipsim.enums.Quality;
 public abstract class ShipModule {
 	private Quality quality;
 	
-	private String pieceName = "";
+	private String name;
 	private int price = 100;
 
 	private boolean isDestroyed = false;
@@ -13,12 +13,16 @@ public abstract class ShipModule {
 	private int maxDurability = 100;
 	private int currentDurability = 100;
 
-	public String getPieceName() {
-		return pieceName;
+	public Quality getQuality() {
+		return quality;
 	}
 
-	public void setPieceName(String pieceName) {
-		this.pieceName = pieceName;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getPrice() {
@@ -61,8 +65,9 @@ public abstract class ShipModule {
 		this.currentDurability = currentDurability;
 	}
 	
-	public ShipModule(Quality quality) {
+	public ShipModule(String name, Quality quality) {
 		this.quality = quality;
+		this.name = name;
 	}
 
 	public void damage(int damageNum) {
@@ -78,7 +83,7 @@ public abstract class ShipModule {
 
 	@Override
 	public String toString() {
-		String s = getPieceName() + getCurrentDurability() + " / "
+		String s = getName() + getCurrentDurability() + " / "
 				+ getMaxDurability() + " Durability";
 		return s;
 	}

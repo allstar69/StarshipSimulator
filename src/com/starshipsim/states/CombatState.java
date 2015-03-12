@@ -101,8 +101,10 @@ public class CombatState extends State {
 	}
 
 	@Override
-	public void draw(Graphics g, Canvas canvas) {
-		g.drawImage(ImageManager.spaceBg2, xshift-450, 0, canvas);
+	public void draw(Graphics g) {
+		Canvas canvas = this.getCanvas();
+		
+		g.drawImage(ImageManager.spaceBg2, xshift-450, 0, null);
 		drawExit(g);
 		
 		drawEnemyShips(g, canvas);

@@ -84,7 +84,9 @@ public class StoreState extends State {
 	}
 
 	@Override
-	public void draw(Graphics g, Canvas canvas) {
+	public void draw(Graphics g) {
+		Canvas canvas = this.getCanvas();
+		
 		bg.draw(g, canvas);
 		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 58));

@@ -1,5 +1,6 @@
 package com.starshipsim.states;
 
+import java.awt.Canvas;
 import java.util.Stack;
 
 import com.starshipsim.entities.Player;
@@ -9,16 +10,19 @@ import com.starshipsim.world.Grid;
 
 public class StateManager {
 	
-	private KeyboardListener keyboard;
-	private GameMouseListener mouse;
+	private Canvas canvas;
 	
 	private Stack<State> states = new Stack<>();
 	
 	private Player player;
 	private Grid grid;
 	
+	public Canvas getCanvas() {
+		return canvas;
+	}
+
 	public GameMouseListener getMouse() {
-		return mouse;
+		return (GameMouseListener) canvas.getMouseListeners()[0];
 	}
 
 	public Grid getGrid() {
@@ -38,12 +42,11 @@ public class StateManager {
 	}
 
 	public KeyboardListener getKeyboard() {
-		return keyboard;
+		return (KeyboardListener) canvas.getKeyListeners()[0];
 	}
 
-	public StateManager(KeyboardListener keyboard, GameMouseListener mouse) {		
-		this.keyboard = keyboard;
-		this.mouse = mouse;
+	public StateManager(Canvas canvas) {
+		this.canvas = canvas;
 		
 		states.push(new MainMenuState(this));
 	}

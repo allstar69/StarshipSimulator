@@ -1,6 +1,5 @@
 package com.starshipsim.graphics;
 
-import java.awt.Canvas;
 import java.awt.Graphics;
 import java.util.Random;
 
@@ -62,10 +61,10 @@ public class StarBackgroundFx {
 
 	}
 	
-	public void draw(Graphics g, Canvas canvas) {
+	public void draw(Graphics g) {
 		
 		for (StarFx starFx : stars) {
-			starFx.draw(g, canvas);
+			starFx.draw(g, null);
 		}
 		
 	}

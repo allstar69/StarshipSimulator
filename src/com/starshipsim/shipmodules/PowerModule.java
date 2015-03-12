@@ -24,8 +24,7 @@ public class PowerModule extends ShipModule {
 	}
 
 	public PowerModule(Quality quality) {
-		super(quality);
-		// TODO Auto-generated constructor stub
+		super("Power Module", quality);
 	}
 	
 	@Override

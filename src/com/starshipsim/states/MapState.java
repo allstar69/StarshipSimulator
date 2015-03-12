@@ -1,6 +1,5 @@
 package com.starshipsim.states;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -11,7 +10,6 @@ import com.starshipsim.entities.Ship;
 import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
-import com.starshipsim.listeners.MapListener;
 import com.starshipsim.panels.GridPanel;
 import com.starshipsim.panels.MapMenuPanel;
 import com.starshipsim.world.Grid;
@@ -118,11 +116,15 @@ public class MapState extends State {
 		if(keyboard.keyDownOnce(KeyEvent.VK_R)) {
 			manager.addState(new StoreSelectorState(manager, getPlayer()));
 		}
+		
+		if(keyboard.keyDownOnce(KeyEvent.VK_F)) {
+			manager.addState(new ShipBuilderState(manager, this.getShip()));
+		}
 	}
 	
 	@Override
-	public void draw(Graphics g, Canvas canvas) {
-		bg.draw(g, canvas);
+	public void draw(Graphics g) {
+		bg.draw(g, this.getCanvas());
 		g.drawImage(ImageManager.key, 860, 320, null);
 		g.drawImage(ImageManager.dialogueBox, 16, 832, null);
 		
@@ -140,6 +142,7 @@ public class MapState extends State {
 		g.drawString("Press Escape to exit the map.", 32, 950);
 		g.drawString("Press E to enter Combat.", 32,  1000);
 		g.drawString("Press R to view the store", 32,  1050);
+		g.drawString("Press F to enter Ship Builder", 500, 950);
 	}
 
 	public void end() {

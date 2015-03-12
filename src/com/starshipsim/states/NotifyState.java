@@ -1,6 +1,5 @@
 package com.starshipsim.states;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -37,8 +36,8 @@ public class NotifyState extends State{
 	}
 
 	@Override
-	public void draw(Graphics g, Canvas canvas) {
-		bg.draw(g, canvas);
+	public void draw(Graphics g) {
+		bg.draw(g, this.getCanvas());
 		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 58));
 		

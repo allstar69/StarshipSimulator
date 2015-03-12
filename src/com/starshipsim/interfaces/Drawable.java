@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public interface Drawable {
 
-	void Update();
-	void Draw(Graphics g, Canvas canvas);
+	void update(Canvas canvas);
+	void draw(Graphics g);
 	
 }

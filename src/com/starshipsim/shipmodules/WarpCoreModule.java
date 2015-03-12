@@ -7,7 +7,7 @@ public class WarpCoreModule extends ShipModule {
 	public final int MAX_WARP;
 	
 	public WarpCoreModule(Quality quality) {
-		super(quality);
+		super("Warp Core Module", quality);
 		MAX_WARP = quality.ordinal() + 2;
 	}
 

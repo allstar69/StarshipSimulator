@@ -21,8 +21,7 @@ public class ShieldModule extends ShipModule {
 	}
 	
 	public ShieldModule(Quality quality) {
-		super(quality);
-		// TODO Auto-generated constructor stub
+		super("Shield Module", quality);
 	}
 
 	@Override

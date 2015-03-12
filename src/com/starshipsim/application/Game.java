@@ -65,7 +65,7 @@ public class Game extends JFrame {
 		canvas.addKeyListener(keyboard);
 		canvas.addMouseListener(mouse);
 
-		states = new StateManager(keyboard, mouse);
+		states = new StateManager(this.canvas);
 	}
 
 	public void run() {
@@ -108,7 +108,7 @@ public class Game extends JFrame {
 		g.setFont(font);
 
 		g.clearRect(0, 0, this.WIDTH, this.HEIGHT);
-		states.getCurrentState().draw(g, canvas);
+		states.getCurrentState().draw(g);
 
 		bf.show();
 	}

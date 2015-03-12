@@ -10,8 +10,16 @@ public class WeaponModule extends ShipModule {
 	
 	private ArrayList<Weapon> weapons = new ArrayList<>();
 
+	public ArrayList<Weapon> getWeapons() {
+		return weapons;
+	}
+
+	public void setWeapons(ArrayList<Weapon> weapons) {
+		this.weapons = weapons;
+	}
+
 	public WeaponModule(Quality quality, ArrayList<Weapon> weapons) {
-		super(quality);
+		super("Weapon Module", quality);
 		this.weapons = weapons;
 	}
 	

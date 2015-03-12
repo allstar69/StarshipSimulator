@@ -3,13 +3,14 @@ package com.starshipsim.weapons;
 import java.util.Random;
 
 import com.starshipsim.enums.Quality;
-import com.starshipsim.items.WeaponItem;
+import com.starshipsim.shipmodules.ShipModule;
 
-public class Weapon extends WeaponItem {
+public class Weapon extends ShipModule {
 
 	private int baseDamage;
 	
-	public Weapon(Quality quality) {
+	public Weapon(String name, Quality quality) {
+		super(name, quality);
 		this.baseDamage = (quality.ordinal()*5)+2;
 	}
 	

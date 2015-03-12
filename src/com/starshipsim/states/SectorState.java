@@ -40,8 +40,6 @@ import com.sun.glass.events.KeyEvent;
 
 public class SectorState extends State {
 	private KeyboardListener keyboard;
-
-	private Canvas canvas;
 	
 	private StarBackgroundFx bg = new StarBackgroundFx(100, 1920, 1080);
 
@@ -71,8 +69,9 @@ public class SectorState extends State {
 	}
 	
 	public ShipData createShip() {
-		Weapon phaser = new Weapon(Quality.LOW);
+		Weapon phaser = new Weapon("Phaser", Quality.LOW);
 		ArrayList<Weapon> weapons = new ArrayList<>();
+		weapons.add(phaser);
 		weapons.add(phaser);
 		weapons.add(phaser);
 		weapons.add(phaser);
@@ -123,7 +122,7 @@ public class SectorState extends State {
 			sector.getEntities().add(ship.shootBullet());
 		}
 		ship.update();
-		ship.move(canvas);
+		ship.move(this.getCanvas());
 		addEnemyShip();
 	}
 	
@@ -221,12 +220,10 @@ public class SectorState extends State {
 	}
 	
 	@Override
-	public void draw(Graphics g, Canvas canvas) {
-		this.canvas = canvas;
+	public void draw(Graphics g) {	
+		Canvas canvas = this.getCanvas();
 		
-		bg.draw(g, canvas);
-		
-		
+		bg.draw(g);
 		
 		sector.draw(g, canvas);
 		if(!ship.isDestroyed()){
