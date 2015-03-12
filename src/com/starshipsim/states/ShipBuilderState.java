@@ -3,10 +3,10 @@ package com.starshipsim.states;
 import java.awt.Graphics;
 
 import com.starshipsim.entities.Player;
+import com.starshipsim.graphics.ButtonUI;
 import com.starshipsim.graphics.StarBackgroundFx;
 import com.starshipsim.panels.ShipModuleMenuPanel;
 import com.starshipsim.panels.ShipSelectorPanel;
-import com.sun.glass.events.KeyEvent;
 
 public class ShipBuilderState extends State {
 	
@@ -14,10 +14,23 @@ public class ShipBuilderState extends State {
 	private ShipSelectorPanel selectorPanel;
 	private ShipModuleMenuPanel shipModuleMenu;
 	
+	private ButtonUI exitButton;
+	
 	public ShipBuilderState(StateManager manager, Player player) {
 		super(manager);
 		this.selectorPanel = new ShipSelectorPanel(player.getShip());
 		this.shipModuleMenu = new ShipModuleMenuPanel(this.getManager(), player);
+		
+		initializeButtons();
+	}
+	
+	public void initializeButtons() {
+		this.exitButton = new ButtonUI("Return", 50, 930, 300, 100, manager.getMouse()) {
+			@Override
+			public void clicked() {
+				manager.popState();
+			}
+		};
 	}
 	
 	@Override
@@ -34,16 +47,14 @@ public class ShipBuilderState extends State {
 	
 	public void update() {
 		bg.update();
+		exitButton.update(this.getCanvas());
 		selectorPanel.update(this.getCanvas());
 		shipModuleMenu.update(this.getCanvas());
-		
-		if(this.getManager().getKeyboard().keyDownOnce(KeyEvent.VK_ESCAPE)) {
-			this.getManager().popState();
-		}
 	}
 	
 	public void draw(Graphics g) {
 		bg.draw(g);
+		exitButton.draw(g);
 		shipModuleMenu.draw(g);
 		selectorPanel.draw(g);
 	}
