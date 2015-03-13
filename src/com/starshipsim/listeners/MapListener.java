@@ -37,8 +37,9 @@ public class MapListener implements AchievementListenerInterface{
 					g.setColor(Color.DARK_GRAY);
 					g.fillRect(0, 0, 500, 300);
 					g.setColor(Color.WHITE);
-					g.drawString("You got the: EXPLORER achievement!", 0, 150);
-				}
+					g.drawString("You got the: ", 150, 100);
+					g.drawString("EXPLORER", 150, 150);
+					g.drawString("Achievement.", 150, 200);				}
 			}
 		}
 	}

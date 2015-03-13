@@ -31,7 +31,7 @@ public class MoneyListener implements AchievementListenerInterface{
 					g.setColor(Color.DARK_GRAY);
 					g.fillRect(0, 0, 500, 300);
 					g.setColor(Color.WHITE);
-					g.drawString("You go the: ", 150, 100);
+					g.drawString("You got the: ", 150, 100);
 					g.drawString("YOU HAVE OVER 9000 !....... net worth", 0, 150);
 					g.drawString("Achievement.", 150, 200);
 				}

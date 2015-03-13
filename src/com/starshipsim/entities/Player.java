@@ -14,6 +14,7 @@ import com.starshipsim.items.ItemRepairDrone;
 import com.starshipsim.items.ItemSatellite;
 import com.starshipsim.items.ItemScanner;
 import com.starshipsim.items.ItemStunBomb;
+import com.starshipsim.listeners.EnemyListener;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.listeners.MapListener;
 import com.starshipsim.listeners.MoneyListener;
@@ -26,13 +27,17 @@ public class Player extends Entity {
 	
 	private int money=1000;
 	private MoneyListener ml = new MoneyListener();
+	private MapListener mp = new MapListener();
+	private EnemyListener el = new EnemyListener();
 	
 	private ArrayList<Item> inventory;
 	
-	private MapListener mp = new MapListener();
-	
 	public MapListener getMapListener(){
 		return mp;
+	}
+	
+	public EnemyListener getEnemyListener(){
+		return el;
 	}
 	
 	public Ship getShip() {

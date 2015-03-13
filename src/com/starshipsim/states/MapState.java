@@ -138,6 +138,7 @@ public class MapState extends State {
 		mapMenu.draw(g);
 		getPlayer().getMapListener().draw(g, getGrid());
 		getPlayer().getMoenyListener().draw(g, getPlayer().getMoney());
+		getPlayer().getEnemyListener().draw(g, getGrid());
 		
 		//Temp
 		g.drawString("Press Escape to exit the map.", 32, 950);
