@@ -75,6 +75,7 @@ public class CombatState extends State {
 				items.add(i);
 			}
 		}
+		player.getShip().getData().getShield().setCurrentDurability(player.getShip().getData().getShield().getMaxDurability());
 	}
 
 	@Override
@@ -220,11 +221,15 @@ public class CombatState extends State {
 			ship.setX(enemyX+(i*(450)));
 			ship.setY(200);
 			if(ship instanceof EnemyShip){
-				g.drawString(ship.getHealth()+"/"+ ship.getMaxHealth(), enemyX+(i*(450))+50, 350);
+				if(hasBeenScanned){
+					g.drawString(ship.getHealth()+"/"+ ship.getMaxHealth(), enemyX+(i*(450))+50, 350);
+				}
 				g.drawImage(ImageManager.combatEnemyShip, enemyX+(i*(450)), 400, 200, 130,null);
 			}
 			else{
-				g.drawString(ship.getHealth()+"/"+ ship.getMaxHealth(), enemyX+(i*(450))+50, 250);
+				if(hasBeenScanned){
+					g.drawString(ship.getHealth()+"/"+ ship.getMaxHealth(), enemyX+(i*(450))+50, 250);
+				}
 				g.drawImage(ImageManager.enemyStation, enemyX+(i*(450))-100, 300, 400, 360,null);
 			}
 		}
@@ -426,6 +431,9 @@ public class CombatState extends State {
 		}
 		if(items.get(currentItem) instanceof ItemStunBomb){
 			enemiesStunned=3;
+		}
+		if(items.get(currentItem) instanceof ItemScanner){
+			this.hasBeenScanned=true;
 		}
 		items.get(currentItem).setAmount(items.get(currentItem).getAmount()-1);
 		if(items.get(currentItem).getAmount()==0){
