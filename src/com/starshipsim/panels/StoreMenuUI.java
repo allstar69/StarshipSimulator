@@ -12,7 +12,7 @@ import com.starshipsim.listeners.KeyboardListener;
 public class StoreMenuUI {
 
 	private int x, y;
-	
+	private int indexMod = 0;
 	private Image imgMenu;
 	private Image imgCursor;
 	
@@ -48,8 +48,8 @@ public class StoreMenuUI {
 	public void setY(int y) {
 		this.y = y;
 	}
-
-	public StoreMenuUI(KeyboardListener keyboard, Image imgMenu, Image cursor, String[] list, String[] displayList, Player p, boolean buying) {
+	
+	public StoreMenuUI(KeyboardListener keyboard, Image imgMenu, Image cursor, String[] list, String[] displayList, Player p, boolean buying, int indexMod) {
 		this.keyboard = keyboard;
 		this.imgMenu = imgMenu;
 		this.imgCursor = cursor;
@@ -59,6 +59,7 @@ public class StoreMenuUI {
 		this.buy = buying;
 		this.list = list;
 		this.displayList = displayList;
+		this.indexMod = indexMod;
 	}
 	
 	public void update() {
@@ -84,14 +85,14 @@ public class StoreMenuUI {
 		int stringX2 = (950);
 		for (int i = 0; i < list.length; i++) {
 			if (buy) {
-				if (p.getInventory().get(i).getPrice() > p.getMoney()) { 
+				if (p.getInventory().get(i + indexMod).getPrice() > p.getMoney()) { 
 					g.setColor(Color.gray);
 				}
 				else {
 					g.setColor(Color.decode("#3ACD48"));
 				}
 			} else {
-				if (p.getInventory().get(i).getAmount() > 0) {
+				if (p.getInventory().get(i + indexMod).getAmount() > 0) {
 					g.setColor(Color.decode("#2EF2E0"));
 				} else {
 					g.setColor(Color.gray);

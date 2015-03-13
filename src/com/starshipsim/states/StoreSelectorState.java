@@ -59,7 +59,7 @@ public class StoreSelectorState extends State {
 			switch(currentOption) {
 			case 0:
 				//Upgrade
-				
+				manager.addState(new StoreState(manager, p, true, 6));
 				break;
 			case 1:
 				//Buy

@@ -22,10 +22,11 @@ public class StoreState extends State {
 	private static Image shipCursor = FileIO.loadImage("resources/smallship1.png");
 	
 	private int currentOption = 0;
-	private String itemDesc = "Place Holder";
 	private Player player;
 	private ArrayList<Item> inventory;
 	private boolean isBuying;
+	private final int consumableItems = 6;
+	private int indexMod = 0;
 	
 	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
 	
@@ -34,14 +35,32 @@ public class StoreState extends State {
 
 	private StoreMenuUI menu;
 	
+	public StoreState(StateManager manager, Player p, boolean isBuying, int indexMod) {
+		super(manager);
+		this.isBuying = isBuying;
+		inventory = p.getInventory();
+		itemList = new String[p.getInventory().size() - consumableItems];
+		priceList = new String[p.getInventory().size() - consumableItems];
+		player=p;
+		this.indexMod = indexMod;
+		int counter = 0;
+		for (int ii = indexMod; ii < p.getInventory().size(); ii++) {
+			itemList[counter] = p.getInventory().get(ii).getName();
+			priceList[counter] = " $";
+			priceList[counter] += p.getInventory().get(ii).getPrice();
+			counter++;
+		}
+		initialize();
+	}
+	
 	public StoreState(StateManager manager, Player p, boolean isBuying) {
 		super(manager);
 		this.isBuying = isBuying;
 		inventory = p.getInventory();
-		itemList = new String[inventory.size()];
-		priceList = new String[inventory.size()];
+		itemList = new String[consumableItems];
+		priceList = new String[consumableItems];
 		player=p;
-		for (int ii = 0; ii < inventory.size(); ii++) {
+		for (int ii = 0; ii < consumableItems; ii++) {
 			itemList[ii] = inventory.get(ii).getName();
 			priceList[ii] = " $";
 			priceList[ii] += (isBuying) ? inventory.get(ii).getPrice() : (int) (inventory.get(ii).getPrice() * .8);
@@ -52,7 +71,7 @@ public class StoreState extends State {
 
 	@Override
 	public void initialize() {
-		menu = new StoreMenuUI(manager.getKeyboard(), storeLeft, shipCursor, itemList, priceList, player, isBuying);
+		menu = new StoreMenuUI(manager.getKeyboard(), storeLeft, shipCursor, itemList, priceList, player, isBuying, indexMod);
 		
 	}
 
@@ -70,9 +89,9 @@ public class StoreState extends State {
 		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 			currentOption = menu.getCurrentOption();
 			if (isBuying) {
-				if (player.getMoney() >= inventory.get(currentOption).getPrice()) {
-					player.setMoney(player.getMoney()-inventory.get(currentOption).getPrice());
-					inventory.get(currentOption).setAmount(inventory.get(currentOption).getAmount() + 1);
+				if (player.getMoney() >= inventory.get(currentOption + indexMod).getPrice()) {
+					player.setMoney(player.getMoney()-inventory.get(currentOption + indexMod).getPrice());
+					inventory.get(currentOption + indexMod).setAmount(inventory.get(currentOption + indexMod).getAmount() + 1);
 				}
 			} else {
 				if (inventory.get(currentOption).getAmount() > 0) {
@@ -106,12 +125,12 @@ public class StoreState extends State {
 		g.drawImage(storeRight, rightX, menuY, null);
 		drawDescription(g, rightX, menuY);
 		g.drawString("Currently Owned", 1275, 825);
-		g.drawString(Integer.toString(inventory.get(currentOption).getAmount()), 1550, 900);
+		g.drawString(Integer.toString(inventory.get(currentOption + indexMod).getAmount()), 1550, 900);
 		g.drawString("Press Escape to return.", 32, 1050);
 	}
 	
 	private void drawDescription(Graphics g, int containerX, int containerY) {
-		String[] words = inventory.get(currentOption).getDescription().split(" ");
+		String[] words = inventory.get(currentOption + indexMod).getDescription().split(" ");
 		ArrayList<String> display = new ArrayList<String>();
 		
 		FontMetrics mets = g.getFontMetrics();

@@ -5,7 +5,7 @@ public abstract class Item {
 	int amount;
 	int price;
 	String name;
-	String description;
+	String description = "This is a module meant to upgrade your ship.";
 	int index;
 	boolean isMoney;
 	boolean isBattleItem=false;
