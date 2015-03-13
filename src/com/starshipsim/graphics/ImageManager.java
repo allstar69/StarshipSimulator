@@ -33,6 +33,7 @@ public class ImageManager {
 	public static Image key = FileIO.loadImage("resources/key.png");
 	public static Image dialogueBox = FileIO.loadImage("resources/dialogueBox.png");
 	public static Image combatEnemyShip = FileIO.loadImage("resources/eship1.png");
+	public static Image controls = FileIO.loadImage("resources/Controls.png");
 	
 	//Sectors
 	public static Image unknown = FileIO.loadImage("resources/unknown.png");

@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import com.starshipsim.graphics.ButtonUI;
+import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.graphics.StarBackgroundFx;
 
 public class MainMenuState extends State {
@@ -62,6 +63,8 @@ public class MainMenuState extends State {
 		playButton.draw(g);
 		loadButton.draw(g);
 		exitButton.draw(g);
+		
+		g.drawImage(ImageManager.controls, 400, 300, null);
 	}
 
 	@Override
