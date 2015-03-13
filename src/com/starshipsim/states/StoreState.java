@@ -47,7 +47,7 @@ public class StoreState extends State {
 		for (int ii = indexMod; ii < p.getInventory().size(); ii++) {
 			itemList[counter] = p.getInventory().get(ii).getName();
 			priceList[counter] = " $";
-			priceList[counter] += p.getInventory().get(ii).getPrice();
+			priceList[counter] += (isBuying) ? inventory.get(ii).getPrice() : (int) (inventory.get(ii).getPrice() * .8);
 			counter++;
 		}
 		initialize();
@@ -72,7 +72,6 @@ public class StoreState extends State {
 	@Override
 	public void initialize() {
 		menu = new StoreMenuUI(manager.getKeyboard(), storeLeft, shipCursor, itemList, priceList, player, isBuying, indexMod);
-		
 	}
 
 	@Override
@@ -94,9 +93,9 @@ public class StoreState extends State {
 					inventory.get(currentOption + indexMod).setAmount(inventory.get(currentOption + indexMod).getAmount() + 1);
 				}
 			} else {
-				if (inventory.get(currentOption).getAmount() > 0) {
-					player.setMoney(player.getMoney()+ (int)(inventory.get(currentOption).getPrice() * .8));
-					inventory.get(currentOption).setAmount(inventory.get(currentOption).getAmount() - 1);
+				if (inventory.get(currentOption + indexMod).getAmount() > 0) {
+					player.setMoney(player.getMoney()+ (int)(inventory.get(currentOption + indexMod).getPrice() * .8));
+					inventory.get(currentOption + indexMod).setAmount(inventory.get(currentOption + indexMod).getAmount() - 1);
 				}
 			}
 		}

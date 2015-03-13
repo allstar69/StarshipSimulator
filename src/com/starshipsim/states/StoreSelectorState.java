@@ -24,7 +24,8 @@ public class StoreSelectorState extends State {
 	private Player p;
 	
 	private String[] list = new String[] {
-			"Upgrade Systems",
+			"Buy Ship Modules",
+			"Sell Ship Modules",
 			"Buy Items",
 			"Sell Items",
 			"Return",
@@ -58,18 +59,22 @@ public class StoreSelectorState extends State {
 		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 			switch(currentOption) {
 			case 0:
-				//Upgrade
+				//Buy mod
 				manager.addState(new StoreState(manager, p, true, 6));
 				break;
 			case 1:
+				//sell mod
+				manager.addState(new StoreState(manager, p, false, 6));
+				break;
+			case 2:
 				//Buy
 				manager.addState(new StoreState(manager, p, true));
 				break;
-			case 2:
+			case 3:
 				//Sell?
 				manager.addState(new StoreState(manager, p, false));
 				break;
-			case 3:
+			case 4:
 				//Exit
 				manager.popState();
 				break;
