@@ -16,11 +16,17 @@ public class Asteroid extends Entity {
 	private AffineTransform xform = new AffineTransform();
 	private double size;
 	public Asteroid(int x, int y, int xDir, int yDir) {
+		
 		super(ImageManager.asteroid, x, y);
-		this.xDir=xDir;
-		this.yDir=yDir;
+		Random random = new Random();
 		speed=new Random().nextInt(4)+4;
 		size=new Random().nextDouble()+0.5;
+		if(random.nextInt(300)==1){
+			this.setImage(ImageManager.elephant);
+		}
+		this.xDir=xDir;
+		this.yDir=yDir;
+		
 		width*=size;
 		height*=size;
 	}

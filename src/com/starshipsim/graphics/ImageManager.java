@@ -22,6 +22,7 @@ public class ImageManager {
 	public static Image mine = FileIO.loadImage("resources/mine.png");
 	public static Image friendlyStation = FileIO.loadImage("resources/FriendlyStation.png");
 	public static Image proj1=FileIO.loadImage("resources/proj1.png");
+	public static Image elephant=FileIO.loadImage("resources/elephant.png");
 	
 	//GUI
 	public static Image combatHud = FileIO.loadImage("resources/combat_hud.png");
