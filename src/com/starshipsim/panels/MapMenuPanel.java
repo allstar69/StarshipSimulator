@@ -5,13 +5,16 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.enums.SectorStateType;
 import com.starshipsim.graphics.ImageManager;
+import com.starshipsim.items.ItemFuel;
 import com.starshipsim.listeners.MapListener;
 import com.starshipsim.shipmodules.WarpCoreModule;
 import com.starshipsim.states.MapState;
 import com.starshipsim.world.Sector;
+import com.sun.media.jfxmedia.events.NewFrameEvent;
 
 public class MapMenuPanel {
 	private int level = 0;
@@ -101,33 +104,40 @@ public class MapMenuPanel {
 		
 		state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 		g.drawImage(ImageManager.cursor, 32 + (selX * 64), 32 + (selY * 64), null);
+		int yChange = 0, xChange = 0;
 		
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (selY != 0
 					&& selY != state.getShip().getSecY()
 							- warp.MAX_WARP) {
 				selY--;
+				yChange++;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
 			if (selY != 11
 					&& selY != state.getShip().getSecY()
 							+ warp.MAX_WARP) {
 				selY++;
+				yChange++;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_A)) {
 			if (selX != 0
 					&& selX != state.getShip().getSecX()
 							- warp.MAX_WARP) {
 				selX--;
+				xChange++;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_D)) {
 			if (selX != 11
 					&& selX != state.getShip().getSecX()
 							+ warp.MAX_WARP) {
 				selX++;
+				xChange++;
 			}
 		}
-
+		
+		state.getPlayer().updateInventory(0, new ItemFuel(((xChange + yChange) * 5) * -1)); //decrements amount of fuel
+			
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 			state.getShip().setSecX(selX);
 			state.getShip().setSecY(selY);
