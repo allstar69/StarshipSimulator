@@ -35,9 +35,7 @@ public class MapMenuPanel {
 		String[] menu = new String[] {
 				"Move the Ship",
 				"Get Sector Data",
-				"Open Science Station",
-				"Set Map Standards",
-				"Reset Map"
+				"Open Science Station"
 		};
 		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
@@ -64,12 +62,6 @@ public class MapMenuPanel {
 		case 3:
 			scienceStation(g);
 			break;
-		case 4:
-			setStandards(g);
-			break;
-		case 5:
-			resetUniverse();
-			break;
 		}
 
 		g.drawImage(state.getShip().getImage(), this.x - 40, this.y + 15 + (curY * 32), null);
@@ -80,12 +72,12 @@ public class MapMenuPanel {
 
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (curY == 0) {
-				curY = 4;
+				curY = 2;
 			} else {
 				curY -= 1;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
-			if (curY == 4) {
+			if (curY == 2) {
 				curY = 0;
 			} else {
 				curY += 1;
@@ -95,6 +87,7 @@ public class MapMenuPanel {
 			level = curY + 1;
 			if (level == 3) {
 				state.changeLog("For Science!");
+				curY = 0;
 			}
 
 			selX = state.getShip().getSecX();
@@ -214,18 +207,16 @@ public class MapMenuPanel {
 		g.drawString(("Scanner Count"), 890, (100 + (i * 32)));
 		i++;
 		g.drawString(("Launch Scanner"), 890, (100 + (i * 32)));
-		i++;
-		g.drawString(("Explore Sector"), 890, (100 + (i * 32)));
 		if (state.getScienceLevel() == 0) {
 
 			if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 				if (curY == 0) {
-					curY = 2;
+					curY = 1;
 				} else {
 					curY -= 1;
 				}
 			} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
-				if (curY == 2) {
+				if (curY == 1) {
 					curY = 0;
 				} else {
 					curY += 1;
@@ -247,33 +238,7 @@ public class MapMenuPanel {
 			}
 		} else if (state.getScienceLevel() == 2) {
 			launchProbe(g);
-		} else if (state.getScienceLevel() == 3) {
-			exploreSector();
 		}
-	}
-
-	private void setStandards(Graphics g) {
-		state.changeLog("How would you like to generate your universe?");
-		// p1.setVisible(true);
-		// f1.setVisible(true);
-		// graphics2d.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/mapscreen.png")),
-		// 16, 16, canvas);
-		g.drawImage(ImageManager.smallMenu, 860, 60, null);
-		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
-
-		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
-			level = 0;
-		}
-	}
-
-	private void resetUniverse() {
-		state.changeLog("Welcome to a new Universe!");
-		Random rand = new Random();
-		state.getShip().setSecY(rand.nextInt(12));
-		state.getShip().setSecX(rand.nextInt(12));
-		state.getGrid().reset();
-		state.getGrid().setShipLocation(state.getShip(), state.getShip().getSecX(), state.getShip().getSecY());
-		level = 0;
 	}
 
 	private void launchProbe(Graphics g) {
@@ -338,20 +303,5 @@ public class MapMenuPanel {
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
 			state.setScienceLevel(0);
 		}
-	}
-
-	private void exploreSector() {
-		Sector sector = state.getGrid().getSector(state.getShip().getSecX(), state.getShip().getSecY());
-
-		if (sector.getState() == SectorStateType.EXPLORABLE) {
-			Random rand = new Random();
-			int r = rand.nextInt(2) + 1;
-			if (r == 1) {
-				state.changeLog("They found nothing!");
-			} else if (r == 2) {
-				state.changeLog("They found something!");
-			}
-		}
-		state.setScienceLevel(0);
 	}
 }
