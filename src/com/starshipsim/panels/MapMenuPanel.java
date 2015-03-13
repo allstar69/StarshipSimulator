@@ -149,7 +149,7 @@ public class MapMenuPanel {
 	}
 
 	private void getData(Graphics g) {
-		state.changeLog("Coordinates: " + ((char) selX + 97) + (selY + 1));
+		state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 		g.drawImage(ImageManager.cursor, 32 + (selX * 64), 32 + (selY * 64), null);
 		
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
