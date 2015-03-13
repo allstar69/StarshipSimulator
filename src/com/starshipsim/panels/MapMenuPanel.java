@@ -224,7 +224,7 @@ public class MapMenuPanel {
 			}
 			if (state.getKeyboard().keyDownOnce(KeyEvent.VK_ENTER)) {
 				if (curY == 0) {
-					state.changeLog("Current Probe Count: " + state.getPlayer().getInventory().get(5).getAmount());
+					state.changeLog("Current Scanner Count: " + state.getPlayer().getInventory().get(5).getAmount());
 				}
 				if (curY == 1) {
 					state.setScienceLevel(curY + 1);
