@@ -13,6 +13,7 @@ import com.starshipsim.entities.Entity;
 import com.starshipsim.entities.Player;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.graphics.ImageManager;
+import com.starshipsim.graphics.StarBackgroundFx;
 import com.starshipsim.interfaces.Enemy;
 import com.starshipsim.items.Item;
 import com.starshipsim.items.ItemExplosiveBomb;
@@ -55,7 +56,7 @@ public class CombatState extends State {
 	private int currentOption = 0;
 	private ArrayList<Item> items=new ArrayList<>();
 	private ArrayList<Entity> effects=new ArrayList<>();
-	
+	private StarBackgroundFx bg = new StarBackgroundFx(100, 1920, 1080);
 	public CombatState(StateManager manager, CombatData data) {
 		super(manager);
 		this.keyboard = manager.getKeyboard();
@@ -78,6 +79,7 @@ public class CombatState extends State {
 
 	@Override
 	public void update() {
+		bg.update();
 		if(xshift>dxshift){
 			xshift-=15;
 		}
@@ -108,7 +110,7 @@ public class CombatState extends State {
 	public void draw(Graphics g) {
 		Canvas canvas = this.getCanvas();
 		
-		g.drawImage(ImageManager.spaceBg2, xshift-450, 0, null);
+		bg.draw(g);
 		drawExit(g);
 		
 		drawEnemyShips(g, canvas);
@@ -199,9 +201,9 @@ public class CombatState extends State {
 		g.drawImage(ImageManager.ship, cursorX, cursorY, null);
 		g.drawString(("Health: "+ship.getDurability()+"/"+ship.getMaxDurability()), 200, 125);
 		g.setColor(Color.green);
-		g.fillRoundRect(1600, 125, shield.getCurrentDurability()*2, 50, 10, 10);
+		g.fillRoundRect(1600, 96, shield.getCurrentDurability()*2, 50, 10, 10);
 		g.setColor(Color.white);
-		g.drawRoundRect(1600, 125, shield.getMaxDurability()*2, 50, 10, 10);
+		g.drawRoundRect(1600, 96, shield.getMaxDurability()*2, 50, 10, 10);
 	}
 	
 	private void drawEnemyShips(Graphics g, Canvas canvas) {
