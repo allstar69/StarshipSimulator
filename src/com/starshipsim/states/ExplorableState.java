@@ -7,13 +7,14 @@ import java.awt.event.KeyEvent;
 
 import com.starshipsim.entities.Player;
 import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.StarBackgroundFx;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.world.ExplorableSector;
 
 public class ExplorableState extends State{
 	
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
+	private StarBackgroundFx bg = new StarBackgroundFx(100, 1920, 1080);
 	private ExplorableSector es;
 	public ExplorableState(StateManager manager, Player player, ExplorableSector tempes) {
 		super(manager);
@@ -28,6 +29,7 @@ public class ExplorableState extends State{
 
 	@Override
 	public void update() {
+		bg.update();
 		KeyboardListener keyboard = manager.getKeyboard();
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
@@ -37,7 +39,7 @@ public class ExplorableState extends State{
 
 	@Override
 	public void draw(Graphics g) {
-		bg.draw(g, this.getCanvas());
+		bg.draw(g);
 		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 58));
 		
