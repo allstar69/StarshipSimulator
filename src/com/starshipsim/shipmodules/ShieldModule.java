@@ -22,6 +22,8 @@ public class ShieldModule extends ShipModule {
 	
 	public ShieldModule(Quality quality) {
 		super("Shield Module", quality);
+		setPrice(300 + quality.ordinal() * 100);
+		setDescription("The shield module can protect your ship from a limited amount of damage");
 	}
 
 	@Override

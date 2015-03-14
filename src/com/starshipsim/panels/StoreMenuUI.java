@@ -85,7 +85,7 @@ public class StoreMenuUI {
 		int stringX2 = (950);
 		for (int i = 0; i < list.length; i++) {
 			if (buy) {
-				if (p.getInventory().get(i + indexMod).getPrice() > p.getMoney()) { 
+				if (Integer.parseInt(displayList[i].substring(2)) > p.getMoney()) { 
 					g.setColor(Color.gray);
 				}
 				else {
@@ -93,7 +93,7 @@ public class StoreMenuUI {
 				}
 			} else {
 				if (p.getInventory().get(i + indexMod).getAmount() > 0) {
-					g.setColor(Color.decode("#2EF2E0"));
+					g.setColor(Color.decode("#0066FF"));
 				} else {
 					g.setColor(Color.gray);
 				}

@@ -29,6 +29,8 @@ public class PropulsionModule extends ShipModule {
 
 	public PropulsionModule(Quality quality) {
 		super("Propulsion Module", quality);
+		setPrice(200 + quality.ordinal() * 100);
+		setDescription("The propulsion system lets you move around sectors locally and also controls your max fuel amount");
 	}
 	
 	@Override

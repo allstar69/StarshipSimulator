@@ -8,6 +8,8 @@ public class WarpCoreModule extends ShipModule {
 	
 	public WarpCoreModule(Quality quality) {
 		super("Warp Core Module", quality);
+		setPrice(400 + quality.ordinal() * 125);
+		setDescription("The warp core allows your ship to traverse the galaxy in great leaps");
 		MAX_WARP = quality.ordinal() + 2;
 	}
 

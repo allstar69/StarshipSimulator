@@ -7,14 +7,22 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.util.ArrayList;
 
 import com.starshipsim.entities.Player;
+import com.starshipsim.enums.Quality;
 import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.items.Item;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.panels.StoreMenuUI;
+import com.starshipsim.shipmodules.PowerModule;
+import com.starshipsim.shipmodules.PropulsionModule;
+import com.starshipsim.shipmodules.ShieldModule;
+import com.starshipsim.shipmodules.ShipModule;
+import com.starshipsim.shipmodules.WarpCoreModule;
+import com.starshipsim.shipmodules.WeaponModule;
 
 public class StoreState extends State {
 	private static Image storeLeft = FileIO.loadImage("resources/storeLeft.png");
@@ -39,16 +47,44 @@ public class StoreState extends State {
 		super(manager);
 		this.isBuying = isBuying;
 		inventory = p.getInventory();
-		itemList = new String[p.getInventory().size() - consumableItems];
-		priceList = new String[p.getInventory().size() - consumableItems];
-		player=p;
+		
+		player = p;
 		this.indexMod = indexMod;
 		int counter = 0;
-		for (int ii = indexMod; ii < p.getInventory().size(); ii++) {
-			itemList[counter] = p.getInventory().get(ii).getName();
-			priceList[counter] = " $";
-			priceList[counter] += (isBuying) ? inventory.get(ii).getPrice() : (int) (inventory.get(ii).getPrice() * .8);
-			counter++;
+		
+		if (isBuying) {
+			itemList = new String[5];
+			priceList = new String[5];
+			int newPowerQual = p.getShip().getData().getPower().getQuality().ordinal() + 1;
+			int newShieldQual = p.getShip().getData().getShield().getQuality().ordinal() + 1;
+			int newPropQual = p.getShip().getData().getWeapon().getQuality().ordinal() + 1;
+			int newWeaponQual = p.getShip().getData().getWeapon().getQuality().ordinal() + 1;
+			int newWarpQual = p.getShip().getData().getWarp().getQuality().ordinal() + 1;
+			
+			itemList[0] = Quality.values()[newPowerQual].toString().replace("_", " ") + " Power";
+			itemList[1] = Quality.values()[newShieldQual].toString().replace("_", " ") + " Shields";
+			itemList[2] = Quality.values()[newPropQual].toString().replace("_", " ") + " Propulsion";
+			itemList[3] = Quality.values()[newWeaponQual].toString().replace("_", " ") + " Weapons";
+			itemList[4] = Quality.values()[newWarpQual].toString().replace("_", " ") + " Warp Core";
+			
+			priceList[0] = " $" + Integer.toString(new PowerModule(Quality.values()[newPowerQual]).getPrice());
+			priceList[1] = " $" + Integer.toString(new ShieldModule(Quality.values()[newShieldQual]).getPrice());
+			priceList[2] = " $" + Integer.toString(new PropulsionModule(Quality.values()[newPropQual]).getPrice());
+			priceList[3] = " $" + Integer.toString(new WeaponModule(Quality.values()[newWeaponQual], null).getPrice());
+			priceList[4] = " $" + Integer.toString(new WarpCoreModule(Quality.values()[newWarpQual]).getPrice());
+			
+		} else {
+			if (player.getInventory().size() > consumableItems) {
+				itemList = new String[p.getInventory().size() - consumableItems];
+				priceList = new String[p.getInventory().size() - consumableItems];
+				for (int ii = indexMod; ii < p.getInventory().size(); ii++) {
+					
+					itemList[counter] = p.getInventory().get(ii).getName();
+					priceList[counter] = " $";
+					priceList[counter] += (int) (inventory.get(ii).getPrice() * .8);
+					counter++;
+				}
+			}
 		}
 		initialize();
 	}
@@ -82,15 +118,50 @@ public class StoreState extends State {
 		this.currentOption = menu.getCurrentOption();
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
+			System.out.println("I ran");
+			for(int ii = 0; ii < player.getInventory().size(); ii++) {
+				System.out.println("I ran: " + ii);
+				if (player.getInventory().get(ii) instanceof ShipModule && player.getInventory().get(ii).getAmount() == 0) {
+					System.out.println("I ran too: " + ii);
+					player.getInventory().remove(ii);
+					ii--;
+				}
+			}
 			manager.popState();
 		}
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)) {
 			currentOption = menu.getCurrentOption();
 			if (isBuying) {
-				if (player.getMoney() >= inventory.get(currentOption + indexMod).getPrice()) {
-					player.setMoney(player.getMoney()-inventory.get(currentOption + indexMod).getPrice());
-					inventory.get(currentOption + indexMod).setAmount(inventory.get(currentOption + indexMod).getAmount() + 1);
+				if (indexMod == 0) {
+					//buying items
+					if (player.getMoney() >= inventory.get(currentOption + indexMod).getPrice()) {
+						player.setMoney(player.getMoney()-inventory.get(currentOption + indexMod).getPrice());
+						inventory.get(currentOption + indexMod).setAmount(inventory.get(currentOption + indexMod).getAmount() + 1);
+					}
+				} else {
+					//buying modules
+					int cost = Integer.parseInt(priceList[currentOption].substring(2));
+					if (player.getMoney() >= cost) {
+						player.setMoney(player.getMoney() - cost);
+						switch (currentOption) {
+						case 0:
+							player.getInventory().add(new PowerModule(Quality.values()[player.getShip().getData().getPower().getQuality().ordinal() + 1]));
+							break;
+						case 1:
+							player.getInventory().add(new ShieldModule(Quality.values()[player.getShip().getData().getShield().getQuality().ordinal() + 1]));
+							break;
+						case 2:
+							player.getInventory().add(new PropulsionModule(Quality.values()[player.getShip().getData().getPropulsion().getQuality().ordinal() + 1]));
+							break;
+						case 3:
+							player.getInventory().add(new WeaponModule(Quality.values()[player.getShip().getData().getWeapon().getQuality().ordinal() + 1], null));
+							break;
+						case 4:
+							player.getInventory().add(new WarpCoreModule(Quality.values()[player.getShip().getData().getWarp().getQuality().ordinal() + 1]));
+							break;
+						}
+					}
 				}
 			} else {
 				if (inventory.get(currentOption + indexMod).getAmount() > 0) {
@@ -123,13 +194,36 @@ public class StoreState extends State {
 		int rightX = menuY + storeLeft.getWidth(null) - 50;
 		g.drawImage(storeRight, rightX, menuY, null);
 		drawDescription(g, rightX, menuY);
-		g.drawString("Currently Owned", 1275, 825);
-		g.drawString(Integer.toString(inventory.get(currentOption + indexMod).getAmount()), 1550, 900);
+		if (indexMod == 0) {
+			g.drawString("Currently Owned", 1275, 825);
+			g.drawString(Integer.toString(inventory.get(currentOption + indexMod).getAmount()), 1550, 900);
+		}
 		g.drawString("Press Escape to return.", 32, 1050);
 	}
 	
 	private void drawDescription(Graphics g, int containerX, int containerY) {
-		String[] words = inventory.get(currentOption + indexMod).getDescription().split(" ");
+		String[] words = {};
+		if (indexMod == 0 || !isBuying) {
+			words = inventory.get(currentOption + indexMod).getDescription().split(" ");
+		} else {
+			switch (currentOption) {
+			case 0: 
+				words = player.getShip().getShipData().getPower().getDescription().split(" ");
+				break;
+			case 1:
+				words = player.getShip().getShipData().getShield().getDescription().split(" ");
+				break;
+			case 2:
+				words = player.getShip().getShipData().getPropulsion().getDescription().split(" ");
+				break;
+			case 3:
+				words = player.getShip().getShipData().getWeapon().getDescription().split(" ");
+				break;
+			case 4:
+				words = player.getShip().getShipData().getWarp().getDescription().split(" ");
+				break;
+			}
+		}
 		ArrayList<String> display = new ArrayList<String>();
 		
 		FontMetrics mets = g.getFontMetrics();

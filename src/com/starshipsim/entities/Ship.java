@@ -308,4 +308,8 @@ public class Ship extends Entity {
 	public void setDestroyed(boolean isDestroyed) {
 		this.isDestroyed = isDestroyed;
 	}
+	
+	public ShipData getShipData() {
+		return data;
+	}
 }

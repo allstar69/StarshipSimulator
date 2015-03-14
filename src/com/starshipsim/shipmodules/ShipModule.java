@@ -69,6 +69,7 @@ public abstract class ShipModule extends Item {
 	public ShipModule(String name, Quality quality) {
 		this.quality = quality;
 		this.name = name;
+		setAmount(1);
 	}
 
 	public void damage(int damageNum) {

@@ -25,6 +25,8 @@ public class PowerModule extends ShipModule {
 
 	public PowerModule(Quality quality) {
 		super("Power Module", quality);
+		setPrice(150 + quality.ordinal() * 110);
+		setDescription("The power module determines how much power is available to your ship");
 	}
 	
 	@Override

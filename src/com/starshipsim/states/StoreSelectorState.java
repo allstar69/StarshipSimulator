@@ -61,10 +61,16 @@ public class StoreSelectorState extends State {
 			case 0:
 				//Buy mod
 				manager.addState(new StoreState(manager, p, true, 6));
+				list[1] = "Sell Ship Modules";
 				break;
 			case 1:
 				//sell mod
-				manager.addState(new StoreState(manager, p, false, 6));
+				if (p.getInventory().size() > 6) {
+					manager.addState(new StoreState(manager, p, false, 6));
+				} else {
+					list[1] = "No mods to sell";
+				}
+				
 				break;
 			case 2:
 				//Buy

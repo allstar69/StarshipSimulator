@@ -20,6 +20,8 @@ public class WeaponModule extends ShipModule {
 
 	public WeaponModule(Quality quality, ArrayList<Weapon> weapons) {
 		super("Weapon Module", quality);
+		setPrice(250 + quality.ordinal() * 150);
+		setDescription("The weapons module determines which weapons you may mount on your ship");
 		this.weapons = weapons;
 	}
 	
