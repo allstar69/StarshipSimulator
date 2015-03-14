@@ -100,11 +100,33 @@ public class SectorState extends State {
 		for(int i=0;i<12;i++){
 			for(int j=0;j<12;j++){
 				grid.getSector(j, i).update();
+				for(int k=0;k<grid.getSector(j, i).getEntities().size();k++){
+					if(grid.getSector(j, i).getEntities().get(k) instanceof EnemyShip && ((EnemyShip) grid.getSector(j, i).getEntities().get(k)).getFleet().getShips().size()==0){
+						grid.getSector(j, i).getEntities().remove(k);
+					}
+				}
 			}
 		}
+		
+		
+		
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		sector.setKnown(true);
-		
+		for(int i=0;i<sector.getEntities().size();i++){
+			if(sector.getEntities().get(i)instanceof EnemyShip){
+				EnemyShip e=((EnemyShip) sector.getEntities().get(i));
+				double distance = Math.sqrt(Math.pow((ship.getX()-e.getX()), 2)+Math.pow((ship.getY()-e.getY()), 2));
+				if(distance<400){
+					double xDis = ship.getX()-e.getX();
+					double yDis = ship.getY()-e.getY();
+					double neg=180;
+					if(ship.getX()>=e.getX()){
+						neg=0;
+					}
+					e.setRot(((Math.atan(yDis/xDis))*180/Math.PI)+neg);
+				}
+			}
+		}
 		if(!ship.isDestroyed()){
 			this.shipCollisions();
 			if(ship.getDurability()<=0){
@@ -141,18 +163,27 @@ public class SectorState extends State {
 //			player.setMoney(player.getMoney()+5);
 //		}
 		if(sector.checkCollision(Bullet.class, EnemyShip.class)){
-			sector.getEntities().remove(sector.getOneIntersectingEntity(EnemyShip.class, Bullet.class));
-			manager.addState(new CombatState(manager, new CombatData(player, new EnemyFleet()))); 
+				((EnemyShip)sector.getOneIntersectingEntity(Bullet.class, EnemyShip.class)).getFleet().damageFleet(5);
+				manager.addState(new CombatState(manager, new CombatData(player, ((EnemyShip)sector.getOneIntersectingEntity(Bullet.class, EnemyShip.class)).getFleet()))); 
+				sector.getEntities().remove(sector.getOneIntersectingEntity(EnemyShip.class, Bullet.class));
 		}
 	}
 	
 	public void enemyShipColisions(){
 		if(sector.checkCollision(EnemyShip.class, Mine.class)){
+			((EnemyShip)sector.getOneIntersectingEntity(Mine.class, EnemyShip.class)).getFleet().damageFleet(20);
 			sector.getEntities().add(new Explosion(sector.getOneIntersectingEntity(EnemyShip.class, Mine.class).getX()-16, sector.getOneIntersectingEntity(EnemyShip.class, Mine.class).getY()-16, sector.getOneIntersectingEntity(EnemyShip.class, Mine.class).getWidth()*2, sector.getOneIntersectingEntity(EnemyShip.class, Mine.class).getHeight()*2));
 			sector.getEntities().remove(sector.getOneIntersectingEntity(EnemyShip.class, Mine.class));
 		}
 		if(sector.checkCollision(EnemyShip.class, Asteroid.class)){
+			((EnemyShip)sector.getOneIntersectingEntity(Asteroid.class, EnemyShip.class)).getFleet().damageFleet(5);
 			sector.getEntities().remove(sector.getOneIntersectingEntity(EnemyShip.class, Asteroid.class));
+		}
+		if(sector.checkCollision(EnemyShip.class, BlackHole.class)){
+			Random rand= new Random();
+			EnemyShip e=((EnemyShip)sector.getOneIntersectingEntity(BlackHole.class, EnemyShip.class));
+			grid.getSector(rand.nextInt(12), rand.nextInt(12)).getEntities().add(e);
+			sector.getEntities().remove(e);
 		}
 	}
 	
@@ -179,8 +210,14 @@ public class SectorState extends State {
 			}
 		}
 		if(sector.checkCollision(ship, EnemyShip.class)) {
+				manager.addState(new CombatState(manager, new CombatData(player, ((EnemyShip)sector.getOneIntersectingEntity(ship, EnemyShip.class)).getFleet())));
+				((EnemyShip)sector.getOneIntersectingEntity(ship, EnemyShip.class)).setDrot(0);
+				((EnemyShip)sector.getOneIntersectingEntity(ship, EnemyShip.class)).setRot(0f);
+				ship.setY(((EnemyShip)sector.getOneIntersectingEntity(ship, EnemyShip.class)).getY());
+				((EnemyShip)sector.getOneIntersectingEntity(ship, EnemyShip.class)).setX(ship.getX()-400);
+				ship.setRot(180);
+				ship.setDrot(0);
 				
-				manager.addState(new CombatState(manager, new CombatData(player, new EnemyFleet())));
 		}
 		if(sector.checkCollision(ship, Asteroid.class)){
 			ship.setDurability(ship.getDurability()-5);
@@ -220,7 +257,6 @@ public class SectorState extends State {
 		
 		sector.getEntities().remove(sector.getOneIntersectingEntity(ship, Asteroid.class));
 		sector.getEntities().remove(sector.getOneIntersectingEntity(ship, Mine.class));
-		sector.getEntities().remove(sector.getOneIntersectingEntity(ship, EnemyShip.class));
 	}
 	
 	@Override

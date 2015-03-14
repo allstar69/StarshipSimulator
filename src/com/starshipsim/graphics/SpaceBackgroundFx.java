@@ -45,35 +45,35 @@ public class SpaceBackgroundFx {
 	public void update(KeyboardListener key, int speed) {
 		if(key.keyDown(KeyEvent.VK_W)){
 			for (StarFx starFx : stars1) {
-				starFx.setY(starFx.getY()+speed);
+				starFx.setY(starFx.getY()+speed/2);
 			}
 			for (StarFx starFx : stars2) {
-				starFx.setY(starFx.getY()+speed);
+				starFx.setY(starFx.getY()+speed/2);
 			}
 			
 		}
 		else if(key.keyDown(KeyEvent.VK_S)){
 			for (StarFx starFx : stars1) {
-				starFx.setY(starFx.getY()-speed);
+				starFx.setY(starFx.getY()-speed/2);
 			}
 			for (StarFx starFx : stars2) {
-				starFx.setY(starFx.getY()-speed);
+				starFx.setY(starFx.getY()-speed/2);
 			}	
 		}
 		if(key.keyDown(KeyEvent.VK_A)){
 			for (StarFx starFx : stars1) {
-				starFx.setX(starFx.getX()+speed);
+				starFx.setX(starFx.getX()+speed/2);
 			}
 			for (StarFx starFx : stars2) {
-				starFx.setX(starFx.getX()+speed);
+				starFx.setX(starFx.getX()+speed/2);
 			}
 		}
 		else if(key.keyDown(KeyEvent.VK_D)){
 			for (StarFx starFx : stars1) {
-				starFx.setX(starFx.getX()-speed);
+				starFx.setX(starFx.getX()-speed/2);
 			}
 			for (StarFx starFx : stars2) {
-				starFx.setX(starFx.getX()-speed);
+				starFx.setX(starFx.getX()-speed/2);
 			}
 		}
 		for (StarFx starFx : stars1) {

@@ -42,5 +42,9 @@ public class EnemyFleet {
 			reward+=(random.nextInt(5)*10)+50;
 		}
 	}
-	
+	public void damageFleet(int damage){
+		for (int i = 0; i < ships.size(); i++) {
+			ships.get(i).takeDamage(damage);
+		}
+	}
 }

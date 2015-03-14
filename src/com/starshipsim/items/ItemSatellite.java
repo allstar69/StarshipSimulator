@@ -12,7 +12,6 @@ public class ItemSatellite extends Item{
 		setName("Satellite");
 		setDescription("You know, I'm not really sure what the satellite does...");
 		setIndex(4);
-		setBattleItem(true);
 	}
 	
 }

@@ -7,6 +7,7 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.starshipsim.combat.EnemyFleet;
 import com.starshipsim.data.ShipData;
 import com.starshipsim.enums.Quality;
 import com.starshipsim.graphics.ImageManager;
@@ -27,7 +28,9 @@ public class EnemyShip extends Ship implements Enemy {
 	private double rot;
 	private double nextrot;
 	private long deltaTime = 0;
-	Grid grid;
+	private Grid grid;
+	private EnemyFleet fleet=null;
+
 
 	public EnemyShip(Grid grid, int x, int y, int secX, int secY, KeyboardListener keyboard) {
 		super(ImageManager.enemyShip2, x, y, createShip(), keyboard);
@@ -36,6 +39,7 @@ public class EnemyShip extends Ship implements Enemy {
 		this.grid = grid;
 		setSecX(secX);
 		setSecY(secY);
+		fleet=new EnemyFleet();
 	}
 
 	public EnemyShip(int x, int y, KeyboardListener keyboard) {
@@ -74,6 +78,7 @@ public class EnemyShip extends Ship implements Enemy {
 	}
 
 	public void move() {
+		
 		if (System.currentTimeMillis() > deltaTime + 500) {
 			nextrot = rot + 90 * (random.nextInt(3) - 1);
 			deltaTime = System.currentTimeMillis();
@@ -92,7 +97,7 @@ public class EnemyShip extends Ship implements Enemy {
 			if (getSecX() > 0) {
 				grid.getSector(getSecX() - 1, getSecY()).getEntities()
 						.add(this);
-				setX(1900);
+				setX(1900+getX());
 
 				grid.getSector(getSecX(), getSecY()).getEntities().remove(this);
 				setSecX(getSecX() - 1);
@@ -101,9 +106,9 @@ public class EnemyShip extends Ship implements Enemy {
 			}
 		}
 		if (getY() < 0) {
+			
 			if (getSecY() > 0) {
-				grid.getSector(getSecX(), getSecY() - 1).getEntities()
-						.add(this);
+				grid.getSector(getSecX(), getSecY() - 1).getEntities().add(this);
 				setY(1000);
 
 				grid.getSector(getSecX(), getSecY()).getEntities().remove(this);
@@ -111,6 +116,7 @@ public class EnemyShip extends Ship implements Enemy {
 			} else {
 				rot += 180;
 			}
+			
 		}
 		if (getX() > 1900) {
 			if (getSecX() < 11) {
@@ -136,7 +142,7 @@ public class EnemyShip extends Ship implements Enemy {
 				rot += 180;
 			}
 		}
-
+		
 	}
 
 	public double getRot1() {
@@ -163,5 +169,12 @@ public class EnemyShip extends Ship implements Enemy {
 	public int getMaxHealth() {
 		// TODO Auto-generated method stub
 		return getMaxDurability();
+	}
+	public EnemyFleet getFleet() {
+		return fleet;
+	}
+
+	public void setFleet(EnemyFleet fleet) {
+		this.fleet = fleet;
 	}
 }
