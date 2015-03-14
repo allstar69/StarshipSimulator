@@ -118,9 +118,7 @@ public class StoreState extends State {
 		this.currentOption = menu.getCurrentOption();
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
-			System.out.println("I ran");
 			for(int ii = 0; ii < player.getInventory().size(); ii++) {
-				System.out.println("I ran: " + ii);
 				if (player.getInventory().get(ii) instanceof ShipModule && player.getInventory().get(ii).getAmount() == 0) {
 					System.out.println("I ran too: " + ii);
 					player.getInventory().remove(ii);
