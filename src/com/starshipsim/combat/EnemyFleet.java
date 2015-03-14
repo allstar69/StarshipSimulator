@@ -39,7 +39,7 @@ public class EnemyFleet {
 		
 		for (int i = 0; i < amount; i++) {
 			ships.add(new EnemyShip(0, 0, null));
-			reward+=(random.nextInt(5)*10)+50;
+			reward+=(random.nextInt(10)*10)+50;
 		}
 	}
 	public void damageFleet(int damage){

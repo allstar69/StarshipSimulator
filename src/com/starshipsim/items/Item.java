@@ -16,6 +16,9 @@ public abstract class Item {
 	}
 
 	public void setAmount(int amount) {
+		if(amount>200){
+			amount=200;
+		}
 		this.amount = amount;
 	}
 

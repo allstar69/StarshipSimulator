@@ -175,7 +175,7 @@ public class SectorState extends State {
 			sector.getEntities().add(new Explosion(sector.getOneIntersectingEntity(EnemyShip.class, Mine.class).getX()-16, sector.getOneIntersectingEntity(EnemyShip.class, Mine.class).getY()-16, sector.getOneIntersectingEntity(EnemyShip.class, Mine.class).getWidth()*2, sector.getOneIntersectingEntity(EnemyShip.class, Mine.class).getHeight()*2));
 			sector.getEntities().remove(sector.getOneIntersectingEntity(EnemyShip.class, Mine.class));
 		}
-		if(sector.checkCollision(EnemyShip.class, Asteroid.class)){
+		if(sector.checkCollision(Asteroid.class, EnemyShip.class)){
 			((EnemyShip)sector.getOneIntersectingEntity(Asteroid.class, EnemyShip.class)).getFleet().damageFleet(5);
 			sector.getEntities().remove(sector.getOneIntersectingEntity(EnemyShip.class, Asteroid.class));
 		}
@@ -277,11 +277,11 @@ public class SectorState extends State {
 		g.setColor(Color.white);
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
 		g.drawString(ship.getDurability()+"/"+ship.getMaxDurability(), 32, 32);
-		g.drawString(""+ship.getDistanceTravelled(), 32, 64);
+		g.drawString("$"+player.getMoney(), 32, 64);
 		g.setColor(Color.green);
 		g.fillRect(32, 96, player.getInventory().get(0).getAmount(), 32);
 		g.setColor(Color.white);
-		g.drawRect(32, 96, 100, 32);
+		g.drawRect(32, 96, 200, 32);
 	}
 
 	@Override
