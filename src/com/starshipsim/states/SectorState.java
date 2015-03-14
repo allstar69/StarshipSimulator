@@ -25,6 +25,7 @@ import com.starshipsim.entities.Ship;
 import com.starshipsim.entities.SpaceStation;
 import com.starshipsim.enums.Quality;
 import com.starshipsim.enums.SectorStateType;
+import com.starshipsim.graphics.SpaceBackgroundFx;
 import com.starshipsim.graphics.StarBackgroundFx;
 import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.shipmodules.PowerModule;
@@ -41,7 +42,7 @@ import com.sun.glass.events.KeyEvent;
 public class SectorState extends State {
 	private KeyboardListener keyboard;
 	
-	private StarBackgroundFx bg = new StarBackgroundFx(100, 1920, 1080);
+	private SpaceBackgroundFx bg = new SpaceBackgroundFx(100, 1920, 1080);
 
 	int currentOption = 0;
 
@@ -50,6 +51,8 @@ public class SectorState extends State {
 	
 	private Sector sector;
 	private Grid grid;
+	
+	
 	
 	public SectorState(StateManager manager) {
 		super(manager);
@@ -93,6 +96,7 @@ public class SectorState extends State {
 
 	@Override
 	public void update() {	
+		bg.update(keyboard, ship.getSpeed());
 		for(int i=0;i<12;i++){
 			for(int j=0;j<12;j++){
 				grid.getSector(j, i).update();
@@ -280,5 +284,8 @@ public class SectorState extends State {
 			ship.setDistanceTravelled(0);
 			
 		}
+	}
+	public void moveSpace(){
+		
 	}
 }
