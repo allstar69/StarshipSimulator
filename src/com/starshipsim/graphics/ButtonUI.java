@@ -14,6 +14,7 @@ public abstract class ButtonUI extends UIComponent {
 	private String text;
 	private GameMouseListener mouse;
 	private int spread;
+	private boolean isPressed = false;
 	
 	public String getText() {
 		return text;
@@ -58,8 +59,13 @@ public abstract class ButtonUI extends UIComponent {
 			if(getX() > startX-spread || getY() > startY-spread || getWidth() < startWidth+spread*2 || getHeight() < startHeight+spread*2) 
 				expand();
 			
-			if(mouse.isLeftPressed()) {
+			if(mouse.isLeftPressed() && isPressed == false) {
 				clicked();
+				isPressed = true;
+			}
+			
+			if(!mouse.isLeftPressed()) {
+				isPressed  = false;
 			}
 		} else {
 			if(getX() > startX || getY() > startY || getWidth() > startWidth || getHeight() > startHeight) 

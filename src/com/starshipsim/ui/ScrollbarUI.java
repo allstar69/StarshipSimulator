@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.starshipsim.graphics.ButtonUI;
 import com.starshipsim.listeners.GameMouseListener;
+import com.starshipsim.panels.ModuleSwapper;
 import com.starshipsim.panels.ShipModuleButton;
 import com.starshipsim.shipmodules.ShipModule;
 
@@ -31,7 +32,7 @@ public class ScrollbarUI extends UIComponent {
 		this.buttons = buttons;
 	}
 
-	public ScrollbarUI(ArrayList<ShipModule> modules, int x, int y, int width, int height, int maxShown, GameMouseListener mouse, DescriptionBoxUI desc) {
+	public ScrollbarUI(ArrayList<ShipModule> modules, int x, int y, int width, int height, int maxShown, GameMouseListener mouse, DescriptionBoxUI desc, ModuleSwapper swapper) {
 		super(x, y, width, height);
 		this.modules = modules;
 		
@@ -55,7 +56,7 @@ public class ScrollbarUI extends UIComponent {
 		}
 		
 		for (int i = start; i < end; i++) {
-			buttons[i] = new ShipModuleButton(this.getX() + 25, (this.getY() + 50) + (i*125), 300, 100, 10, mouse, modules.get(i), desc);
+			buttons[i] = new ShipModuleButton(this.getX() + 25, (this.getY() + 50) + (i*125), 300, 100, 10, mouse, modules.get(i), desc, swapper);
 		}
 	}
 	

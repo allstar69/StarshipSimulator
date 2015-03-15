@@ -3,12 +3,16 @@ package com.starshipsim.ui;
 import java.awt.Canvas;
 import java.awt.Graphics;
 
+import com.starshipsim.interfaces.Swappable;
+import com.starshipsim.listeners.GameMouseListener;
+import com.starshipsim.panels.ModuleSwapper;
 import com.starshipsim.shipmodules.ShipModule;
 
-public abstract class ShipSelector extends SelectionBoxUI {
+public class ShipSelector extends SelectionBoxUI implements Swappable<ShipModule>{
 
 	private ShipModule module;
 	private DescriptionBoxUI desc;
+	private ModuleSwapper swapper;
 	
 	public ShipModule getModule() {
 		return module;
@@ -18,14 +22,25 @@ public abstract class ShipSelector extends SelectionBoxUI {
 		this.module = module;
 	}
 
-	public ShipSelector(ShipModule module, DescriptionBoxUI desc, int x, int y, int width, int height) {
-		super(x, y, width, height);
+	public ShipSelector(ShipModule module, DescriptionBoxUI desc, int x, int y, int width, int height, ModuleSwapper swapper, GameMouseListener mouse) {
+		super(x, y, width, height, mouse);
 		this.module = module;
 		this.desc = desc;
+		this.swapper = swapper;
 	}
 
 	@Override
-	public abstract void clicked();
+	public void clicked() {
+		if(swapper.getSource() == null) {
+			swapper.setSource(this);
+		} else {
+			if(swapper.getDest() == null) {
+				swapper.setDest(this);
+			}
+		}
+		
+		swapper.activate();
+	}
 	
 	@Override
 	public void update(Canvas canvas) {
@@ -44,6 +59,16 @@ public abstract class ShipSelector extends SelectionBoxUI {
 	@Override
 	public void draw(Graphics g) {
 		super.draw(g);
+	}
+
+	@Override
+	public ShipModule getObject() {
+		return this.module;
+	}
+
+	@Override
+	public void setObject(ShipModule obj) {
+		module = obj;
 	}
 	
 }

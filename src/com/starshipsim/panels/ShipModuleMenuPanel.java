@@ -6,7 +6,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import com.starshipsim.entities.Player;
-import com.starshipsim.graphics.ButtonUI;
 import com.starshipsim.interfaces.Drawable;
 import com.starshipsim.items.Item;
 import com.starshipsim.shipmodules.ShipModule;
@@ -22,17 +21,17 @@ public class ShipModuleMenuPanel implements Drawable {
 	
 	private int x, y;
 	
-	public ShipModuleMenuPanel(StateManager manager, Player player, int x, int y) {		
+	public ShipModuleMenuPanel(StateManager manager, Player player, int x, int y, ModuleSwapper swapper) {		
 		fetchModulesInventory(player);
 		this.desc = new DescriptionBoxUI(500, 500, 250, 150);
 		this.desc.setVisible(false);
 		this.x = x;
 		this.y = y;
-		initializeButtons(manager);
+		initializeButtons(manager, swapper);
 	}
 	
-	public void initializeButtons(StateManager manager) {		
-		shipModules = new ScrollbarUI(modules, x, y, 350, 650, 5, manager.getMouse(), this.desc);
+	public void initializeButtons(StateManager manager, ModuleSwapper swapper) {		
+		shipModules = new ScrollbarUI(modules, x, y, 350, 650, 5, manager.getMouse(), this.desc, swapper);
 	}
 	
 	private void fetchModulesInventory(Player player) {

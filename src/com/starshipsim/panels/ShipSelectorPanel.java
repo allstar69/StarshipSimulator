@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.starshipsim.data.ShipData;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.interfaces.Drawable;
+import com.starshipsim.listeners.GameMouseListener;
 import com.starshipsim.shipmodules.WeaponModule;
 import com.starshipsim.ui.DescriptionBoxUI;
 import com.starshipsim.ui.SelectionBoxUI;
@@ -19,11 +20,11 @@ public class ShipSelectorPanel implements Drawable {
 	private ArrayList<SelectionBoxUI> selectors;
 	private DescriptionBoxUI desc;
 	
-	public ShipSelectorPanel(Ship ship) {
+	public ShipSelectorPanel(Ship ship, ModuleSwapper swapper, GameMouseListener mouse) {
 		this.ship = ship;
 		this.desc = new DescriptionBoxUI(500, 500, 250, 150);
 		this.desc.setVisible(false);
-		initializeSelectors();
+		initializeSelectors(swapper, mouse);
 	}
 	
 	
@@ -42,41 +43,21 @@ public class ShipSelectorPanel implements Drawable {
 		desc.draw(g);
 	}
 	
-	private void initializeSelectors() {
+	private void initializeSelectors(ModuleSwapper swapper, GameMouseListener mouse) {
 		ShipData data = this.ship.getData();
 		WeaponModule weapons = data.getWeapon();
 		
 		selectors = new ArrayList<>();
 		
-		selectors.add(new ShipSelector(weapons.getWeapons().get(0), desc, 375, 125, 50, 50) {
-			@Override
-			public void clicked() {
-			}
-		});
+		selectors.add(new ShipSelector(weapons.getWeapons().get(0), desc, 375, 125, 50, 50, swapper, mouse));
 		
-		selectors.add(new ShipSelector(weapons.getWeapons().get(1), desc, 450, 200, 50, 50) {
-			@Override
-			public void clicked() {
-			}
-		});
+		selectors.add(new ShipSelector(weapons.getWeapons().get(1), desc, 450, 200, 50, 50, swapper, mouse));
 		
-		selectors.add(new ShipSelector(weapons.getWeapons().get(2), desc, 450, 350, 50, 50) {
-			@Override
-			public void clicked() {
-			}
-		});
+		selectors.add(new ShipSelector(weapons.getWeapons().get(2), desc, 450, 350, 50, 50, swapper, mouse));
 		
-		selectors.add(new ShipSelector(weapons.getWeapons().get(3), desc, 375, 425, 50, 50) {
-			@Override
-			public void clicked() {
-			}
-		});
+		selectors.add(new ShipSelector(weapons.getWeapons().get(3), desc, 375, 425, 50, 50, swapper, mouse));
 		
-		selectors.add(new ShipSelector(data.getWarp(), desc, 100, 225, 150, 150) {
-			@Override
-			public void clicked() {
-			}
-		});
+		selectors.add(new ShipSelector(data.getWarp(), desc, 100, 225, 150, 150, swapper, mouse));
 	}
 	
 	public void updateSelectors(Canvas canvas) {

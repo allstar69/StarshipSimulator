@@ -7,16 +7,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 
+import com.starshipsim.listeners.GameMouseListener;
+
 public abstract class SelectionBoxUI extends UIComponent {
 	
 	private int startX, startY, startWidth, startHeight;
+	private GameMouseListener mouse;
 	
-	public SelectionBoxUI(int x, int y, int width, int height) {
+	public SelectionBoxUI(int x, int y, int width, int height, GameMouseListener mouse) {
 		super(x, y, width, height);
 		this.startX = x;
 		this.startY = y;
 		this.startWidth = width;
 		this.startHeight = height;
+		this.mouse = mouse;
 	}
 	
 	public abstract void clicked();
@@ -25,6 +29,10 @@ public abstract class SelectionBoxUI extends UIComponent {
 		if(this.mouseInside(canvas)) {
 			if(getX() > startX-10 || getY() > startY-10 || getWidth() < startWidth+20 || getWidth() < startHeight+20) {
 				expand();
+				
+				if(mouse.isLeftPressed()) {
+					clicked();
+				}
 			}
 		} else {
 			if(getX() > startX || getY() > startY || getWidth() > startWidth || getHeight() > startHeight) 
