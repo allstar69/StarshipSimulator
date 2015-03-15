@@ -42,8 +42,7 @@ import com.sun.glass.events.KeyEvent;
 public class SectorState extends State {
 	private KeyboardListener keyboard;
 	
-	private SpaceBackgroundFx bg = new SpaceBackgroundFx(100, 1920, 1080);
-
+	private SpaceBackgroundFx bg;
 	int currentOption = 0;
 
 	private Player player;
@@ -60,7 +59,7 @@ public class SectorState extends State {
 		
 		this.player = new Player(createShip(), 500, 500, this.keyboard);
 		this.ship = player.getShip();
-		
+		bg = new SpaceBackgroundFx(100, 1920, 1080, ship);
 		this.grid = new Grid();
 		grid.setShipLocation(player.getShip(), player.getShip().getSecX(), player.getShip().getSecY());
 		

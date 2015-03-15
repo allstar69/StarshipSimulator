@@ -4,20 +4,22 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import com.starshipsim.entities.Ship;
 import com.starshipsim.listeners.KeyboardListener;
 
 public class SpaceBackgroundFx {
 	private int amount;
 	private int width, height;
 	private int x, y;
+	private Ship ship;
 	private StarFx[] stars1;
 	private StarFx[] stars2;
 	
-	public SpaceBackgroundFx(int amount, int width, int height) {
+	public SpaceBackgroundFx(int amount, int width, int height, Ship ship) {
 		this.amount = amount;
 		this.width = width;
 		this.height = height;
-		
+		this.ship=ship;
 		initializeStars();
 	}
 	
@@ -43,7 +45,7 @@ public class SpaceBackgroundFx {
 	}
 
 	public void update(KeyboardListener key, int speed) {
-		if(key.keyDown(KeyEvent.VK_W)){
+		if(key.keyDown(KeyEvent.VK_W) && ship.getDurability()>0 && ship.getY()>1){
 			for (StarFx starFx : stars1) {
 				starFx.setY(starFx.getY()+speed/2);
 			}
@@ -52,7 +54,7 @@ public class SpaceBackgroundFx {
 			}
 			
 		}
-		else if(key.keyDown(KeyEvent.VK_S)){
+		else if(key.keyDown(KeyEvent.VK_S)&& ship.getDurability()>0 &&ship.getY()-32<1000){
 			for (StarFx starFx : stars1) {
 				starFx.setY(starFx.getY()-speed/2);
 			}
@@ -60,7 +62,7 @@ public class SpaceBackgroundFx {
 				starFx.setY(starFx.getY()-speed/2);
 			}	
 		}
-		if(key.keyDown(KeyEvent.VK_A)){
+		if(key.keyDown(KeyEvent.VK_A)&& ship.getDurability()>0 && ship.getX()>1){
 			for (StarFx starFx : stars1) {
 				starFx.setX(starFx.getX()+speed/2);
 			}
@@ -68,7 +70,7 @@ public class SpaceBackgroundFx {
 				starFx.setX(starFx.getX()+speed/2);
 			}
 		}
-		else if(key.keyDown(KeyEvent.VK_D)){
+		else if(key.keyDown(KeyEvent.VK_D)&& ship.getDurability()>0 &&ship.getX()+32<1920){
 			for (StarFx starFx : stars1) {
 				starFx.setX(starFx.getX()-speed/2);
 			}
