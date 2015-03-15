@@ -162,7 +162,9 @@ public class CombatState extends State {
 	}
 	
 	private void drawHUD(Graphics g, Canvas canvas) {
-		
+		if(shieldsUp){
+			g.drawImage(ImageManager.shield, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
+		}
 		g.drawImage(ImageManager.combatHud, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
 	}
 	
