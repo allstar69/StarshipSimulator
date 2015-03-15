@@ -49,10 +49,10 @@ public class ShipSelector extends SelectionBoxUI implements Swappable<ShipModule
 		if(this.mouseInside(canvas)) {
 			desc.getDesc().clear();
 			
-			desc.setVisible(true);
-			
 			desc.getDesc().add(module.getName());
 			desc.getDesc().add("Quality: " + module.getQuality().toString());
+			
+			desc.setVisible(true);
 		}
 	}
 	

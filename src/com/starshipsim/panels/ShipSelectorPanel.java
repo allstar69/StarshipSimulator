@@ -11,13 +11,12 @@ import com.starshipsim.interfaces.Drawable;
 import com.starshipsim.listeners.GameMouseListener;
 import com.starshipsim.shipmodules.WeaponModule;
 import com.starshipsim.ui.DescriptionBoxUI;
-import com.starshipsim.ui.SelectionBoxUI;
 import com.starshipsim.ui.ShipSelector;
 
 public class ShipSelectorPanel implements Drawable {
 
 	private Ship ship;
-	private ArrayList<SelectionBoxUI> selectors;
+	private ArrayList<ShipSelector> selectors;
 	private DescriptionBoxUI desc;
 	
 	public ShipSelectorPanel(Ship ship, ModuleSwapper swapper, GameMouseListener mouse) {
@@ -36,7 +35,7 @@ public class ShipSelectorPanel implements Drawable {
 	public void draw(Graphics g) {
 		g.drawImage(ship.getImage(), 50, 50, 500, 500, null);
 
-		for (SelectionBoxUI selector : selectors) {
+		for (ShipSelector selector : selectors) {
 			selector.draw(g);
 		}
 		
@@ -63,7 +62,7 @@ public class ShipSelectorPanel implements Drawable {
 	public void updateSelectors(Canvas canvas) {
 		int count = 0;
 		
-		for (SelectionBoxUI selector : selectors) {
+		for (ShipSelector selector : selectors) {
 			selector.update(canvas);
 			
 			if(!selector.mouseInside(canvas)) {

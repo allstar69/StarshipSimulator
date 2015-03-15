@@ -2,11 +2,13 @@ package com.starshipsim.panels;
 
 import java.awt.Canvas;
 
+import com.starshipsim.enums.Quality;
 import com.starshipsim.graphics.ButtonUI;
 import com.starshipsim.interfaces.Swappable;
 import com.starshipsim.listeners.GameMouseListener;
 import com.starshipsim.shipmodules.ShipModule;
 import com.starshipsim.ui.DescriptionBoxUI;
+import com.starshipsim.weapons.Weapon;
 
 public class ShipModuleButton extends ButtonUI implements Swappable<ShipModule> {
 
@@ -33,14 +35,15 @@ public class ShipModuleButton extends ButtonUI implements Swappable<ShipModule> 
 	public void update(Canvas canvas) {
 		super.update(canvas);
 		
-		if(this.mouseInside(canvas)) {
+		this.setText(this.module.getName());
+		
+		if(this.mouseInside(canvas)) {			
 			desc.getDesc().clear();
 			
-			desc.setVisible(true);
-			
 			desc.getDesc().add(module.getName());
-			this.setText(this.module.getName());
 			desc.getDesc().add("Quality: " + module.getQuality().toString());
+			
+			desc.setVisible(true);
 		}
 	}
 

@@ -13,6 +13,7 @@ public abstract class SelectionBoxUI extends UIComponent {
 	
 	private int startX, startY, startWidth, startHeight;
 	private GameMouseListener mouse;
+	private boolean isPressed = false;
 	
 	public SelectionBoxUI(int x, int y, int width, int height, GameMouseListener mouse) {
 		super(x, y, width, height);
@@ -27,12 +28,17 @@ public abstract class SelectionBoxUI extends UIComponent {
 	
 	public void update(Canvas canvas) {
 		if(this.mouseInside(canvas)) {
+			if(mouse.isLeftPressed() && isPressed  == false) {
+				clicked();
+				isPressed = true;
+			}
+			
+			if(!mouse.isLeftPressed()) {
+				isPressed  = false;
+			}
+			
 			if(getX() > startX-10 || getY() > startY-10 || getWidth() < startWidth+20 || getWidth() < startHeight+20) {
 				expand();
-				
-				if(mouse.isLeftPressed()) {
-					clicked();
-				}
 			}
 		} else {
 			if(getX() > startX || getY() > startY || getWidth() > startWidth || getHeight() > startHeight) 

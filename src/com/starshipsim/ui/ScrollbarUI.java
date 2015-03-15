@@ -58,6 +58,11 @@ public class ScrollbarUI extends UIComponent {
 		for (int i = start; i < end; i++) {
 			buttons[i] = new ShipModuleButton(this.getX() + 25, (this.getY() + 50) + (i*125), 300, 100, 10, mouse, modules.get(i), desc, swapper);
 		}
+		
+		for (int i = start; i < end; i++) {
+			buttons[i-start].setModule(modules.get(i));
+			buttons[i-start].setText(modules.get(i).getName());
+		}
 	}
 	
 	public void initializeButtons(GameMouseListener mouse) {
@@ -103,11 +108,6 @@ public class ScrollbarUI extends UIComponent {
 	public void update(Canvas canvas) {
 		for (ButtonUI buttonUI : buttons) {
 			buttonUI.update(canvas);
-		}
-		
-		for (int i = start; i < end; i++) {
-			buttons[i-start].setModule(modules.get(i));
-			buttons[i-start].setText(modules.get(i).getName());
 		}
 		
 		this.upButton.update(canvas);
