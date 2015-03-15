@@ -234,7 +234,7 @@ public class SectorState extends State {
 		}
 		if(sector.checkCollision(ship, Planet.class)){
 			if(sector.getState() == SectorStateType.EXPLORABLE || sector.getState() == SectorStateType.NEUTRAL){
-				if(keyboard.keyDown(KeyEvent.VK_ENTER)){
+				if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
 					if (!sector.isHostile()) {	
 						if(sector.isExplored()){
 							ArrayList<String> tempMessage = new ArrayList<String>();
