@@ -1,5 +1,7 @@
 package com.starshipsim.states;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
@@ -25,6 +27,7 @@ import com.starshipsim.entities.Ship;
 import com.starshipsim.entities.SpaceStation;
 import com.starshipsim.enums.Quality;
 import com.starshipsim.enums.SectorStateType;
+import com.starshipsim.files.FileIO;
 import com.starshipsim.graphics.SpaceBackgroundFx;
 import com.starshipsim.graphics.StarBackgroundFx;
 import com.starshipsim.listeners.KeyboardListener;
@@ -50,7 +53,9 @@ public class SectorState extends State {
 	
 	private Sector sector;
 	private Grid grid;
-	
+	private AudioClip laser;
+	private AudioClip explosion;
+	private AudioClip bgmusic;
 	
 	
 	public SectorState(StateManager manager) {
@@ -68,6 +73,10 @@ public class SectorState extends State {
 		
 		sector = manager.getGrid().getSector(ship.getSecX(), ship.getSecY());
 		initialize();
+		laser=FileIO.loadSound("/sounds/Laser_Shoot.wav");
+		explosion=FileIO.loadSound("/sounds/Explosion.wav");
+		bgmusic=FileIO.loadSound("/sounds/explore!.wav");
+		bgmusic.loop();
 	}
 	
 	public ShipData createShip() {
@@ -141,10 +150,12 @@ public class SectorState extends State {
 			manager.addState(new MapState(manager));
 		}
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
+			bgmusic.stop();
 			manager.popState();
 		}		
 		if(keyboard.keyDownOnce(KeyEvent.VK_SPACE) && !ship.isDestroyed()){
 			sector.getEntities().add(ship.shootBullet());
+			laser.play();
 		}
 		ship.update();
 		ship.move(this.getCanvas());
@@ -163,6 +174,7 @@ public class SectorState extends State {
 //		}
 		if(sector.checkCollision(Bullet.class, EnemyShip.class)){
 				((EnemyShip)sector.getOneIntersectingEntity(Bullet.class, EnemyShip.class)).getFleet().damageFleet(5);
+				bgmusic.stop();
 				manager.addState(new CombatState(manager, new CombatData(player, ((EnemyShip)sector.getOneIntersectingEntity(Bullet.class, EnemyShip.class)).getFleet()))); 
 				sector.getEntities().remove(sector.getOneIntersectingEntity(EnemyShip.class, Bullet.class));
 		}
@@ -205,10 +217,12 @@ public class SectorState extends State {
 				ship.setX(ship.getX()+ship.getWidth()+10);
 				ship.setY(ship.getY()+ship.getHeight()/2);
 				sector.getEntities().remove(sector.getOneIntersectingEntity(ship, EnemySpaceStation.class));
+				bgmusic.stop();
 				manager.addState(new CombatState(manager, new CombatData(player, new StationFleet()))); 
 			}
 		}
 		if(sector.checkCollision(ship, EnemyShip.class)) {
+				bgmusic.stop();
 				manager.addState(new CombatState(manager, new CombatData(player, ((EnemyShip)sector.getOneIntersectingEntity(ship, EnemyShip.class)).getFleet())));
 				((EnemyShip)sector.getOneIntersectingEntity(ship, EnemyShip.class)).setDrot(0);
 				((EnemyShip)sector.getOneIntersectingEntity(ship, EnemyShip.class)).setRot(0f);
@@ -225,6 +239,7 @@ public class SectorState extends State {
 		if(sector.checkCollision(ship, Mine.class)) {
 			ship.setDurability(ship.getDurability()-10);
 			sector.getEntities().add(new Explosion(sector.getOneIntersectingEntity(ship, Mine.class).getX()-16, sector.getOneIntersectingEntity(ship, Mine.class).getY()-16, sector.getOneIntersectingEntity(ship, Mine.class).getWidth()*2, sector.getOneIntersectingEntity(ship, Mine.class).getHeight()*2));
+			explosion.play();
 		}
 
 		if(sector.checkCollision(ship, BlackHole.class)) {
@@ -322,5 +337,13 @@ public class SectorState extends State {
 	}
 	public void moveSpace(){
 		
+	}
+
+	public AudioClip getBgmusic() {
+		return bgmusic;
+	}
+
+	public void setBgmusic(AudioClip bgmusic) {
+		this.bgmusic = bgmusic;
 	}
 }
