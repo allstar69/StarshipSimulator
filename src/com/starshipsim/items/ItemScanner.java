@@ -10,7 +10,7 @@ public class ItemScanner extends Item {
 		setPrice(250);
 		setAmount(amount);
 		setName("Scanner");
-		setDescription("I assume the scanner scans things?");
+		setDescription("The scanner can scan enemies to see their health and are used to identify unknown sectors.");
 		setIndex(5);
 		setBattleItem(true);
 	}
