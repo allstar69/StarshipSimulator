@@ -255,7 +255,7 @@ public class SectorState extends State {
 							tempMessage.add("You have already explored this planet!");
 							manager.addState(new NotifyState(manager, tempMessage));	
 						} else {
-							manager.addState(new ExplorableState(manager, player, (ExplorableSector) sector));
+							manager.addState(new ExplorableState(manager, player, (ExplorableSector) sector, sector.getOneIntersectingEntity(ship, Planet.class).getImage()));
 							((ExplorableSector) sector).run(player);
 							sector.setExplored(true);
 						}
