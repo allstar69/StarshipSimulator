@@ -12,6 +12,7 @@ public class MainMenuState extends State {
 	private ButtonUI playButton;
 	private ButtonUI loadButton;
 	private ButtonUI exitButton;
+	private ButtonUI creditsButton;
 
 	public MainMenuState(StateManager manager) {
 		super(manager);
@@ -40,6 +41,12 @@ public class MainMenuState extends State {
 				System.exit(0);
 			}
 		};
+		creditsButton = new ButtonUI("Credits", 25, 980, 200, 70, 10, manager.getMouse()) {
+			@Override
+			public void clicked() {
+				manager.addState(new CreditsState(manager));
+			}
+		};
 	}
 
 	@Override
@@ -48,6 +55,7 @@ public class MainMenuState extends State {
 		playButton.update(this.getCanvas());
 		loadButton.update(this.getCanvas());
 		exitButton.update(this.getCanvas());
+		creditsButton.update(this.getCanvas());
 	}
 
 	@Override
@@ -56,13 +64,15 @@ public class MainMenuState extends State {
 
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 128));
 
-		g.drawString("Starship Sim", 50, 200);
+		g.drawString("Ztar Warz", 50, 200);
 
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 72));
 
 		playButton.draw(g);
 		loadButton.draw(g);
 		exitButton.draw(g);
+		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
+		creditsButton.draw(g);
 		
 		g.drawImage(ImageManager.controls, 400, 300, null);
 	}
