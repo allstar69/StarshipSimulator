@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import com.starshipsim.entities.Player;
 import com.starshipsim.graphics.ButtonUI;
+import com.starshipsim.graphics.ImageManager;
 import com.starshipsim.graphics.StarBackgroundFx;
 import com.starshipsim.panels.ModuleSwapper;
 import com.starshipsim.panels.ShipModuleMenuPanel;
@@ -15,7 +16,7 @@ public class ShipBuilderState extends State {
 	private ShipSelectorPanel selectorPanel;
 	private ShipModuleMenuPanel shipModuleMenu;
 	private ModuleSwapper swapper;
-	
+
 	private ButtonUI exitButton;
 	
 	public ShipBuilderState(StateManager manager, Player player) {
@@ -24,13 +25,14 @@ public class ShipBuilderState extends State {
 		this.selectorPanel = new ShipSelectorPanel(player.getShip(), swapper, this.getManager().getMouse());
 		this.shipModuleMenu = new ShipModuleMenuPanel(this.getManager(), player, 1525, 50, swapper);
 		
-		initializeButtons();
+		initializeButtons(player);
 	}
 	
-	public void initializeButtons() {
+	public void initializeButtons(Player player) {
 		this.exitButton = new ButtonUI("Return", 50, 930, 300, 100, 10, manager.getMouse()) {
 			@Override
 			public void clicked() {
+				manager.getPlayer().setShip(selectorPanel.getShip());
 				manager.popState();
 			}
 		};

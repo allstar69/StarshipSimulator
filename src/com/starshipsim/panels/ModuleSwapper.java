@@ -25,8 +25,11 @@ public class ModuleSwapper {
 			ShipModule module1 = source.getObject();
 			ShipModule module2 = dest.getObject();
 			
-			source.setObject(module2);
-			dest.setObject(module1);;
+			Class<?> c = module1.getClass();
+			if(module2.getClass().equals(c)) {
+				source.setObject(module2);
+				dest.setObject(module1);;
+			}
 			
 			this.source = null;
 			this.dest = null;

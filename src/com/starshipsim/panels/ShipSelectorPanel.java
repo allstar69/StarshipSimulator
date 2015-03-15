@@ -9,9 +9,11 @@ import com.starshipsim.data.ShipData;
 import com.starshipsim.entities.Ship;
 import com.starshipsim.interfaces.Drawable;
 import com.starshipsim.listeners.GameMouseListener;
+import com.starshipsim.shipmodules.WarpCoreModule;
 import com.starshipsim.shipmodules.WeaponModule;
 import com.starshipsim.ui.DescriptionBoxUI;
 import com.starshipsim.ui.ShipSelector;
+import com.starshipsim.weapons.Weapon;
 
 public class ShipSelectorPanel implements Drawable {
 
@@ -19,6 +21,23 @@ public class ShipSelectorPanel implements Drawable {
 	private ArrayList<ShipSelector> selectors;
 	private DescriptionBoxUI desc;
 	
+	public Ship getShip() {
+		ArrayList<Weapon> weapons = new ArrayList<Weapon>();
+		for (ShipSelector shipSelector : selectors) {
+			if(shipSelector.getModule() instanceof Weapon) {
+				weapons.add((Weapon) shipSelector.getModule());
+			}
+			
+			if(shipSelector.getModule() instanceof WarpCoreModule) {
+				ship.getData().setWarp((WarpCoreModule) shipSelector.getModule());
+			}
+		}
+		
+		ship.getData().setWeapon(new WeaponModule(ship.getData().getWeapon().getQuality(), weapons));
+		
+		return ship;
+	}
+
 	public ShipSelectorPanel(Ship ship, ModuleSwapper swapper, GameMouseListener mouse) {
 		this.ship = ship;
 		this.desc = new DescriptionBoxUI(500, 500, 250, 150);
