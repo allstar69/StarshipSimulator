@@ -112,7 +112,9 @@ public class ExplorableSector extends Sector {
 				getUpdate().add(r.getRewardItem().toString());
 			}
 		}
-		
+		if(getUpdate().size()==0){
+			getUpdate().add("The planet is barren.");
+		}
 	}
 
 

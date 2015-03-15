@@ -14,7 +14,7 @@ public class Sabotage extends Obstacle {
 	
 	public void run(Player play){
 		Random ran = new Random();
-		double percentToBeSabotaged = ran.nextInt(20);
+		double percentToBeSabotaged = ran.nextInt(15) + 5;
 			percentToBeSabotaged = percentToBeSabotaged / 100;
 		double damageAmount = percentToBeSabotaged * (play.getShip().getDurability());
 		setRealDamage((int)damageAmount);
