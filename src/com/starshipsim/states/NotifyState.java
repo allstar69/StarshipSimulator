@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import com.starshipsim.files.FileIO;
+import com.starshipsim.graphics.StarBackgroundFx;
 import com.starshipsim.graphics.TiledBackground;
 import com.starshipsim.listeners.KeyboardListener;
 
@@ -17,7 +18,7 @@ public class NotifyState extends State{
 		setMessages(msgs);
 		
 	}
-	private TiledBackground bg = new TiledBackground(FileIO.loadImage("resources/spaceBackground.png"), 0, 0);
+	private StarBackgroundFx bg = new StarBackgroundFx(100, 1920, 1080);
 	private ArrayList<String> messages;
 	@Override
 	public void initialize() {
@@ -31,13 +32,13 @@ public class NotifyState extends State{
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			manager.popState();
 		}
-	
+		bg.update();
 		
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		bg.draw(g, this.getCanvas());
+		bg.draw(g);
 		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 58));
 		
