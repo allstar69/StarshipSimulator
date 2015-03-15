@@ -75,7 +75,7 @@ public class SectorState extends State {
 		initialize();
 		laser=FileIO.loadSound("/sounds/Laser_Shoot.wav");
 		explosion=FileIO.loadSound("/sounds/Explosion.wav");
-		bgmusic=FileIO.loadSound("/sounds/explore!.wav");
+		bgmusic=FileIO.loadSound("/sounds/Pamgaea.wav");
 		bgmusic.loop();
 	}
 	
