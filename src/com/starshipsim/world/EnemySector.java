@@ -18,17 +18,17 @@ public class EnemySector extends Sector {
 	public void generateContent() {
 		Random random = new Random();
 		
-		int stationAmount = random.nextInt(4)+1;
+		int stationAmount = random.nextInt(2)+1;
 		
 		for (int i = 0; i < stationAmount; i++) {
-			int x = random.nextInt(1000);
-			int y = random.nextInt(1000);
+			int x = random.nextInt(1200);
+			int y = random.nextInt(600);
 			
 			EnemySpaceStation station = new EnemySpaceStation(x, y);
 			
 			while(this.checkCollision(station, EnemySpaceStation.class)) {
-				x = random.nextInt(1000);
-				y = random.nextInt(1000);
+				x = random.nextInt(1200);
+				y = random.nextInt(600);
 				
 				station.setX(x);
 				station.setY(y);
