@@ -300,7 +300,7 @@ public class SectorState extends State {
 
 	@Override
 	public void end() {
-
+		
 	}
 	public boolean checkForEnemySectors(){
 		boolean enemiesLeft = false;

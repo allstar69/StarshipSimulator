@@ -377,6 +377,7 @@ public class CombatState extends State {
 			manager.popState();
 			player.setMoney(player.getMoney()+data.getEnemies().getReward());
 		}
+		lasers.stop();
 	}
 	public void playerAttack(){
 		cursorY=870;
