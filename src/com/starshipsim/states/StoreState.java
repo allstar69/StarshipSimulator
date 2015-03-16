@@ -60,6 +60,12 @@ public class StoreState extends State {
 			int newWeaponQual = p.getShip().getData().getWeapon().getQuality().ordinal() + 1;
 			int newWarpQual = p.getShip().getData().getWarp().getQuality().ordinal() + 1;
 			
+			if (newPowerQual > 7) newPowerQual = 7;
+			if (newShieldQual > 7) newShieldQual = 7;
+			if (newPropQual > 7) newPropQual = 7;
+			if (newWeaponQual > 7) newWeaponQual = 7;
+			if (newWarpQual > 7) newWarpQual = 7;
+			
 			itemList[0] = Quality.values()[newPowerQual].toString().replace("_", " ") + " Power";
 			itemList[1] = Quality.values()[newShieldQual].toString().replace("_", " ") + " Shields";
 			itemList[2] = Quality.values()[newPropQual].toString().replace("_", " ") + " Propulsion";
