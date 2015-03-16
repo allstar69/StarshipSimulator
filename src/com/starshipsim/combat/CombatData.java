@@ -1,7 +1,6 @@
 package com.starshipsim.combat;
 
 import com.starshipsim.entities.Player;
-import com.starshipsim.entities.Ship;
 
 public class CombatData {
 

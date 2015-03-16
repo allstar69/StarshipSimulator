@@ -7,7 +7,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.util.ArrayList;
 
 import com.starshipsim.entities.Player;
@@ -120,7 +119,6 @@ public class StoreState extends State {
 		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
 			for(int ii = 0; ii < player.getInventory().size(); ii++) {
 				if (player.getInventory().get(ii) instanceof ShipModule && player.getInventory().get(ii).getAmount() == 0) {
-					System.out.println("I ran too: " + ii);
 					player.getInventory().remove(ii);
 					ii--;
 				}
