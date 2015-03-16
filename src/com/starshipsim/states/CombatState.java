@@ -82,7 +82,7 @@ public class CombatState extends State {
 		explosion=FileIO.loadSound("/sounds/Explosion.wav");
 		lasers=FileIO.loadSound("/sounds/ShootMany.wav");
 		laser=FileIO.loadSound("/sounds/Laser_Shoot.wav");
-		bgmusic=FileIO.loadSound("/sounds/Corneria.wav");
+		bgmusic=FileIO.loadSound("/sounds/Kick Shock.wav");
 		bgmusic.play();
 	}
 
@@ -162,7 +162,9 @@ public class CombatState extends State {
 	}
 	
 	private void drawHUD(Graphics g, Canvas canvas) {
-		
+		if(shieldsUp){
+			g.drawImage(ImageManager.shield, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
+		}
 		g.drawImage(ImageManager.combatHud, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
 	}
 	
@@ -373,10 +375,12 @@ public class CombatState extends State {
 		cursorX=800;
 		if(keyboard.keyDownOnce(KeyEvent.VK_ENTER)){
 			bgmusic.stop();
+			lasers.stop();
 			((SectorState)manager.getPreviousState()).getBgmusic().play();
 			manager.popState();
 			player.setMoney(player.getMoney()+data.getEnemies().getReward());
 		}
+		lasers.stop();
 	}
 	public void playerAttack(){
 		cursorY=870;

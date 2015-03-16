@@ -75,7 +75,7 @@ public class SectorState extends State {
 		initialize();
 		laser=FileIO.loadSound("/sounds/Laser_Shoot.wav");
 		explosion=FileIO.loadSound("/sounds/Explosion.wav");
-		bgmusic=FileIO.loadSound("/sounds/explore!.wav");
+		bgmusic=FileIO.loadSound("/sounds/Pamgaea.wav");
 		bgmusic.loop();
 	}
 	
@@ -124,7 +124,7 @@ public class SectorState extends State {
 			if(sector.getEntities().get(i)instanceof EnemyShip){
 				EnemyShip e=((EnemyShip) sector.getEntities().get(i));
 				double distance = Math.sqrt(Math.pow((ship.getX()-e.getX()), 2)+Math.pow((ship.getY()-e.getY()), 2));
-				if(distance<400){
+				if(distance<400 && !ship.isDestroyed()){
 					double xDis = ship.getX()-e.getX();
 					double yDis = ship.getY()-e.getY();
 					double neg=180;
@@ -148,11 +148,7 @@ public class SectorState extends State {
 		}
 		if (keyboard.keyDownOnce(KeyEvent.VK_Q) && !ship.isDestroyed()) {
 			manager.addState(new MapState(manager));
-		}
-		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
-			bgmusic.stop();
-			manager.popState();
-		}		
+		}	
 		if(keyboard.keyDownOnce(KeyEvent.VK_SPACE) && !ship.isDestroyed()){
 			sector.getEntities().add(ship.shootBullet());
 			laser.play();
@@ -255,7 +251,7 @@ public class SectorState extends State {
 							tempMessage.add("You have already explored this planet!");
 							manager.addState(new NotifyState(manager, tempMessage));	
 						} else {
-							manager.addState(new ExplorableState(manager, player, (ExplorableSector) sector));
+							manager.addState(new ExplorableState(manager, player, (ExplorableSector) sector, sector.getOneIntersectingEntity(ship, Planet.class).getImage()));
 							((ExplorableSector) sector).run(player);
 							sector.setExplored(true);
 						}
@@ -300,7 +296,7 @@ public class SectorState extends State {
 
 	@Override
 	public void end() {
-
+		
 	}
 	public boolean checkForEnemySectors(){
 		boolean enemiesLeft = false;

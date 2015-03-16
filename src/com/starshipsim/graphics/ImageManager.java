@@ -26,6 +26,7 @@ public class ImageManager {
 	
 	//GUI
 	public static Image combatHud = FileIO.loadImage("resources/combat_hud.png");
+	public static Image shield = FileIO.loadImage("resources/shield.png");
 	public static Image laser = FileIO.loadImage("resources/laser1.png");
 	public static Image elaser = FileIO.loadImage("resources/laser2.png");
 	public static Image smallMenu = FileIO.loadImage("resources/smallmenu.png");

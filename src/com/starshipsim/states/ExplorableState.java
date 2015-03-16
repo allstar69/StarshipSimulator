@@ -3,7 +3,9 @@ package com.starshipsim.states;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 import com.starshipsim.entities.Player;
 import com.starshipsim.files.FileIO;
@@ -13,12 +15,14 @@ import com.starshipsim.listeners.KeyboardListener;
 import com.starshipsim.world.ExplorableSector;
 
 public class ExplorableState extends State{
-	
+	private Image img;
 	private StarBackgroundFx bg = new StarBackgroundFx(100, 1920, 1080);
 	private ExplorableSector es;
-	public ExplorableState(StateManager manager, Player player, ExplorableSector tempes) {
+	public ExplorableState(StateManager manager, Player player, ExplorableSector tempes, Image planet) {
 		super(manager);
 		setEs(tempes);
+		Random random=new Random();
+		img = planet;
 	}
 
 	@Override
@@ -39,8 +43,9 @@ public class ExplorableState extends State{
 
 	@Override
 	public void draw(Graphics g) {
-		bg.draw(g);
 		
+		bg.draw(g);
+		g.drawImage(img, 1200, 400, 600, 600, null);
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 58));
 		
 		g.setColor(Color.white);
