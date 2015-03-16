@@ -76,6 +76,11 @@ public class ScrollbarUI extends UIComponent {
 					start = 0;
 					end = start+MAX_SHOWN;
 				}
+				
+				for (int i = start; i < end; i++) {
+					buttons[i-start].setModule(modules.get(i));
+					buttons[i-start].setText(modules.get(i).getName());
+				}
 			}
 		};
 		
@@ -85,9 +90,14 @@ public class ScrollbarUI extends UIComponent {
 				start++;
 				end++;
 				
-				if(end >= modules.size()-1) {
+				if(end > modules.size()-1) {
 					end = modules.size();
 					start = end-MAX_SHOWN;
+				}
+				
+				for (int i = start; i < end; i++) {
+					buttons[i-start].setModule(modules.get(i));
+					buttons[i-start].setText(modules.get(i).getName());
 				}
 			}
 		};
