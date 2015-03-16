@@ -21,7 +21,7 @@ public class MapState extends State {
 	private int scienceLevel = 0;
 	private int probeCount;
 
-	private String log1 = "Do the thing!";
+	private String log1 = "";
 	private String log2 = "";
 	
 	private KeyboardListener keyboard;

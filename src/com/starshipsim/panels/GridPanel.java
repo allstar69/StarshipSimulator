@@ -2,6 +2,8 @@ package com.starshipsim.panels;
 
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 import com.starshipsim.entities.Ship;
 import com.starshipsim.graphics.ImageManager;
@@ -13,7 +15,7 @@ public class GridPanel {
 	
 	private MapState state;
 	
-	int x, y;
+	private int x, y;
 	
 	public GridPanel(MapState state, int x, int y) {
 		this.x = x;
@@ -39,7 +41,9 @@ public class GridPanel {
 			g.drawString("" + i, this.x + 12, this.y + i * 64 + 4);
 			g.drawString(((char) (i + 96)) + "", this.x + i * 64 - 4, this.y + 24);
 		}
-		
-		g.drawImage(ship.getImage(),this.x + 48 + 64 * ship.getSecX(), this.y + 48 + 64 * ship.getSecY(), null);
+		AffineTransform xform= new AffineTransform();
+		xform.setToTranslation(this.x + 48 + 64 * ship.getSecX(), this.y + 48 + 64 * ship.getSecY());
+		xform.rotate(ship.getRot() * Math.PI / 180, 16, 16);
+		((Graphics2D) g).drawImage(ship.getImage(), xform, null);
 	}
 }

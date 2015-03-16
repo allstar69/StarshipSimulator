@@ -31,6 +31,7 @@ public class MapMenuPanel {
 		this.x = x;
 		this.y = y;
 		this.state = state;
+		state.changeLog("What would you like to do?");
 	}
 	
 	public void draw(Graphics g) {
@@ -77,7 +78,7 @@ public class MapMenuPanel {
 	}
 
 	private void mainMenu() {
-		state.changeLog("Do the thing!");
+		
 
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (curY == 0) {
@@ -108,7 +109,7 @@ public class MapMenuPanel {
 		Ship ship = state.getShip();
 		WarpCoreModule warp = ship.getData().getWarp();
 		
-		state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
+		state.setLog1("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 		g.drawImage(ImageManager.cursor, 32 + (selX * 64), 32 + (selY * 64), null);
 		int yChange = 0, xChange = 0;
 		
@@ -159,13 +160,15 @@ public class MapMenuPanel {
 				state.changeLog("Enemies Detected");
 			}
 			level = 0;
+			state.changeLog("What would you like to do?");
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
 			level = 0;
+			state.changeLog("What would you like to do?");
 		}
 	}
 
 	private void getData(Graphics g) {
-		state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
+		state.setLog1("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 		g.drawImage(ImageManager.cursor, 32 + (selX * 64), 32 + (selY * 64), null);
 		
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
@@ -212,8 +215,10 @@ public class MapMenuPanel {
 			} else {
 				state.changeLog("That region is unknown.");
 			}
+			level = 0;
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
 			level = 0;
+			state.changeLog("What would you like to do?");
 		}
 	}
 
@@ -251,6 +256,7 @@ public class MapMenuPanel {
 			} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_SHIFT)) {
 				level = 0;
 				curY = 0;
+				state.changeLog("What would you like to do?");
 			}
 		} else if (state.getScienceLevel() == 2) {
 			launchProbe(g);
@@ -261,25 +267,25 @@ public class MapMenuPanel {
 		g.drawImage(ImageManager.cursor, 32 + (selX * 64), 32 + (selY * 64),
 				null);
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
-			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
+			state.setLog1("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 
 			if (selY != 0) {
 				selY--;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
-			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
+			state.setLog1("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 
 			if (selY != 11) {
 				selY++;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_A)) {
-			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
+			state.setLog1("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 
 			if (selX != 0) {
 				selX--;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_D)) {
-			state.changeLog("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
+			state.setLog1("Coordinates: " + ((char) (selX + 97)) + (selY + 1));
 
 			if (selX != 11) {
 				selX++;
