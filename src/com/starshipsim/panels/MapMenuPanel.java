@@ -15,6 +15,7 @@ import com.starshipsim.shipmodules.WarpCoreModule;
 import com.starshipsim.states.MapState;
 import com.starshipsim.states.SectorState;
 import com.starshipsim.world.Sector;
+import com.sun.media.jfxmedia.AudioClip;
 import com.sun.media.jfxmedia.events.NewFrameEvent;
 
 public class MapMenuPanel {
@@ -69,7 +70,9 @@ public class MapMenuPanel {
 			scienceStation(g);
 			break;
 		case 4:
+			((SectorState)state.getManager().getPreviousState()).getBgmusic().stop();
 			state.getManager().popState();
+			
 			state.getManager().popState();
 			break;
 		}
