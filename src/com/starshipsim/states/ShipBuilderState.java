@@ -33,6 +33,7 @@ public class ShipBuilderState extends State {
 			@Override
 			public void clicked() {
 				manager.getPlayer().setShip(selectorPanel.getShip());
+				manager.getPlayer().getInventory().addAll(shipModuleMenu.getModules());
 				manager.popState();
 			}
 		};

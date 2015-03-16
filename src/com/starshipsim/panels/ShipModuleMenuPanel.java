@@ -19,6 +19,10 @@ public class ShipModuleMenuPanel implements Drawable {
 	private DescriptionBoxUI desc;
 	private ScrollbarUI shipModules;
 	
+	public ArrayList<ShipModule> getModules() {
+		return modules;
+	}
+
 	private int x, y;
 	
 	public ShipModuleMenuPanel(StateManager manager, Player player, int x, int y, ModuleSwapper swapper) {		
@@ -42,6 +46,8 @@ public class ShipModuleMenuPanel implements Drawable {
 				modules.add((ShipModule) item);
 			}
 		}
+		
+		player.getInventory().removeAll(modules);
 	}
 	
 	public void updateDescBox(Canvas canvas) {
@@ -60,6 +66,7 @@ public class ShipModuleMenuPanel implements Drawable {
 	@Override
 	public void update(Canvas canvas) {
 		this.shipModules.update(canvas);
+		this.modules = this.shipModules.getModules();
 		
 		if(this.shipModules.getMouseInsideAmount(canvas) == this.shipModules.getButtons().length) {
 			desc.setVisible(false);

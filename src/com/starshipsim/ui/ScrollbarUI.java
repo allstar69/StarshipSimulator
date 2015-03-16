@@ -24,6 +24,16 @@ public class ScrollbarUI extends UIComponent {
 	private int start;
 	private int end;
 
+	public ArrayList<ShipModule> getModules() {
+		modules.clear();
+		
+		for (ShipModuleButton button : buttons) {
+			modules.add(button.getModule());
+		}
+		
+		return modules;
+	}
+
 	public ShipModuleButton[] getButtons() {
 		return buttons;
 	}
