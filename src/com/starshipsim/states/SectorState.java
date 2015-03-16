@@ -46,7 +46,7 @@ public class SectorState extends State {
 	private KeyboardListener keyboard;
 	
 	private SpaceBackgroundFx bg;
-	int currentOption = 0;
+	private int currentOption = 0;
 
 	private Player player;
 	private Ship ship;
@@ -121,7 +121,7 @@ public class SectorState extends State {
 		sector = grid.getSector(ship.getSecX(), ship.getSecY());
 		sector.setKnown(true);
 		for(int i=0;i<sector.getEntities().size();i++){
-			if(sector.getEntities().get(i)instanceof EnemyShip){
+			if(sector.getEntities().get(i) instanceof EnemyShip){
 				EnemyShip e=((EnemyShip) sector.getEntities().get(i));
 				double distance = Math.sqrt(Math.pow((ship.getX()-e.getX()), 2)+Math.pow((ship.getY()-e.getY()), 2));
 				if(distance<400 && !ship.isDestroyed()){
@@ -132,6 +132,36 @@ public class SectorState extends State {
 						neg=0;
 					}
 					e.setRot(((Math.atan(yDis/xDis))*180/Math.PI)+neg);
+				}
+				for(int j=0;j<sector.getEntities().size();j++){
+					if(sector.getEntities().get(j) instanceof BlackHole){
+						if(e.getX()>sector.getEntities().get(j).getX()+sector.getEntities().get(j).getWidth()/2){
+							e.setX(e.getX()-e.getSpeed()/2);
+						}
+						else if(e.getX()+e.getWidth()<sector.getEntities().get(j).getX()+sector.getEntities().get(j).getWidth()/2){
+							e.setX(e.getX()+e.getSpeed()/2);
+						}
+						if(e.getY()>sector.getEntities().get(j).getY()+sector.getEntities().get(j).getHeight()/2){
+							e.setY(e.getY()-e.getSpeed()/2);
+						}
+						else if(e.getY()+e.getHeight()<sector.getEntities().get(j).getY()+sector.getEntities().get(j).getHeight()/2){
+							e.setY(e.getY()+e.getSpeed()/2);
+						}
+					}
+				}
+			}
+			if(sector.getEntities().get(i) instanceof BlackHole){
+				if(ship.getX()>sector.getEntities().get(i).getX()+sector.getEntities().get(i).getWidth()/2){
+					ship.setX(ship.getX()-ship.getSpeed()/2);
+				}
+				else if(ship.getX()+ship.getWidth()<sector.getEntities().get(i).getX()+sector.getEntities().get(i).getWidth()/2){
+					ship.setX(ship.getX()+ship.getSpeed()/2);
+				}
+				if(ship.getY()>sector.getEntities().get(i).getY()+sector.getEntities().get(i).getHeight()/2){
+					ship.setY(ship.getY()-ship.getSpeed()/2);
+				}
+				else if(ship.getY()+ship.getHeight()<sector.getEntities().get(i).getY()+sector.getEntities().get(i).getHeight()/2){
+					ship.setY(ship.getY()+ship.getSpeed()/2);
 				}
 			}
 		}
@@ -189,10 +219,14 @@ public class SectorState extends State {
 			((EnemyShip)sector.getOneIntersectingEntity(Asteroid.class, EnemyShip.class)).getFleet().damageFleet(5);
 			sector.getEntities().remove(sector.getOneIntersectingEntity(EnemyShip.class, Asteroid.class));
 		}
-		if(sector.checkCollision(EnemyShip.class, BlackHole.class)){
+		if(sector.checkCollision(BlackHole.class, EnemyShip.class)){
 			Random rand= new Random();
+			int newshipx=rand.nextInt(12);
+			int newshipy=rand.nextInt(12);
 			EnemyShip e=((EnemyShip)sector.getOneIntersectingEntity(BlackHole.class, EnemyShip.class));
-			grid.getSector(rand.nextInt(12), rand.nextInt(12)).getEntities().add(e);
+			e.setSecX(newshipx);
+			e.setSecY(newshipy);
+			grid.getSector(newshipx, newshipy).getEntities().add(e);
 			sector.getEntities().remove(e);
 		}
 	}
