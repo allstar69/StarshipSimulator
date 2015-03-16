@@ -148,11 +148,7 @@ public class SectorState extends State {
 		}
 		if (keyboard.keyDownOnce(KeyEvent.VK_Q) && !ship.isDestroyed()) {
 			manager.addState(new MapState(manager));
-		}
-		if(keyboard.keyDownOnce(KeyEvent.VK_ESCAPE)) {
-			bgmusic.stop();
-			manager.popState();
-		}		
+		}	
 		if(keyboard.keyDownOnce(KeyEvent.VK_SPACE) && !ship.isDestroyed()){
 			sector.getEntities().add(ship.shootBullet());
 			laser.play();

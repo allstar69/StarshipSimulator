@@ -13,6 +13,7 @@ import com.starshipsim.items.ItemFuel;
 import com.starshipsim.listeners.MapListener;
 import com.starshipsim.shipmodules.WarpCoreModule;
 import com.starshipsim.states.MapState;
+import com.starshipsim.states.SectorState;
 import com.starshipsim.world.Sector;
 import com.sun.media.jfxmedia.events.NewFrameEvent;
 
@@ -38,7 +39,8 @@ public class MapMenuPanel {
 		String[] menu = new String[] {
 				"Move the Ship",
 				"Get Sector Data",
-				"Open Science Station"
+				"Open Science Station",
+				"Quit Game"
 		};
 		
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
@@ -65,6 +67,10 @@ public class MapMenuPanel {
 		case 3:
 			scienceStation(g);
 			break;
+		case 4:
+			state.getManager().popState();
+			state.getManager().popState();
+			break;
 		}
 
 		g.drawImage(state.getShip().getImage(), this.x - 40, this.y + 15 + (curY * 32), null);
@@ -75,12 +81,12 @@ public class MapMenuPanel {
 
 		if (state.getKeyboard().keyDownOnce(KeyEvent.VK_W)) {
 			if (curY == 0) {
-				curY = 2;
+				curY = 3;
 			} else {
 				curY -= 1;
 			}
 		} else if (state.getKeyboard().keyDownOnce(KeyEvent.VK_S)) {
-			if (curY == 2) {
+			if (curY == 3) {
 				curY = 0;
 			} else {
 				curY += 1;
