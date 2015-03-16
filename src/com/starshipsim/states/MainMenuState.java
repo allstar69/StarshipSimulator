@@ -64,7 +64,7 @@ public class MainMenuState extends State {
 
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 128));
 
-		g.drawString("Ztar Warz", 50, 200);
+		g.drawString("DeathSpace", 50, 200);
 
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 72));
 
