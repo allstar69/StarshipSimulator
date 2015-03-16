@@ -124,7 +124,7 @@ public class SectorState extends State {
 			if(sector.getEntities().get(i)instanceof EnemyShip){
 				EnemyShip e=((EnemyShip) sector.getEntities().get(i));
 				double distance = Math.sqrt(Math.pow((ship.getX()-e.getX()), 2)+Math.pow((ship.getY()-e.getY()), 2));
-				if(distance<400){
+				if(distance<400 && !ship.isDestroyed()){
 					double xDis = ship.getX()-e.getX();
 					double yDis = ship.getY()-e.getY();
 					double neg=180;
