@@ -8,8 +8,8 @@ import java.awt.geom.AffineTransform;
 import com.starshipsim.graphics.ImageManager;
 
 public class Bullet extends Entity{
-	public int rot;
-	public AffineTransform xform = new AffineTransform();
+	private int rot;
+	private AffineTransform xform = new AffineTransform();
 	
 	public Bullet(int rot,int x, int y, int width, int height) {
 		super(ImageManager.proj1, x, y, width, height);

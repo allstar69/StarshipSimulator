@@ -8,8 +8,8 @@ import java.awt.Rectangle;
 public abstract class Entity {
 
 	protected int x, y;
-	int width = 0; 
-	int height = 0;
+	protected int width = 0; 
+	protected int height = 0;
 	protected Image image;
 	protected Rectangle bounds;
 	

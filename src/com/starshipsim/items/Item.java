@@ -2,13 +2,13 @@ package com.starshipsim.items;
 
 public abstract class Item {
 
-	int amount;
-	int price;
-	String name;
-	String description = "This is a module meant to upgrade your ship.";
-	int index;
-	boolean isMoney;
-	boolean isBattleItem=false;
+	protected int amount;
+	protected int price;
+	protected String name;
+	protected String description = "This is a module meant to upgrade your ship.";
+	protected int index;
+	protected boolean isMoney;
+	protected boolean isBattleItem=false;
 	public abstract void run();
 	
 	public int getAmount() {

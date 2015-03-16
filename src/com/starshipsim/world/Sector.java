@@ -15,7 +15,7 @@ public abstract class Sector {
 	private boolean known = false;
 	private boolean mysterious = false;
 	private boolean hostile = false;
-	SectorStateType state;
+	private SectorStateType state;
 	private boolean explored;
 
 	protected ArrayList<Entity> entities;
