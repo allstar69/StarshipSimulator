@@ -28,14 +28,14 @@ public class MainMenuState extends State {
 			}
 		};
 
-		loadButton = new ButtonUI("Load", 50, 425, 300, 100, 10, manager.getMouse()) {
-			@Override
-			public void clicked() {
+//		loadButton = new ButtonUI("Load", 50, 425, 300, 100, 10, manager.getMouse()) {
+//			@Override
+//			public void clicked() {
+//
+//			}
+//		};
 
-			}
-		};
-
-		exitButton = new ButtonUI("Exit", 50, 550, 300, 100, 10, manager.getMouse()) {
+		exitButton = new ButtonUI("Exit", 50, 425, 300, 100, 10, manager.getMouse()) {
 			@Override
 			public void clicked() {
 				System.exit(0);
@@ -53,7 +53,7 @@ public class MainMenuState extends State {
 	public void update() {
 		bg.update();
 		playButton.update(this.getCanvas());
-		loadButton.update(this.getCanvas());
+//		loadButton.update(this.getCanvas());
 		exitButton.update(this.getCanvas());
 		creditsButton.update(this.getCanvas());
 	}
@@ -69,7 +69,7 @@ public class MainMenuState extends State {
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 72));
 
 		playButton.draw(g);
-		loadButton.draw(g);
+//		loadButton.draw(g);
 		exitButton.draw(g);
 		g.setFont(new Font("Showcard Gothic", Font.ITALIC, 24));
 		creditsButton.draw(g);
