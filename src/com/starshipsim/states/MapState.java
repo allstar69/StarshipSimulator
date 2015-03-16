@@ -108,15 +108,15 @@ public class MapState extends State {
 			manager.popState();
 		}
 		
-		if(keyboard.keyDownOnce(KeyEvent.VK_E)) {
-			EnemyFleet enemies = new EnemyFleet();
-			CombatData combatData = new CombatData(getPlayer(), enemies);
-			manager.addState(new CombatState(manager, combatData));
-		}
-		
-		if(keyboard.keyDownOnce(KeyEvent.VK_R)) {
-			manager.addState(new StoreSelectorState(manager, getPlayer()));
-		}
+//		if(keyboard.keyDownOnce(KeyEvent.VK_E)) {
+//			EnemyFleet enemies = new EnemyFleet();
+//			CombatData combatData = new CombatData(getPlayer(), enemies);
+//			manager.addState(new CombatState(manager, combatData));
+//		}
+//		
+//		if(keyboard.keyDownOnce(KeyEvent.VK_R)) {
+//			manager.addState(new StoreSelectorState(manager, getPlayer()));
+//		}
 		
 		if(keyboard.keyDownOnce(KeyEvent.VK_F)) {
 			manager.addState(new ShipBuilderState(manager, this.getPlayer()));
@@ -142,8 +142,8 @@ public class MapState extends State {
 		
 		//Temp
 		g.drawString("Press Escape to exit the map.", 32, 950);
-		g.drawString("Press E to enter Combat.", 32,  1000);
-		g.drawString("Press R to view the store", 32,  1050);
+		//g.drawString("Press E to enter Combat.", 32,  1000);
+		//g.drawString("Press R to view the store", 32,  1050);
 		g.drawString("Press F to enter Ship Builder", 500, 950);
 	}
 
