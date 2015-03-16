@@ -149,6 +149,9 @@ public class SectorState extends State {
 		if (keyboard.keyDownOnce(KeyEvent.VK_Q) && !ship.isDestroyed()) {
 			manager.addState(new MapState(manager));
 		}	
+		if (keyboard.keyDownOnce(KeyEvent.VK_ESCAPE) && ship.isDestroyed()) {
+			manager.popState();
+		}	
 		if(keyboard.keyDownOnce(KeyEvent.VK_SPACE) && !ship.isDestroyed()){
 			sector.getEntities().add(ship.shootBullet());
 			laser.play();
@@ -214,6 +217,7 @@ public class SectorState extends State {
 				ship.setY(ship.getY()+ship.getHeight()/2);
 				sector.getEntities().remove(sector.getOneIntersectingEntity(ship, EnemySpaceStation.class));
 				bgmusic.stop();
+				
 				manager.addState(new CombatState(manager, new CombatData(player, new StationFleet()))); 
 			}
 		}
